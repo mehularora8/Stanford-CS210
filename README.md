@@ -3,7 +3,7 @@
 ## TODO:
 
 ### Team Homepage
-1. **Team name**
+1. **Team name** Typhoon
 2. **Team logo**
 3. **Team theme music** 
 4. **Team member photos, names**
