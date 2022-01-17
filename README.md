@@ -14,7 +14,7 @@
 Name | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Griffin | ML, Cloud/Dev Ops, some React | Loud, works on Saturdays 😦, reads for fun | work pacing, prevent burnout | Not Detail Oriented
-Lyna |  |  |  | 
+Lyna | NLP/CV/ML, some React |  |  | 
 Mehul |  |  |  | 
 Taylor |  |  |  | 
 Wael |  |  |  | 
