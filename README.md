@@ -17,5 +17,5 @@ Name | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Griffin | ML, Cloud/Dev Ops, some React | Loud, works on Saturdays 😦, reads for fun | work pacing, prevent burnout | Not Detail Oriented
 Lyna | NLP/CV/ML, some React | work in bursts of productivity, tetris, rubik's cubes | product management, pipieline development | intense, caught up in details
-Mehul | Swift, some React, JS, AWS | High energy, perpetually making jokes, not taking problems too seriously, keeping the environment positive in general | Bootstrapping a product, getting funding to launch | Sometimes streaky (grind for 2 days, chill for 1)
+Mehul | Swift, some React, JS, AWS | High energy, perpetually making jokes, motivational in the face of problems, keeping the environment positive | Bootstrapping a product, getting funding to launch | Occasionally streaky (grind for 2 days, chill for 1)
 Taylor | UI/UX Design, Figma, Javascript, React Native, some Swift  | high stamina for the grind (will stay up all night if duty calls), extroverted, flexible | product roadmapping, feature prioritizing, backend  | overthinking, perfectionism
