@@ -7,8 +7,10 @@
 2. **Team logo**
 3. **Team theme music** 
 4. **Team member photos, names**
-5. **A synopsis of your project**
-6. **Links for team communication:** *how we should get in touch with you? how you keep in touch with each other? - Slack, email, HipChat, etc.*
+<img width="685" alt="All Profiles" src="https://user-images.githubusercontent.com/61394624/149999705-f97ba5d9-ce49-42a6-ad46-892495b139a2.png">
+
+6. **A synopsis of your project**
+7. **Links for team communication:** *how we should get in touch with you? how you keep in touch with each other? - Slack, email, HipChat, etc.*
 
 ### Team Skills Matrix 
 Name | Skills | Personal Traits | Desired Growth | Weaknesses
