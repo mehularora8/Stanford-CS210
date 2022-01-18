@@ -19,4 +19,3 @@ Griffin | ML, Cloud/Dev Ops, some React | Loud, works on Saturdays 😦, reads f
 Lyna | NLP/CV/ML, some React |  |  | Can get caught up in details
 Mehul |  |  |  | 
 Taylor | UI/UX Design, Figma, Javascript, React Native, some Swift  | high stamina for the grind (will stay up all night if duty calls), extroverted, flexible | product roadmapping, feature prioritizing, backend  | overthinking, perfectionism
-Wael |  |  |  | 
