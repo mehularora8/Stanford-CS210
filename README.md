@@ -13,7 +13,7 @@
 6. **A synopsis of your project**
 
 - Carbon Accounting for Retail Investors: App to display individual company/portfolio ESG metrics
-- Good4u: Meal prep plan for carbon conscious consumers
+- Good4u: Meal prep optimization -- carbon conscious consumers or food waste sensitive businesses
 - ThreadTrade: Closet use management and trading platform
 
 
