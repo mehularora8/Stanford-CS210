@@ -3,7 +3,7 @@
 ### Team Homepage
 1. **Team name**: Typhoon
 2. **Team logo**: [Inspo](https://www.silhouette.pics/images/quotes/english/general/typhoon-cartoon-silhouette-52650-197406.jpg)
-3. **Team theme music**: [spotify: typhoon toooons](https://open.spotify.com/playlist/4g2sZbE78QtoHmadFVZqm9?si=9dcbfcb121cb40a1)
+3. **Team theme music**: [spotify playlist](https://open.spotify.com/playlist/4g2sZbE78QtoHmadFVZqm9?si=9dcbfcb121cb40a1)
 
 <a href="https://open.spotify.com/playlist/4g2sZbE78QtoHmadFVZqm9?si=a600faaacd604cf2" target="_blank"><img width="608" style="margin-left=4%;" alt="Screen Shot 2022-01-18 at 11 25 26 PM" src="https://user-images.githubusercontent.com/61394624/150084143-b5866158-3ab8-4785-bb0e-be01ab6a7f9b.png"></a>
 
