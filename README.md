@@ -6,8 +6,8 @@
 1. **Team name**: Typhoon
 2. **Team logo**: [Inspo](https://www.silhouette.pics/images/quotes/english/general/typhoon-cartoon-silhouette-52650-197406.jpg)
 3. **Team theme music**: [spotify](https://open.spotify.com/playlist/4g2sZbE78QtoHmadFVZqm9?si=9dcbfcb121cb40a1)
-4. <iframe src="https://open.spotify.com/embed/playlist/4g2sZbE78QtoHmadFVZqm9?theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-5. 
+<iframe src="https://open.spotify.com/embed/playlist/4g2sZbE78QtoHmadFVZqm9?theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
 6. **Team member photos, names**
 <img width="685" alt="All Profiles" src="https://user-images.githubusercontent.com/61394624/150056977-4341444d-c667-407f-b6f6-82c1d9864db5.png">
 
