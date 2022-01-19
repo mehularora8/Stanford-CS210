@@ -1,7 +1,5 @@
 # 2022-87Capital
 
-## TODO:
-
 ### Team Homepage
 1. **Team name**: Typhoon
 2. **Team logo**: [Inspo](https://www.silhouette.pics/images/quotes/english/general/typhoon-cartoon-silhouette-52650-197406.jpg)
