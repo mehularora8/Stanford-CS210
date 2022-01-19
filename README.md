@@ -12,11 +12,9 @@
 
 6. **A synopsis of your project**
 
-
-
-
-
-
+- Carbon Accounting for Retail Investors: App to display individual company/portfolio ESG metrics
+- Good4u: Meal prep plan for carbon conscious consumers
+- ThreadTrade: Closet use management and trading platform
 
 
 8. **Links for team communication**: [miro](https://miro.com/app/board/uXjVOUgTDuU=/), [figma](https://www.figma.com/files/project/47034539/CS210?fuid=1065344475372766150), imessage... 
