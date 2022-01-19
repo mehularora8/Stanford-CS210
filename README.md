@@ -11,7 +11,15 @@
 
 
 6. **A synopsis of your project**
-7. **Links for team communication: [miro](https://miro.com/app/board/uXjVOUgTDuU=/), [figma](https://www.figma.com/files/project/47034539/CS210?fuid=1065344475372766150), imessage... 
+
+
+
+
+
+
+
+
+8. **Links for team communication**: [miro](https://miro.com/app/board/uXjVOUgTDuU=/), [figma](https://www.figma.com/files/project/47034539/CS210?fuid=1065344475372766150), imessage... 
 
 ### Team Skills Matrix 
 Name | Skills | Personal Traits | Desired Growth | Weaknesses
