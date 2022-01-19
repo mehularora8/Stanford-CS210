@@ -7,7 +7,8 @@
 2. **Team logo**
 3. **Team theme music** 
 4. **Team member photos, names**
-<img width="685" alt="All Profiles" src="https://user-images.githubusercontent.com/61394624/149999705-f97ba5d9-ce49-42a6-ad46-892495b139a2.png">
+<img width="685" alt="All Profiles" src="https://user-images.githubusercontent.com/61394624/150056977-4341444d-c667-407f-b6f6-82c1d9864db5.png">
+
 
 6. **A synopsis of your project**
 7. **Links for team communication:** *how we should get in touch with you? how you keep in touch with each other? - Slack, email, HipChat, etc.*
