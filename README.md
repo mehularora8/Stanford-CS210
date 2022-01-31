@@ -13,9 +13,9 @@
 
 6. **A synopsis of your project**
 
-- Carbon Accounting for Retail Investors: App to display individual company/portfolio ESG metrics
-- Good4u: Meal prep optimization -- carbon conscious consumers or food waste sensitive businesses
-- ThreadTrade: Closet use management and trading platform
+<s>- Carbon Accounting for Retail Investors: App to display individual company/portfolio ESG metrics</s>
+<s>- Good4u: Meal prep optimization -- carbon conscious consumers or food waste sensitive businesses</s>
+<s>- ThreadTrade: Closet use management and trading platform</s>
 
 
 8. **Links for team communication**: [miro](https://miro.com/app/board/uXjVOUgTDuU=/), [figma](https://www.figma.com/files/project/47034539/CS210?fuid=1065344475372766150), imessage... 
