@@ -17,7 +17,8 @@
 <s>- Good4u: Meal prep optimization -- carbon conscious consumers or food waste sensitive businesses</s> <br>
 <s>- ThreadTrade: Closet use management and trading platform</s>
 
-<i> WE HAVE PIVOTED </i>
+<i> WE'RE PIVOTING! </i> <br>
+
 
 
 8. **Links for team communication**: [miro](https://miro.com/app/board/uXjVOUgTDuU=/), [figma](https://www.figma.com/files/project/47034539/CS210?fuid=1065344475372766150), imessage... 
