@@ -1,7 +1,7 @@
 # 2022-87Capital
 
 ### Team Homepage
-1. **Team name**: Typhoon
+1. **Team name**: <s>Typhoon</s> PAREA 
 2. **Team logo**: [Inspo](https://www.silhouette.pics/images/quotes/english/general/typhoon-cartoon-silhouette-52650-197406.jpg)
 3. **Team theme music**: [spotify playlist](https://open.spotify.com/playlist/4g2sZbE78QtoHmadFVZqm9?si=9dcbfcb121cb40a1)
 
