@@ -3,7 +3,7 @@ import { Easing, Animated, Dimensions } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Block } from "galio-framework";
 
@@ -26,11 +26,11 @@ const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="screen">
+    <Stack.Navigator headerMode="screen"> 
       <Stack.Screen
         name="Elements"
         component={Elements}
@@ -38,7 +38,8 @@ function ElementsStack(props) {
           header: ({ navigation, scene }) => (
             <Header title="Elements" navigation={navigation} scene={scene} />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: { backgroundColor: "#F8F9FE" },
+          presentation: "card",
         }}
       />
             <Stack.Screen
@@ -64,7 +65,7 @@ function ElementsStack(props) {
 
 function ArticlesStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="screen">
+    <Stack.Navigator headerMode="screen">
       <Stack.Screen
         name="Articles"
         component={Articles}
@@ -72,7 +73,8 @@ function ArticlesStack(props) {
           header: ({ navigation, scene }) => (
             <Header title="Articles" navigation={navigation} scene={scene} />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: { backgroundColor: "#F8F9FE" },
+          presentation: "card",
         }}
       />
             <Stack.Screen
@@ -98,7 +100,7 @@ function ArticlesStack(props) {
 
 function ProfileStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
+    <Stack.Navigator initialRouteName="Profile">
       <Stack.Screen
         name="Profile"
         component={Profile}
@@ -113,7 +115,9 @@ function ProfileStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true
+          headerTransparent: true,
+          headerShown: false,
+          presentation: "card",
         }}
       />
             <Stack.Screen
@@ -139,7 +143,7 @@ function ProfileStack(props) {
 
 function HomeStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="screen">
+    <Stack.Navigator headerMode="screen">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -153,7 +157,8 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: { backgroundColor: "#F8F9FE" },
+          presentation: "card",
         }}
       />
       <Stack.Screen
@@ -179,12 +184,14 @@ function HomeStack(props) {
 
 export default function OnboardingStack(props) {
   return (
-    <Stack.Navigator mode="card" headerMode="none">
+    <Stack.Navigator>
       <Stack.Screen
         name="Onboarding"
         component={Onboarding}
         option={{
-          headerTransparent: true
+          headerTransparent: true,
+          presentation: "card",
+          headerShown: false,
         }}
       />
       <Stack.Screen name="App" component={AppStack} />
