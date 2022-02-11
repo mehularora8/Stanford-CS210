@@ -3,7 +3,7 @@ import { Easing, Animated, Dimensions } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Block } from "galio-framework";
 
@@ -26,7 +26,7 @@ const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-// const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
@@ -40,6 +40,7 @@ function ElementsStack(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
+          headerShown: false,
         }}
       />
             <Stack.Screen
@@ -56,7 +57,8 @@ function ElementsStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
@@ -100,7 +102,8 @@ function ArticlesStack(props) {
 
 function ProfileStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Profile">
+    <Stack.Navigator initialRouteName="Profile" 
+                     screenOptions={{"headerShown": false, "headerTransparent": true}}>
       <Stack.Screen
         name="Profile"
         component={Profile}
@@ -115,8 +118,6 @@ function ProfileStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true,
-          headerShown: false,
           presentation: "card",
         }}
       />
@@ -143,7 +144,7 @@ function ProfileStack(props) {
 
 function HomeStack(props) {
   return (
-    <Stack.Navigator headerMode="screen">
+    <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
         name="Home"
         component={Home}
@@ -184,7 +185,7 @@ function HomeStack(props) {
 
 export default function OnboardingStack(props) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
         name="Onboarding"
         component={Onboarding}
@@ -194,14 +195,22 @@ export default function OnboardingStack(props) {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="App" component={AppStack} />
+      <Stack.Screen 
+        name="App"
+        component={AppStack} 
+        option={{
+          headerTransparent: true,
+          presentation: "card",
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 function AppStack(props) {
   return (
-    <Drawer.Navigator
+    <Tab.Navigator
       style={{ flex: 1 }}
       drawerContent={props => <CustomDrawerContent {...props} />}
       drawerStyle={{
@@ -230,12 +239,12 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Account" component={Register} />
-      <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
-    </Drawer.Navigator>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen name="Account" component={Register} />
+      <Tab.Screen name="Elements" component={ElementsStack} />
+      <Tab.Screen name="Articles" component={ArticlesStack} />
+    </Tab.Navigator>
   );
 }
 
