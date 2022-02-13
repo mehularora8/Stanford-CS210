@@ -9,7 +9,7 @@ import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
-import Onboarding from "../screens/Onboarding";
+import Splash from "../screens/Splash";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
@@ -183,12 +183,12 @@ function HomeStack(props) {
   );
 }
 
-export default function OnboardingStack(props) {
+export default function SplashStack(props) {
   return (
     <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
+        name="Splash"
+        component={Splash}
         option={{
           headerTransparent: true,
           presentation: "card",

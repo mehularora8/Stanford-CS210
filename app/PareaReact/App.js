@@ -5,6 +5,7 @@ import { useFonts } from '@use-expo/font';
 import { Asset } from "expo-asset";
 import { Block, GalioProvider } from "galio-framework";
 import { NavigationContainer } from "@react-navigation/native";
+// import auth from '@react-native-firebase/auth';
 
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
@@ -15,8 +16,8 @@ import { Images, articles, argonTheme } from "./constants";
 
 // cache app images
 const assetImages = [
-  Images.Onboarding,
-  Images.LogoOnboarding,
+  Images.Login,
+  Images.LogoLogin,
   Images.Logo,
   Images.Pro,
   Images.ArgonLogo,
