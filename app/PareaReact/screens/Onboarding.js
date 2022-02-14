@@ -22,42 +22,41 @@ class Onboarding extends React.Component {
         <StatusBar hidden />
         <Block flex center>
         <ImageBackground
-            source={Images.Onboarding}
+            source={Images.SplashOnboard}
             style={{ height, width, zIndex: 1 }}
           />
         </Block>
-        <Block center>
+        {/* <Block center>
           <Image source={Images.LogoOnboarding} style={styles.logo} />
-        </Block>
+        </Block> */}
         <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2 }}>
               <Block style={styles.title}>
-                <Block>
-                  <Text color="white" size={60}>
-                    Design
-                  </Text>
-                </Block>
-                <Block>
-                  <Text color="white" size={60}>
-                    System
-                  </Text>
-                </Block>
-                <Block style={styles.subTitle}>
-                  <Text color="white" size={16}>
-                    Fully coded React Native components.
-                  </Text>
-                </Block>
+      
               </Block>
               <Block center>
                 <Button
                   style={styles.button}
-                  color={argonTheme.COLORS.SECONDARY}
+                  color={argonTheme.COLORS.PRIMARY}
                   onPress={() => navigation.navigate("App")}
-                  textStyle={{ color: argonTheme.COLORS.BLACK }}
+                  textStyle={{ color: argonTheme.COLORS.WHITE, fontFamily: 'Open Sans' }}
                 >
                   Get Started
                 </Button>
+                <Button
+                  style={styles.button}
+                  color={argonTheme.COLORS.TERTIARY}
+                  onPress={() => navigation.navigate("App")}
+                  textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                >
+                  Already have an account?
+                </Button>
               </Block>
+              <Block style={styles.subTitle}>
+                  <Text color="rgba(252, 57, 1, 0.7)" size={13}>
+                    Designed for Caregivers of Individuals with ASD
+                  </Text>
+                </Block>
           </Block>
         </Block>
       </Block>
@@ -76,10 +75,12 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
+    width: width - theme.SIZES.BASE * 6,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
+    borderRadius: 12,
+    
   },
   logo: {
     width: 200,
@@ -92,7 +93,16 @@ const styles = StyleSheet.create({
     marginTop:'-5%'
   },
   subTitle: {
-    marginTop: 20
+
+    fontFamily: 'Open Sans',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    lineHeight: 20,
+    /* or 154% */
+
+    display: 'flex',
+    alignItems: 'center',
+    letterSpacing: -0.41,
   }
 });
 
