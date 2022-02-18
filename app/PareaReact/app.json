@@ -22,14 +22,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }, 
+      "supportsTablet": true,
+      "bundleIdentifier": "io.expo.client"
+    },
     "web": {
       "build": {
         "babel": {
-          "include": ["galio-framework"]
+          "include": [
+            "galio-framework"
+          ]
         }
       }
+    },
+    "android": {
+      "package": "io.expo.client"
     }
   }
 }
