@@ -146,12 +146,12 @@ function HomeStack(props) {
   return (
     <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
-        name="Home"
+        name="Explore"
         component={Home}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Home"
+              title="Explore"
               search
               options
               navigation={navigation}
@@ -239,11 +239,10 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Explore" component={HomeStack} />
+      <Tab.Screen name="Saved" component={Register} />
+      <Tab.Screen name="Groups" component={ElementsStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
-      <Tab.Screen name="Account" component={Register} />
-      <Tab.Screen name="Elements" component={ElementsStack} />
-      <Tab.Screen name="Articles" component={ArticlesStack} />
     </Tab.Navigator>
   );
 }
