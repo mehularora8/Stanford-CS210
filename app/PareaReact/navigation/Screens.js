@@ -1,9 +1,15 @@
-import React from "react";
+import * as React from "react";
+import ReactDOM from 'react-dom';
 import { Easing, Animated, Dimensions } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'; 
+
+
 
 import { Block } from "galio-framework";
 
@@ -21,6 +27,9 @@ import CustomDrawerContent from "./Menu";
 // header for screens
 import { Icon, Header } from "../components";
 import { argonTheme, tabs } from "../constants";
+
+//images for icons
+import Images from "../constants/Images";
 
 const { width } = Dimensions.get("screen");
 
@@ -239,10 +248,43 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Explore" component={HomeStack} />
-      <Tab.Screen name="Saved" component={Register} />
-      <Tab.Screen name="Groups" component={ElementsStack} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen 
+        name="Explore" 
+        component={HomeStack} 
+        options={{
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({color, size}) => (
+            <MaterialIcons name="search" size={size} color={color} />
+          ),
+        }}/>
+      <Tab.Screen 
+        name="Saved" 
+        component={Register} 
+        options={{
+          tabBarLabel: 'Saved',
+          tabBarIcon: ({ color, size }) => (
+             <MaterialCommunityIcons name="bookmark" color={color} size={size} />
+          ),
+        }}/>
+      <Tab.Screen 
+        name="Groups" 
+        component={ElementsStack}
+        options={{
+          tabBarLabel: 'Groups',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="group-work" size={size} color={color} />
+          ),
+        }} />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileStack} 
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" size={size} color={color} />
+          ),
+        }} 
+      />
     </Tab.Navigator>
   );
 }
