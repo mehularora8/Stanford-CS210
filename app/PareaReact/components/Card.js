@@ -24,14 +24,18 @@ class Card extends React.Component {
     return (
       <Block row={horizontal} card flex style={cardContainer}>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex style={imgContainer}>
-            <Image source={{uri: item.image}} style={imageStyles} />
+          <Block flex space="between" style={styles.cardDescription}>
+            <Block row={horizontal}>
+              <Text size={14}> # </Text>
+            <Text size={14} style={styles.cardTitle}>{item.title}</Text>
+            </Block>
+            
+            <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text>
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex space="between" style={styles.cardDescription}>
-            <Text size={14} style={styles.cardTitle}>{item.title}</Text>
-            <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.ACTIVE} bold>{item.cta}</Text>
+          <Block flex style={imgContainer}>
+            <Image source={{uri: item.image}} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
       </Block>
@@ -53,7 +57,8 @@ const styles = StyleSheet.create({
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
-    marginBottom: 16
+    marginBottom: 3,
+    padding: "2%"
   },
   cardTitle: {
     flex: 1,
