@@ -14,12 +14,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home";
+import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
-import Elements from "../screens/Elements";
+import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 // drawer
 import CustomDrawerContent from "./Menu";
