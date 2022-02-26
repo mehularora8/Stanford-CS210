@@ -258,6 +258,7 @@ function AppStack(props) {
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="search" size={size} color={color} />
           ),
+          headerShown: false,
         }}/>
       <Tab.Screen 
         name="Sav" 
@@ -267,6 +268,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
              <MaterialCommunityIcons name="bookmark" color={color} size={size} />
           ),
+          headerShown: false,
         }}/>
       <Tab.Screen 
         name="Gro" 
@@ -276,6 +278,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="group-work" size={size} color={color} />
           ),
+          headerShown: false,
         }} />
       <Tab.Screen 
         name="Prof" 
@@ -285,6 +288,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
           ),
+          headerShown: false,
         }} 
       />
     </Tab.Navigator>
