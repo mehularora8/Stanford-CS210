@@ -251,7 +251,7 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Tab.Screen 
-        name="Explore" 
+        name="Exp" 
         component={HomeStack} 
         options={{
           tabBarLabel: 'Explore',
@@ -260,7 +260,7 @@ function AppStack(props) {
           ),
         }}/>
       <Tab.Screen 
-        name="Saved" 
+        name="Sav" 
         component={Register} 
         options={{
           tabBarLabel: 'Saved',
@@ -269,7 +269,7 @@ function AppStack(props) {
           ),
         }}/>
       <Tab.Screen 
-        name="Groups" 
+        name="Gro" 
         component={ElementsStack}
         options={{
           tabBarLabel: 'Groups',
@@ -278,7 +278,7 @@ function AppStack(props) {
           ),
         }} />
       <Tab.Screen 
-        name="Profile" 
+        name="Prof" 
         component={ProfileStack} 
         options={{
           tabBarLabel: 'Profile',

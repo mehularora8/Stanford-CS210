@@ -3,7 +3,11 @@ import { StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
 import { Card } from '../components';
+
 import articles from '../constants/articles';
+
+var Map = require('../components/Map').default
+
 const { width } = Dimensions.get('screen');
 
 class Home extends React.Component {
@@ -14,7 +18,7 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}>
           <Block>
             {/* Insert map here and remove placeholder */}
-            <Text style={styles.mapTemp}>This is a placeholder for the map.</Text> 
+            <Map />
           </Block>
         <Block flex>
           <Text style={styles.headerText}>Resources Near You</Text>
