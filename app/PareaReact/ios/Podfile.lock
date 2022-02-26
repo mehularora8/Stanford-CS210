@@ -356,7 +356,7 @@ PODS:
   - RNGoogleSignin (5.0.0):
     - GoogleSignIn (~> 5.0.0)
     - React-Core
-  - RNReanimated (2.4.1):
+  - RNReanimated (2.3.2):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -594,7 +594,7 @@ SPEC CHECKSUMS:
   RNFBApp: 06c8447270d295edc431bccd55970d8711a07a42
   RNFBAuth: e248a56b1d28d3b53b54b72a296cf9270df1d96e
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
-  RNReanimated: 58e7b950e0172235ff8296dd39ec145f9577e301
+  RNReanimated: db6fc1362254dfd18b4ef5f921af9bb72b2e42d0
   RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 
