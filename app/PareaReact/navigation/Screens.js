@@ -39,7 +39,7 @@ const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
-    <Stack.Navigator headerMode="screen"> 
+    <Stack.Navigator> 
       <Stack.Screen
         name="Elements"
         component={Elements}
@@ -50,6 +50,7 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
           headerShown: false,
+          headerMode: "screen",
         }}
       />
             <Stack.Screen
@@ -76,7 +77,7 @@ function ElementsStack(props) {
 
 function ArticlesStack(props) {
   return (
-    <Stack.Navigator headerMode="screen">
+    <Stack.Navigator>
       <Stack.Screen
         name="Articles"
         component={Articles}
@@ -86,6 +87,7 @@ function ArticlesStack(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
+          headerMode: "screen",
         }}
       />
             <Stack.Screen
@@ -121,7 +123,7 @@ function ProfileStack(props) {
             <Header
               transparent
               white
-              title="Profile"
+              title=""  // Profile
               navigation={navigation}
               scene={scene}
             />
@@ -160,7 +162,7 @@ function HomeStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Explore"
+              title="" // Explore
               search
               options
               navigation={navigation}
