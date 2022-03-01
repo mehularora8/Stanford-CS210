@@ -1,19 +1,25 @@
-import React from "react";
+import * as React from "react";
+import ReactDOM from 'react-dom';
 import { Easing, Animated, Dimensions } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'; 
+
+
+
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home";
+import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
-import Pro from "../screens/Pro";
+import Pro from "../screens/ResourceFull";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
-import Elements from "../screens/Elements";
+import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -21,6 +27,9 @@ import CustomDrawerContent from "./Menu";
 // header for screens
 import { Icon, Header } from "../components";
 import { argonTheme, tabs } from "../constants";
+
+//images for icons
+import Images from "../constants/Images";
 
 const { width } = Dimensions.get("screen");
 
@@ -30,7 +39,7 @@ const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
-    <Stack.Navigator headerMode="screen"> 
+    <Stack.Navigator> 
       <Stack.Screen
         name="Elements"
         component={Elements}
@@ -41,6 +50,7 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
           headerShown: false,
+          headerMode: "screen",
         }}
       />
             <Stack.Screen
@@ -67,7 +77,7 @@ function ElementsStack(props) {
 
 function ArticlesStack(props) {
   return (
-    <Stack.Navigator headerMode="screen">
+    <Stack.Navigator>
       <Stack.Screen
         name="Articles"
         component={Articles}
@@ -77,6 +87,7 @@ function ArticlesStack(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
+          headerMode: "screen",
         }}
       />
             <Stack.Screen
@@ -112,7 +123,7 @@ function ProfileStack(props) {
             <Header
               transparent
               white
-              title="Profile"
+              title=""  // Profile
               navigation={navigation}
               scene={scene}
             />
@@ -146,12 +157,12 @@ function HomeStack(props) {
   return (
     <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
-        name="Home"
+        name="Explore"
         component={Home}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Home"
+              title="" // Explore
               search
               options
               navigation={navigation}
@@ -239,11 +250,47 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
-      <Tab.Screen name="Account" component={Register} />
-      <Tab.Screen name="Elements" component={ElementsStack} />
-      <Tab.Screen name="Articles" component={ArticlesStack} />
+      <Tab.Screen 
+        name="Exp" 
+        component={HomeStack} 
+        options={{
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({color, size}) => (
+            <MaterialIcons name="search" size={size} color={color} />
+          ),
+          headerShown: false,
+        }}/>
+      <Tab.Screen 
+        name="Sav" 
+        component={Register} 
+        options={{
+          tabBarLabel: 'Saved',
+          tabBarIcon: ({ color, size }) => (
+             <MaterialCommunityIcons name="bookmark" color={color} size={size} />
+          ),
+          headerShown: false,
+        }}/>
+      <Tab.Screen 
+        name="Gro" 
+        component={ElementsStack}
+        options={{
+          tabBarLabel: 'Groups',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="group-work" size={size} color={color} />
+          ),
+          headerShown: false,
+        }} />
+      <Tab.Screen 
+        name="Prof" 
+        component={ProfileStack} 
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" size={size} color={color} />
+          ),
+          headerShown: false,
+        }} 
+      />
     </Tab.Navigator>
   );
 }

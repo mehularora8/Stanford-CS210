@@ -41,6 +41,7 @@ export default props => {
   const [isLoadingComplete, setLoading] = useState(false);
   let [fontsLoaded] = useFonts({
     'ArgonExtra': require('./assets/font/argon.ttf'),
+    'Open Sans': require('./assets/font/OpenSans-Regular.ttf')
   });
 
   function _loadResourcesAsync() {

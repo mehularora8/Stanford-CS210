@@ -156,7 +156,7 @@ class Header extends React.Component {
     const { search, options, tabs } = this.props;
     if (search || tabs || options) {
       return (
-        <Block center>
+        <Block center >
           {search ? this.renderSearch() : null}
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     right: 12,
   },
   header: {
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: argonTheme.COLORS.PRIMARY,
   },
   divider: {
     borderRightWidth: 0.3,
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   tabTitle: {
     lineHeight: 19,
     fontWeight: '400',
-    color: argonTheme.COLORS.HEADER
+    color: argonTheme.COLORS.PRIMARY
   },
 });
 
