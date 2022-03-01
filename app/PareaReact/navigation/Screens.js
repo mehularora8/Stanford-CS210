@@ -16,7 +16,7 @@ import { Block } from "galio-framework";
 // screens
 import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
-import Pro from "../screens/Pro";
+import Pro from "../screens/ResourceFull";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Groups";
