@@ -23,15 +23,16 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('')}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull')}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
               <Text size={14}>{item.key+1}. </Text>
             <Text size={14} style={styles.cardTitle}>{item.title}</Text>
             </Block>
+
             <Block row={horizontal}>
             {item.labels.map((x) => (
-              <Text size={10} style={styles.labels}>
+              <Text size={10} key={x} style={styles.labels}>
                 {x}
               </Text>
             ))}
@@ -39,7 +40,7 @@ class Card extends React.Component {
             <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text>
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull')}>
           <Block flex style={imgContainer}>
             <Image source={{uri: item.image}} style={imageStyles} />
           </Block>
