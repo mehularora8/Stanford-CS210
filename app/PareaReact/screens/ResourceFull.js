@@ -5,7 +5,8 @@ import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
-
+import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 
 
@@ -29,11 +30,22 @@ export default class ResourceFull extends React.Component {
                 </Text>
               </Block>
               <Block flex style={styles.topInfoText}>
-                <Block flex>
+                <Block>
                   <Text>
                     Type
                   </Text>
                 </Block>
+                <Block flex style={styles.locationInfo}>
+                  <Ionicons name="location-outline" size={24} color="#999999" />
+                  <Block flex style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={styles.locationText}> Palo Alto </Text>
+                     <Entypo name="dot-single" size={24} color="#999999" />  
+                     <Text style={styles.locationText}>
+                        3.9 mi
+                     </Text>
+                  </Block>
+                </Block>
+
                 <Button style={styles.addButton}>
                   ADD A REVIEW
                 </Button>
@@ -82,6 +94,7 @@ const styles = StyleSheet.create({
   addButton: {
     fontFamily: "Open Sans",
     fontSize: 15,
+    width: "95%",
   },
   topInfoImg: {
     width: "40%",
@@ -96,6 +109,16 @@ const styles = StyleSheet.create({
     margin: "1.5%",
     height: "25%",
     justifyContent: "space-between",
+  },
+  locationInfo: {
+    marginTop: "5%",
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  locationText: {
+    color: "#999999",
+    fontSize: 13,
+    fontFamily: "Open Sans",
   },
   pro: {
     backgroundColor: argonTheme.COLORS.INFO,
