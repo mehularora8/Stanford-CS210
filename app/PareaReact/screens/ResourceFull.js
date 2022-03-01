@@ -5,7 +5,8 @@ import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
-import { whileStatement } from '@babel/types';
+
+
 
 
 export default class ResourceFull extends React.Component {
@@ -28,7 +29,7 @@ export default class ResourceFull extends React.Component {
                 </Text>
               </Block>
               <Block flex style={styles.topInfoText}>
-                <Block>
+                <Block flex>
                   <Text>
                     Type
                   </Text>
@@ -41,7 +42,6 @@ export default class ResourceFull extends React.Component {
 
           </Block>
           <Block style={styles.reviewSummaryCard}>
-
           </Block>
         </Block>
       </Block>
@@ -77,12 +77,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
   },
   topInfoCard: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   addButton: {
     fontFamily: "Open Sans",
     fontSize: 15,
-
   },
   topInfoImg: {
     width: "40%",
