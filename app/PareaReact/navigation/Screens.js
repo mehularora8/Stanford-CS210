@@ -22,6 +22,7 @@ import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
+import ResourceFull from "../screens/ResourceFull";
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -191,6 +192,15 @@ function HomeStack(props) {
           headerTransparent: true
         }}
       />
+      <Stack.Screen
+        name="ResourceFull"
+        component={ResourceFull}
+        option={{
+          headerTransparent: true,
+          presentation: "card",
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -301,4 +311,3 @@ function AppStack(props) {
     </Tab.Navigator>
   );
 }
-
