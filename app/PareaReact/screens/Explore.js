@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
-import { Card } from '../components';
+import { Card, Input } from '../components';
 
 import articles from '../constants/articles';
 
@@ -16,7 +16,8 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-          <Block>
+          <Input placeholder="search"/>
+          <Block flex style={{borderRadius:9}}>
             {/* Insert map here and remove placeholder */}
             <Map />
           </Block>

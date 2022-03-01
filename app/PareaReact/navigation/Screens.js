@@ -1,10 +1,11 @@
 import * as React from "react";
 import ReactDOM from 'react-dom';
-import { Easing, Animated, Dimensions } from "react-native";
+import { Easing, Animated, Dimensions, Text } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useHeaderHeight } from '@react-navigation/elements';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -220,6 +221,8 @@ export default function OnboardingStack(props) {
 }
 
 function AppStack(props) {
+  const headerHeight = useHeaderHeight(3);
+
   return (
     <Tab.Navigator
       style={{ flex: 1 }}
@@ -251,14 +254,18 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Tab.Screen 
-        name="Exp" 
+        name="Explore" 
         component={HomeStack} 
         options={{
-          tabBarLabel: 'Explore',
+          // headerTitle: (color, size) => (
+          //   <Text>Explore</Text>
+          // ),
+          // tabBarLabelStyle: { height: 20 },
+          // tabBarLabel: 'Explore',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="search" size={size} color={color} />
           ),
-          headerShown: false,
+          headerShown: false, // true to show 
         }}/>
       <Tab.Screen 
         name="Sav" 
@@ -268,7 +275,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
              <MaterialCommunityIcons name="bookmark" color={color} size={size} />
           ),
-          headerShown: false,
+          headerShown: false, // true to show 
         }}/>
       <Tab.Screen 
         name="Gro" 
@@ -278,7 +285,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="group-work" size={size} color={color} />
           ),
-          headerShown: false,
+          headerShown: false, // true to show 
         }} />
       <Tab.Screen 
         name="Prof" 
@@ -288,7 +295,7 @@ function AppStack(props) {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
           ),
-          headerShown: false,
+          headerShown: false, // true to show 
         }} 
       />
     </Tab.Navigator>
