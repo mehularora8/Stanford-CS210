@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, Linking } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
-
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
@@ -14,6 +13,7 @@ export default class ResourceFull extends React.Component {
   render() {
     const { navigation } = this.props;
     let name = this.props.route.params.name
+    let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     return (
       <Block flex style={styles.container}>
@@ -45,6 +45,13 @@ export default class ResourceFull extends React.Component {
                         3.9 mi
                      </Text>
                   </Block>
+                </Block>
+                <Block flex style={styles.tagsHolder}>
+                  {tags.map((x) => (
+                    <Text size={10} key={x} style={styles.labels}>
+                      {x}
+                    </Text>
+                  ))}
                 </Block>
 
                 <Button style={styles.addButton}>
@@ -121,6 +128,19 @@ const styles = StyleSheet.create({
     color: "#999999",
     fontSize: 13,
     fontFamily: "Open Sans",
+  },
+  tagsHolder: {
+    flexDirection: "row",
+
+  },
+  labels: {
+    backgroundColor: "rgba(196, 196, 196, 0.5)",
+    borderRadius: 12,
+    margin: 3,
+    padding: 5,
+    overflow: 'hidden',
+    opacity: 0.6,
+    height: "50%",
   },
   pro: {
     backgroundColor: argonTheme.COLORS.INFO,

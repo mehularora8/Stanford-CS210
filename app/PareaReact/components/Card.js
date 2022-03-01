@@ -23,7 +23,7 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title})}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
               <Text size={14}>{item.key+1}. </Text>
