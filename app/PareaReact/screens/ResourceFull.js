@@ -5,6 +5,7 @@ import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
+import { whileStatement } from '@babel/types';
 
 
 export default class ResourceFull extends React.Component {
@@ -15,13 +16,32 @@ export default class ResourceFull extends React.Component {
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
-          <Text >
+          <Text style={styles.titleText}>
             Resource Name
           </Text>
         </Block>
         <Block flex>
+          <Block flex style={styles.topInfoCard}>
+              <Block style={styles.topInfoImg}>
+                <Text>
+                  IMG
+                </Text>
+              </Block>
+              <Block flex style={styles.topInfoText}>
+                <Block>
+                  <Text>
+                    Type
+                  </Text>
+                </Block>
+                <Button style={styles.addButton}>
+                  ADD A REVIEW
+                </Button>
 
-          <Block space="between" style={styles.padded}>
+              </Block>
+
+          </Block>
+          <Block style={styles.reviewSummaryCard}>
+
           </Block>
         </Block>
       </Block>
@@ -35,10 +55,14 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
   },
   titleContainer: {
-    color: theme.COLORS.BLACK,
-    marginTop: "12%",
-    alignItems: 'center'
-
+    paddingTop: "12%",
+    paddingBottom: "2%",
+    alignItems: 'center',
+    backgroundColor: argonTheme.COLORS.PRIMARY,
+  },
+  titleText: {
+    color: "white",
+    fontSize: 17,
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
@@ -51,6 +75,28 @@ const styles = StyleSheet.create({
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0,
+  },
+  topInfoCard: {
+    flexDirection: "row"
+  },
+  addButton: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+
+  },
+  topInfoImg: {
+    width: "40%",
+    height: "25%",
+    backgroundColor: "#999999",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    margin: "1.5%"
+  },
+  topInfoText: {
+    margin: "1.5%",
+    height: "25%",
+    justifyContent: "space-between",
   },
   pro: {
     backgroundColor: argonTheme.COLORS.INFO,
