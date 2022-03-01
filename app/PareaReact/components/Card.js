@@ -23,17 +23,23 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('')}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
-              <Text size={14}> # </Text>
+              <Text size={14}>{item.key+1}. </Text>
             <Text size={14} style={styles.cardTitle}>{item.title}</Text>
             </Block>
-            
+            <Block row={horizontal}>
+            {item.labels.map((x) => (
+              <Text size={10} style={styles.labels}>
+                {x}
+              </Text>
+            ))}
+            </Block>
             <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text>
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('')}>
           <Block flex style={imgContainer}>
             <Image source={{uri: item.image}} style={imageStyles} />
           </Block>
@@ -49,13 +55,14 @@ Card.propTypes = {
   full: PropTypes.bool,
   ctaColor: PropTypes.string,
   imageStyle: PropTypes.any,
+  key: PropTypes.string,
 }
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE,
-    borderWidth: 0,
+    borderWidth: 1,
     minHeight: 114,
     marginBottom: 3,
     padding: "2%"
@@ -63,13 +70,22 @@ const styles = StyleSheet.create({
   cardTitle: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6
+    paddingBottom: 6,
+    fontWeight: 'bold',
   },
   cardDescription: {
     padding: theme.SIZES.BASE / 2
   },
-  imageContainer: {
+  labels: {
+    backgroundColor: '#C4C4C4',
     borderRadius: 3,
+    margin: 3,
+    padding: 3,
+    overflow: 'hidden',
+    opacity: 0.6,
+  },
+  imageContainer: {
+    borderRadius: 4,
     elevation: 1,
     overflow: 'hidden',
   },

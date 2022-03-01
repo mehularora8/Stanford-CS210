@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     map: {
-        width: Dimensions.get('window').width,
+        width: Dimensions.get('window').width,  // -33
         height: Dimensions.get('window').height / 2,
-        zIndex: -1
-
+        zIndex: -1,
+        // borderRadius: 9,
     },
 });
 

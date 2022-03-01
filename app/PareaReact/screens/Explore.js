@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
 import { Card, Input } from '../components';
 
 import articles from '../constants/articles';
+import { height } from 'dom-helpers';
 
 var Map = require('../components/Map').default
 
@@ -15,23 +16,22 @@ class Home extends React.Component {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}>
-          <Input placeholder="search"/>
-          <Block flex style={{borderRadius:9}}>
-            {/* Insert map here and remove placeholder */}
-            <Map />
+        style={styles.scrollView}>
+        <Block flex style={styles.topBlock} />
+        <Map />
+        <Input placeholder="Search for activities, care providers, restaurants" 
+              style={styles.input}/>
+        <Block flex style={styles.articles}>
+          <Block flex style={styles.resourcesText}>
+            <Text style={styles.headerText}>Resources Near You</Text>
+            <Text style={styles.resultsHeader}> {articles.length} results</Text>
           </Block>
-        <Block flex>
-          <Text style={styles.headerText}>Resources Near You</Text>
 
-          <Card item={articles[0]} horizontal  />
-          {/* <Block flex row>
-            <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Card item={articles[2]} />
-          </Block> */}
-          <Card item={articles[1]} horizontal />
-          <Card item={articles[2]} horizontal />
-          {/* <Card item={articles[4]} full /> */}
+          {
+            articles.map((x, i) => (
+              <Card item={{...x, key: i}} key={"result"+i} horizontal />
+            ))
+          }
         </Block>
       </ScrollView>
     )
@@ -39,29 +39,58 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Block flex center style={styles.home}>
-        {this.renderArticles()}
-      </Block>
+      <>
+        <Block flex center style={styles.home}>
+          {this.renderArticles()}
+        </Block>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
   home: {
-    width: width,    
+    width: width,
+    marginVertical: 0,
+  },
+  scrollView : {
+    marginVertical: 0,
   },
   articles: {
-    width: width - theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE,
+    width: width - 20,
+    alignSelf: 'center',
+    paddingVertical: theme.SIZES.BASE - 20,
+    borderRadius: 9,
   },
-  mapTemp: {
-    paddingVertical: theme.SIZES.BASE * 8,
-    backgroundColor: "#999999",
-    textAlign: "center",
-    marginBottom: "3%"
-  }, 
   headerText: {
-    fontSize: 17,
+    fontSize: 16,
+    textAlign: "left",
+    paddingLeft: 10,
+    fontWeight: 'bold',
+    borderRadius: 9,
+  },
+  input: {
+    // backgroundColor: "#FC3901",
+    marginVertical: -450,
+    width: width - 40,
+    alignSelf: 'center',
+    // opacity: 0.70,
+  },
+  topBlock: {
+    backgroundColor: "#FC3901",
+    marginVertical: 30,
+    opacity: 0.7,
+  },
+  resourcesText: {
+    // fontWeight: 'bold',
+    flexDirection: 'row',
+  },
+  resultsHeader: {
+    textAlign: "right",
+    paddingLeft: 135,
+    paddingVertical: 5,
+    fontWeight: '200',
+    fontSize: 12,
   }
 });
 
