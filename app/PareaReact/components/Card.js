@@ -23,7 +23,7 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull')}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
               <Text size={14}>{item.key+1}. </Text>
@@ -40,7 +40,7 @@ class Card extends React.Component {
             <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text>
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels})}>
           <Block flex style={imgContainer}>
             <Image source={{uri: item.image}} style={imageStyles} />
           </Block>
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     padding: theme.SIZES.BASE / 2
   },
   labels: {
-    backgroundColor: '#C4C4C4',
-    borderRadius: 3,
+    backgroundColor: "rgba(196, 196, 196, 0.3)",
+    borderRadius: 12,
     margin: 3,
-    padding: 3,
+    padding: 5,
     overflow: 'hidden',
     opacity: 0.6,
   },

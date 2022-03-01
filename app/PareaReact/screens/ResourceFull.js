@@ -13,13 +13,14 @@ import { Entypo } from '@expo/vector-icons';
 export default class ResourceFull extends React.Component {
   render() {
     const { navigation } = this.props;
+    let name = this.props.route.params.name
 
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
           <Text style={styles.titleText}>
-            Resource Name
+            {name}
           </Text>
         </Block>
         <Block flex>
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
     fontFamily: "Open Sans",
     fontSize: 15,
     width: "95%",
+    borderRadius: 12,
   },
   topInfoImg: {
     width: "40%",
