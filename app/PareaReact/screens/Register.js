@@ -20,133 +20,128 @@ class Register extends React.Component {
     return (
       <Block flex middle>
         <StatusBar hidden />
-        <ImageBackground
+        {/* <ImageBackground
           source={Images.RegisterBackground}
           style={{ width, height, zIndex: 1 }}
-        >
+        > */}
           <Block safe flex middle>
             <Block style={styles.registerContainer}>
-              <Block flex={0.25} middle style={styles.socialConnect}>
-                <Text color="#8898AA" size={12}>
-                  Sign up with
-                </Text>
-                <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
-                    <Block row>
-                      <Icon
-                        name="logo-github"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GITHUB</Text>
-                    </Block>
-                  </Button>
-                  <Button style={styles.socialButtons}>
-                    <Block row>
-                      <Icon
-                        name="logo-google"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
-                    </Block>
-                  </Button>
-                </Block>
-              </Block>
               <Block flex>
-                <Block flex={0.17} middle>
-                  <Text color="#8898AA" size={12}>
-                    Or sign up the classic way
+                <Block flex={0.2} middle>
+                  <Text color="#FC3901" size={16}>
+                    Add a Resource
                   </Text>
                 </Block>
+
+                <Block flex={0.1} middle>
+                  <Text 
+                    color={argonTheme.COLORS.BLACK}
+                    size={12}
+                  >
+                    Don’t see what you’re looking for? To suggest a new resource listing, fill out the information below!
+                  </Text>
+                </Block>
+
                 <Block flex center>
                   <KeyboardAvoidingView
                     style={{ flex: 1 }}
                     behavior="padding"
                     enabled
                   >
-                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
                       <Input
                         borderless
-                        placeholder="Name"
+                        placeholder="Name of establishment/organization/person"
                         iconContent={
                           <Icon
                             size={16}
                             color={argonTheme.COLORS.ICON}
-                            name="hat-3"
+                            // name="hat-3"
                             family="ArgonExtra"
                             style={styles.inputIcons}
                           />
                         }
                       />
                     </Block>
-                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
                       <Input
                         borderless
-                        placeholder="Email"
+                        placeholder="Resource Type"
                         iconContent={
                           <Icon
                             size={16}
                             color={argonTheme.COLORS.ICON}
-                            name="ic_mail_24px"
+                            // name="map-big"
                             family="ArgonExtra"
                             style={styles.inputIcons}
                           />
                         }
                       />
                     </Block>
-                    <Block width={width * 0.8}>
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
                       <Input
-                        password
                         borderless
-                        placeholder="Password"
+                        placeholder="Address"
                         iconContent={
                           <Icon
                             size={16}
                             color={argonTheme.COLORS.ICON}
-                            name="padlock-unlocked"
+                            // name="map-big"
                             family="ArgonExtra"
                             style={styles.inputIcons}
                           />
                         }
                       />
-                      <Block row style={styles.passwordCheck}>
-                        <Text size={12} color={argonTheme.COLORS.MUTED}>
-                          password strength:
-                        </Text>
-                        <Text bold size={12} color={argonTheme.COLORS.SUCCESS}>
-                          {" "}
-                          strong
-                        </Text>
-                      </Block>
                     </Block>
-                    <Block row width={width * 0.75}>
-                      <Checkbox
-                        checkboxStyle={{
-                          borderWidth: 3
-                        }}
-                        color={argonTheme.COLORS.PRIMARY}
-                        label="I agree with the"
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Input
+                        borderless
+                        placeholder="(Optional) Link to Website"
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            // name="world-2"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
                       />
-                      <Button
-                        style={{ width: 100 }}
-                        color="transparent"
-                        textStyle={{
-                          color: argonTheme.COLORS.PRIMARY,
-                          fontSize: 14
-                        }}
-                      >
-                        Privacy Policy
-                      </Button>
+                    </Block>
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Input
+                        borderless
+                        placeholder="(Optional) Phone Number"
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            // name="map-big"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
+                    </Block>
+                    <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Input
+                        borderless
+                        placeholder="Tags"
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            // name="map-big"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
                     </Block>
                     <Block middle>
                       <Button color="primary" style={styles.createButton}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                          CREATE ACCOUNT
+                          Submit
                         </Text>
                       </Button>
                     </Block>
@@ -155,7 +150,6 @@ class Register extends React.Component {
               </Block>
             </Block>
           </Block>
-        </ImageBackground>
       </Block>
     );
   }
@@ -163,9 +157,9 @@ class Register extends React.Component {
 
 const styles = StyleSheet.create({
   registerContainer: {
-    width: width * 0.9,
-    height: height * 0.875,
-    backgroundColor: "#F4F5F7",
+    width: width,
+    height: height,
+    backgroundColor: "#FFE3E7",
     borderRadius: 4,
     shadowColor: argonTheme.COLORS.BLACK,
     shadowOffset: {
@@ -176,11 +170,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     elevation: 1,
     overflow: "hidden"
-  },
-  socialConnect: {
-    backgroundColor: argonTheme.COLORS.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
   },
   socialButtons: {
     width: 120,
@@ -211,6 +200,9 @@ const styles = StyleSheet.create({
   createButton: {
     width: width * 0.5,
     marginTop: 25
+  },
+  boldText: {
+    fontWeight: 'bold'
   }
 });
 
