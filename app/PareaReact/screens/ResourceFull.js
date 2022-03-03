@@ -1,16 +1,18 @@
-import React from 'react';
-import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, Linking } from 'react-native';
+import React, {Component} from 'react';
+import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, Linking, ScrollView } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-
+import  ReviewSummaryCard from '../components/ReviewSummaryCard.js';
 
 
 export default class ResourceFull extends React.Component {
+  
   render() {
+    
     const { navigation } = this.props;
     let name = this.props.route.params.name
     let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
@@ -23,47 +25,51 @@ export default class ResourceFull extends React.Component {
             {name}
           </Text>
         </Block>
-        <Block flex>
-          <Block flex style={styles.topInfoCard}>
-              <Block style={styles.topInfoImg}>
-                <Text>
-                  IMG
-                </Text>
-              </Block>
-              <Block flex style={styles.topInfoText}>
-                <Block>
+        <ScrollView>
+
+          <Block flex>
+            <Block flex style={styles.topInfoCard}>
+                <Block style={styles.topInfoImg}>
                   <Text>
-                    Type
+                    IMG
                   </Text>
                 </Block>
-                <Block flex style={styles.locationInfo}>
-                  <Ionicons name="location-outline" size={24} color="#999999" />
-                  <Block flex style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={styles.locationText}> Palo Alto </Text>
-                     <Entypo name="dot-single" size={24} color="#999999" />  
-                     <Text style={styles.locationText}>
-                        3.9 mi
-                     </Text>
-                  </Block>
-                </Block>
-                <Block flex style={styles.tagsHolder}>
-                  {tags.map((x) => (
-                    <Text size={10} key={x} style={styles.labels}>
-                      {x}
+                <Block flex style={styles.topInfoText}>
+                  <Block>
+                    <Text>
+                      Type
                     </Text>
-                  ))}
-                </Block>
+                  </Block>
+                  <Block flex style={styles.locationInfo}>
+                    <Ionicons name="location-outline" size={24} color="#999999" />
+                    <Block flex style={{flexDirection: "row", alignItems: "center"}}>
+                      <Text style={styles.locationText}> Palo Alto </Text>
+                      <Entypo name="dot-single" size={24} color="#999999" />  
+                      <Text style={styles.locationText}>
+                          3.9 mi
+                      </Text>
+                    </Block>
+                  </Block>
+                  <Block flex style={styles.tagsHolder}>
+                    {tags.map((x) => (
+                      <Text size={10} key={x} style={styles.labels}>
+                        {x}
+                      </Text>
+                    ))}
+                  </Block>
 
-                <Button style={styles.addButton}>
-                  ADD A REVIEW
-                </Button>
-
-              </Block>
-
+                  <Button style={styles.addButton}>
+                    ADD A REVIEW
+                  </Button>
+                </Block> 
+                {/* end of topInfoText */}
+            </Block>
+            {/* end of topInfoCard */}
+        
+            <ReviewSummaryCard/>
+      
           </Block>
-          <Block style={styles.reviewSummaryCard}>
-          </Block>
-        </Block>
+          </ScrollView>
       </Block>
     );
   }
@@ -104,10 +110,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     width: "95%",
     borderRadius: 12,
+    marginLeft: "-1%"
   },
   topInfoImg: {
     width: "40%",
-    height: "25%",
+    height: 145,
     backgroundColor: "#999999",
     alignItems: "center",
     justifyContent: "center",
@@ -116,7 +123,7 @@ const styles = StyleSheet.create({
   },
   topInfoText: {
     margin: "1.5%",
-    height: "25%",
+    height: 150,
     justifyContent: "space-between",
   },
   locationInfo: {
@@ -140,7 +147,7 @@ const styles = StyleSheet.create({
     padding: 5,
     overflow: 'hidden',
     opacity: 0.6,
-    height: "50%",
+    height: "80%",
   },
   pro: {
     backgroundColor: argonTheme.COLORS.INFO,
