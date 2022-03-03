@@ -16,7 +16,7 @@ import { Images, argonTheme } from "../constants";
 
 const { width, height } = Dimensions.get("screen");
 
-class Register extends React.Component {
+class AddResource extends React.Component {
   render() {
     return (
       <Block flex middle>
@@ -208,4 +208,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Register;
+export default AddResource;

@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
-import { Card, Input } from '../components';
+
+import { Button, Card, Input } from '../components';
 
 import articles from '../constants/articles';
+import AddResource from './AddResource';
 import { height } from 'dom-helpers';
+import { withNavigation } from '@react-navigation/compat';
 
 var Map = require('../components/Map').default
 
@@ -13,6 +16,8 @@ const { width } = Dimensions.get('screen');
 
 class Home extends React.Component {
   renderArticles = () => {
+    const navigation = this.props.navigation
+    console.log(this.props)
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -21,6 +26,9 @@ class Home extends React.Component {
         <Map />
         <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
+          <Button onPress={()=> navigation.navigate('AddResource')}>
+            Add Resource
+          </Button>
         <Block flex style={styles.articles}>
           <Block flex style={styles.resourcesText}>
             <Text style={styles.headerText}>Resources Near You</Text>
