@@ -25,7 +25,7 @@ class ReviewSummaryCard extends React.Component {
               />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                4.0   
+                4.5  [27]
               </Text>
     
             </Block>
@@ -93,11 +93,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 5,
   }, 
   overallRatingContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: -2,
 
   },
   overallRatingText: {
