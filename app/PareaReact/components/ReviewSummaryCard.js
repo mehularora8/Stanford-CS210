@@ -21,15 +21,17 @@ class ReviewSummaryCard extends React.Component {
                 starContainerStyle={styles.starContainer}
               />
               <Text style={styles.overallRatingText}>
+                {/* overall rating */}
                 4.0   
               </Text>
     
             </Block>
             <Block flex>
-              <Block style={styles.subReviewContainer}>
+              <Block flex style={styles.subReviewContainer}>
                 <Text style={styles.subReviewText}>
                     Safety
                 </Text>
+                
               </Block>
 
               <Block style={styles.subReviewContainer}>
