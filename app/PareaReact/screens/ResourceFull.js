@@ -7,6 +7,7 @@ import { HeaderHeight } from "../constants/utils";
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import  ReviewSummaryCard from '../components/ReviewSummaryCard.js';
+import ReviewPreviewCard from '../components/ReviewPreviewCard';
 
 
 export default class ResourceFull extends React.Component {
@@ -67,6 +68,7 @@ export default class ResourceFull extends React.Component {
             {/* end of topInfoCard */}
         
             <ReviewSummaryCard/>
+            <ReviewPreviewCard/>
       
           </Block>
           </ScrollView>
