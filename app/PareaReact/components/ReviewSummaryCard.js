@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
+import { LinearProgress } from 'react-native-elements';
+import ProgressBar from 'react-native-progress/Bar';
 
 class ReviewSummaryCard extends React.Component {
   render() {
@@ -27,29 +29,32 @@ class ReviewSummaryCard extends React.Component {
     
             </Block>
             <Block flex>
-              <Block flex style={styles.subReviewContainer}>
-                <Text style={styles.subReviewText}>
+              <Block style={styles.subReviewContainer}>
+                <Text style={styles.subReviewText}  >
                     Safety
                 </Text>
-                
+                <ProgressBar progress={0.95} width={200} color={argonTheme.COLORS.BLACK} height={4} />
               </Block>
 
               <Block style={styles.subReviewContainer}>
                 <Text style={styles.subReviewText}>
                   Accessibility 
                   </Text>
+                  <ProgressBar progress={0.95} width={200} color={argonTheme.COLORS.BLACK} height={4} />
                 </Block>
 
                 <Block style={styles.subReviewContainer}>
                   <Text style={styles.subReviewText}>
                   Environment
                   </Text>
+                  <ProgressBar progress={0.85} width={200} color={argonTheme.COLORS.BLACK} height={4} />
                 </Block>
 
                 <Block style={styles.subReviewContainer}>
                   <Text style={styles.subReviewText}>
                   Communication
                   </Text>
+                  <ProgressBar progress={0.90} width={200} color={argonTheme.COLORS.BLACK} height={4} />
                 </Block>
 
               </Block>
@@ -81,6 +86,9 @@ const styles = StyleSheet.create({
   },
   subReviewContainer: {
     marginBottom: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   subReviewText: {
     fontFamily: "Open Sans",
