@@ -42,10 +42,10 @@ export default class ResourceFull extends React.Component {
                     </Text>
                   </Block>
                   <Block flex style={styles.locationInfo}>
-                    <Ionicons name="location-outline" size={24} color="#999999" />
+                    <Ionicons name="location-outline" size={24} color="black" />
                     <Block flex style={{flexDirection: "row", alignItems: "center"}}>
                       <Text style={styles.locationText}> Palo Alto </Text>
-                      <Entypo name="dot-single" size={24} color="#999999" />  
+                      <Entypo name="dot-single" size={24} color="black" />  
                       <Text style={styles.locationText}>
                           3.9 mi
                       </Text>
@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   locationText: {
-    color: "#999999",
     fontSize: 13,
     fontFamily: "Open Sans",
   },
