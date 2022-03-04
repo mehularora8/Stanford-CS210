@@ -25,7 +25,7 @@ class ReviewSummaryCard extends React.Component {
               />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                4.5  [27]
+                4.0  [27]
               </Text>
     
             </Block>
