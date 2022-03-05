@@ -12,6 +12,7 @@ import ContactCard from '../components/ContactCard';
 import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
+import UnansweredQ from '../components/UnansweredQ';
 
 
 export default class ResourceFull extends React.Component {
@@ -80,6 +81,7 @@ export default class ResourceFull extends React.Component {
             </Button>
             <Divider style={styles.divider}/>
             <QandA />
+            <UnansweredQ/>
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>

@@ -7,37 +7,27 @@ import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { TextInput } from 'react-native-gesture-handler';
-import UnansweredQ from './UnansweredQ';
 
 
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
 const { width, height } = Dimensions.get("screen");
 
-const QandA = () => {
-    const [text, onChangeText] = React.useState(null);
+const UnansweredQ = (props) => {
+    console.log(props.questionText)
+    const text = props.questionText
     return (
-          <Block flex style={styles.contactPreviewCard}>
-              <Text style={styles.title}> Q & A</Text>
-              <View style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
-                    placeholder="what would you like to know?"
-                    />
-                <Button style={styles.askButton}>
-                    Ask
-                </Button>
-                <UnansweredQ questionText={text}/>
+            <View>
+                <Text> Test </Text>
+                <Text style={{color: "black"}}> {text} </Text> 
             </View>
-          </Block>
+     
         );   
 }
 
 const styles = StyleSheet.create({
   contactPreviewCard: {
-    minHeight: 150,
+    minHeight: 70,
     borderRadius: 12,
     margin: "2%",
     padding: "2%"
@@ -104,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QandA;
+export default UnansweredQ;
