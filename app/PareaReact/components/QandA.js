@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
@@ -8,20 +8,27 @@ import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { TextInput } from 'react-native-gesture-handler';
 
+
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
+const { width, height } = Dimensions.get("screen");
 
 const QandA = () => {
     const [text, onChangeText] = React.useState(null);
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Q & A</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={text}
-                placeholder="what would you like to know?"
-                />
+              <View style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder="what would you like to know?"
+                    />
+                <Button style={styles.askButton}>
+                    Ask
+                </Button>
+            </View>
           </Block>
         );   
 }
@@ -77,10 +84,21 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
     padding: 10,
     borderRadius: 12,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    minWidth: width*3/4,
+  },
+  askButton: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+    borderRadius: 12,
+    backgroundColor: "rgba(153, 153, 153, 0.6)",
+    shadowColor: "rgba(153, 153, 153, 0.6)",
+    height: 40,
+    width: width*1/6,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 });
 

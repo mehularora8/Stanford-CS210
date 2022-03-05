@@ -22,6 +22,7 @@ export default class ResourceFull extends React.Component {
     let name = this.props.route.params.name
     let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
+
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />

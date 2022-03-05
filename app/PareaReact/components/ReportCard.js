@@ -7,6 +7,7 @@ import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 
+
 class ReportCard extends React.Component {
   render() {
     return (
