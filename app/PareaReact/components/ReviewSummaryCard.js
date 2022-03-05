@@ -30,13 +30,13 @@ class ReviewSummaryCard extends React.Component {
                 ratingBackgroundColor="#999999"
                 tintColor="#f2f2f2"
                 fractions={1}
-                startingValue={4.6}
+                startingValue={4.5}
                 style={styles.rating}
                 imageSize={25}
                 readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                4.6  [27]
+                4.5  [27]
               </Text>
     
             </Block>
@@ -46,7 +46,7 @@ class ReviewSummaryCard extends React.Component {
                     Safety
                 </Text>
                 <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.97} width={200} color={argonTheme.COLORS.BLACK} height={4} />
+                  <ProgressBar progress={0.97} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
                       4.9
                   </Text>
@@ -58,7 +58,7 @@ class ReviewSummaryCard extends React.Component {
                   Accessibility 
                   </Text>
                   <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.88} width={200} color={argonTheme.COLORS.BLACK} height={4} />
+                  <ProgressBar progress={0.88} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
                       4.7
                   </Text>
@@ -70,7 +70,7 @@ class ReviewSummaryCard extends React.Component {
                   Environment
                   </Text>
                   <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={4} />
+                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
                       4.8
                   </Text>
@@ -82,7 +82,7 @@ class ReviewSummaryCard extends React.Component {
                   Communication
                   </Text>
                   <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={4} />
+                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
                       4.8
                   </Text>
@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: -2,
-
+    marginBottom: 5,
   },
   overallRatingText: {
     fontSize: 15,
-    paddingBottom: 5,
+    marginLeft: 5,
     fontFamily: "Open Sans",
   },
   subReviewContainer: {
