@@ -8,7 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import  ReviewSummaryCard from '../components/ReviewSummaryCard.js';
 import ReviewPreviewCard from '../components/ReviewPreviewCard';
-
+import ContactCard from '../components/ContactCard';
+import { Divider } from 'react-native-elements';
+import ReportCard from '../components/ReportCard';
 
 export default class ResourceFull extends React.Component {
   
@@ -69,6 +71,10 @@ export default class ResourceFull extends React.Component {
         
             <ReviewSummaryCard/>
             <ReviewPreviewCard/>
+            <Divider style={styles.divider}/>
+            <ContactCard />
+            <Divider style={styles.divider}/>
+            <ReportCard />
       
           </Block>
           </ScrollView>
@@ -166,4 +172,8 @@ const styles = StyleSheet.create({
     right: 0,
     height: 66,
   },
+  divider: {
+    marginTop: 15,
+    marginBottom: 5,
+  }
 });

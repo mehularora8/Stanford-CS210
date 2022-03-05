@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 're
 import { Block, Text, theme } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
-import { LinearProgress } from 'react-native-elements';
+import { LinearProgress, Divider } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 
