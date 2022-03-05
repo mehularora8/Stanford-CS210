@@ -72,6 +72,10 @@ export default class ResourceFull extends React.Component {
         
             <ReviewSummaryCard/>
             <ReviewPreviewCard/>
+            <ReviewPreviewCard/>
+            <Button style={styles.seeReviewsButton}>
+                    See all reviews
+            </Button>
             <Divider style={styles.divider}/>
             <ContactCard />
             <Divider style={styles.divider}/>
@@ -146,7 +150,6 @@ const styles = StyleSheet.create({
   },
   tagsHolder: {
     flexDirection: "row",
-
   },
   labels: {
     backgroundColor: "rgba(196, 196, 196, 0.5)",
@@ -176,5 +179,15 @@ const styles = StyleSheet.create({
   divider: {
     marginTop: 15,
     marginBottom: 5,
+  },
+  seeReviewsButton: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+    width: "95%",
+    borderRadius: 12,
+    backgroundColor: "rgba(153, 153, 153, 0.6)",
+    shadowColor: "rgba(153, 153, 153, 0.6)"
+    
+
   }
 });
