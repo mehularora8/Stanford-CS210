@@ -2,15 +2,23 @@ import React, {Component} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
-import { argonTheme } from '../constants';
+import { argonTheme, Images } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+
+//Data pieces needed: 
+//Person: userid, profile picture, name, persona tag, 
+//Review: date, rating value, upvotes, text, comments
 
 class ReviewPreviewCard extends React.Component {
   render() {
     return (
           <Block flex style={styles.reviewPreviewCard}>
+              <Image
+                    source={{ uri: Images.ProfilePicture }}
+                    style={styles.avatar}
+               />
         
           </Block>
         );
@@ -67,7 +75,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
     marginLeft: 4
-  }
+  },
+  avatar: {
+    width: 54,
+    height: 54,
+    borderRadius: 62,
+    borderWidth: 0
+  },
 });
 
 export default ReviewPreviewCard;

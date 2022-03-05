@@ -12,6 +12,7 @@ import ContactCard from '../components/ContactCard';
 import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 
+
 export default class ResourceFull extends React.Component {
   
   render() {

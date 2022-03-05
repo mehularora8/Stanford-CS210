@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
-import { AirbnbRating } from 'react-native-ratings';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress, Divider } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
@@ -15,17 +15,28 @@ class ReviewSummaryCard extends React.Component {
               Reviews
             </Text>
             <Block flex style={styles.overallRatingContainer}>
-              <AirbnbRating 
+              {/* <AirbnbRating 
                 showRating={false}
                 isDisabled={true}
                 selectedColor={argonTheme.COLORS.PRIMARY}
                 size={20}
-                defaultRating={4}
+                defaultRating={4.6}
+                fractions={2}
                 starContainerStyle={styles.starContainer}
-              />
+              /> */}
+              <Rating 
+                type="custom"
+                ratingColor="#fc3901"
+                ratingBackgroundColor="#999999"
+                tintColor="#f2f2f2"
+                fractions={1}
+                startingValue={4.6}
+                style={styles.rating}
+                imageSize={25}
+                readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                4.0  [27]
+                4.6  [27]
               </Text>
     
             </Block>
@@ -131,6 +142,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
     marginLeft: 4
+  }, 
+  rating: {
+    
+
   }
 });
 
