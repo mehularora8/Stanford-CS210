@@ -6,15 +6,24 @@ import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+import { TextInput } from 'react-native-gesture-handler';
 
-class QandA extends React.Component {
-  render() {
+//data: questions: date, text, user, upvotes 
+//answer(s): date, text, user, upvotes 
+
+const QandA = () => {
+    const [text, onChangeText] = React.useState(null);
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Q & A</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="what would you like to know?"
+                />
           </Block>
-        );
-    }  
+        );   
 }
 
 const styles = StyleSheet.create({
@@ -65,7 +74,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
     marginLeft: 4
-  }
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    padding: 10,
+    borderRadius: 12,
+    backgroundColor: "white"
+  },
 });
 
 export default QandA;

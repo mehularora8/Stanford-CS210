@@ -190,5 +190,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "rgba(153, 153, 153, 0.6)",
     shadowColor: "rgba(153, 153, 153, 0.6)"
-  }
+  },
 });
