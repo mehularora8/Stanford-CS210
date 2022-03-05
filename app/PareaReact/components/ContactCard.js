@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 
+//data needed: resource id, pull in phone number
 class ContactCard extends React.Component {
   render() {
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Contact</Text>
+              <Button style={styles.contactButton}>
+                  <Text style={styles.phoneNumber}>
+                  (650) 321-6448
+                  </Text>
+
+              </Button>
           </Block>
         );
     }  
@@ -65,6 +72,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
     marginLeft: 4
+  },
+  contactButton: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+    width: "45%",
+    borderRadius: 12,
+    marginLeft: -1,
+  },
+  phoneNumber: {
+      fontFamily: "Open Sans",
+      fontSize: 15,
+      color: "white"
   }
 });
 

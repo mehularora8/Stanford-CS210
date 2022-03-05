@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
@@ -12,6 +12,24 @@ class ReportCard extends React.Component {
     return (
           <Block flex style={styles.contactReportCard}>
               <Text style={styles.title}> Report </Text>
+              <View style={styles.buttonHolder}>
+                <View style={{display: "flex", flexDirection:"row"}}>
+                    <Button style={styles.seeReviewsButton}>
+                    Not operating
+                    </Button>
+                    <Button style={styles.seeReviewsButton}>
+                    Incorrect info
+                    </Button>
+                </View>
+                <View style={{display: "flex", flexDirection:"row"}}>
+                    <Button style={styles.seeReviewsButton}>
+                    Missing info
+                    </Button>
+                    <Button style={styles.seeReviewsButton}>
+                    Other
+                    </Button>
+                </View>
+            </View>
           </Block>
         );
     }  
@@ -65,6 +83,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
     marginLeft: 4
+  },
+  seeReviewsButton: {
+    fontFamily: "Open Sans",
+    fontSize: 15,
+    width: "45%",
+    borderRadius: 12,
+    backgroundColor: "rgba(153, 153, 153, 0.6)",
+    shadowColor: "rgba(153, 153, 153, 0.6)"
+  },
+  buttonHolder: {
+      marginLeft: -5,
   }
 });
 

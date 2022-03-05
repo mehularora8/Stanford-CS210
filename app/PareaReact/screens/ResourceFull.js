@@ -11,6 +11,7 @@ import ReviewPreviewCard from '../components/ReviewPreviewCard';
 import ContactCard from '../components/ContactCard';
 import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
+import QandA from '../components/QandA';
 
 
 export default class ResourceFull extends React.Component {
@@ -77,6 +78,8 @@ export default class ResourceFull extends React.Component {
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
+            <QandA />
+            <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
             <ReportCard />
@@ -187,7 +190,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "rgba(153, 153, 153, 0.6)",
     shadowColor: "rgba(153, 153, 153, 0.6)"
-    
-
   }
 });
