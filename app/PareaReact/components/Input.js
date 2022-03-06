@@ -21,18 +21,9 @@ class ArInput extends React.Component {
 
     return (
       <Input
-        placeholder="write something here"
         placeholderTextColor={argonTheme.COLORS.MUTED}
         style={inputStyles}
         color={argonTheme.COLORS.HEADER}
-        iconContent={
-          <Icon
-            size={14}
-            color={argonTheme.COLORS.ICON}
-            name="link"
-            family="AntDesign"
-          />
-        }
         {...this.props}
       />
     );
