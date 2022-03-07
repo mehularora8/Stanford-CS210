@@ -18,7 +18,7 @@ import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/ResourceFull";
 import Profile from "../screens/Profile";
-import Register from "../screens/Register";
+import AddResource from "../screens/AddResource";
 import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 import ResourceFull from "../screens/ResourceFull";
@@ -53,7 +53,8 @@ function ElementsStack(props) {
           headerMode: "screen",
         }}
       />
-            <Stack.Screen
+      
+        <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
@@ -199,6 +200,15 @@ function HomeStack(props) {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="AddResource"
+        component={AddResource}
+        // option={{
+        //   headerTransparent: true,
+        //   presentation: "card",
+        //   headerShown: false,
+        // }}
+      />
     </Stack.Navigator>
   );
 }
@@ -274,10 +284,20 @@ function AppStack(props) {
             <MaterialIcons name="search" size={size} color={color} />
           ),
           headerShown: false, // true to show 
+          // navigation: navigation,
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              search
+              options
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
         }}/>
       <Tab.Screen 
         name="Sav" 
-        component={Register} 
+        component={AddResource} 
         options={{
           tabBarLabel: 'Saved',
           tabBarIcon: ({ color, size }) => (
