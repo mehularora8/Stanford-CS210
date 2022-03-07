@@ -14,12 +14,13 @@ import { Block } from "galio-framework";
 // screens
 import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
-import Pro from "../screens/ResourceFull";
 import Profile from "../screens/Profile";
 import AddResource from "../screens/AddResource";
 import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 import ResourceFull from "../screens/ResourceFull";
+import AddReview from "../screens/AddReview";
+import AddReviewStars from "../screens/AddReviewStars";
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -52,10 +53,9 @@ function ElementsStack(props) {
           headerMode: "screen",
         }}
       />
-      
-        <Stack.Screen
-        name="Pro"
-        component={Pro}
+      <Stack.Screen
+        name="ResourceFull"
+        component={ResourceFull}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -90,9 +90,9 @@ function ArticlesStack(props) {
           headerMode: "screen",
         }}
       />
-            <Stack.Screen
-        name="Pro"
-        component={Pro}
+      <Stack.Screen
+        name="ResourceFull"
+        component={ResourceFull}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -132,9 +132,9 @@ function ProfileStack(props) {
           presentation: "card",
         }}
       />
-            <Stack.Screen
-        name="Pro"
-        component={Pro}
+      <Stack.Screen
+        name="ResourceFull"
+        component={ResourceFull}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -174,8 +174,8 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="ResourceFull"
+        component={ResourceFull}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -191,12 +191,37 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="ResourceFull"
-        component={ResourceFull}
-        option={{
-          headerTransparent: true,
-          presentation: "card",
-          headerShown: false,
+        name="AddReview"
+        component={AddReview}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="AddReviewStars"
+        component={AddReviewStars}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
         }}
       />
       <Stack.Screen
