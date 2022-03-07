@@ -14,6 +14,26 @@ import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
 
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+import uuid from 'react-native-uuid';
+
+
+
+function storeReview(review) {
+  const db = getDatabase();
+
+  if (!review['id']) {
+    review['id'] = uuid.v4();
+  }
+
+  const reference = ref(db, 'reviews/' + review['id']);
+  
+  set(reference, {
+    "title": review['title'],
+  });
+  return true
+}
+
 
 export default class ResourceFull extends React.Component {
   
@@ -64,13 +84,20 @@ export default class ResourceFull extends React.Component {
                       </Text>
                     ))}
                   </Block>
+                  {/* ))} */}
+                </Block>
+
+                <Button style={styles.addButton} onPress={()=> storeReview({title: "testing1234"})}>
+                  ADD A REVIEW
+                </Button>
+
+                {/* </Block> */}
 
                   <Button style={styles.addButton}>
                     ADD A REVIEW
                   </Button>
                 </Block> 
                 {/* end of topInfoText */}
-            </Block>
             {/* end of topInfoCard */}
         
             <ReviewSummaryCard/>
@@ -87,7 +114,7 @@ export default class ResourceFull extends React.Component {
             <Divider style={styles.divider}/>
             <ReportCard />
       
-          </Block>
+            </Block>
           </ScrollView>
       </Block>
     );

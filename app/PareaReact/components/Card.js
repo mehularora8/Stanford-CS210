@@ -1,5 +1,4 @@
 import React from 'react';
-import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
@@ -56,7 +55,6 @@ Card.propTypes = {
   full: PropTypes.bool,
   ctaColor: PropTypes.string,
   imageStyle: PropTypes.any,
-  key: PropTypes.string,
 }
 
 const styles = StyleSheet.create({
@@ -117,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(Card);
+export default Card;  // withNavigation(

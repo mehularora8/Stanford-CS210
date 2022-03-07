@@ -8,13 +8,14 @@ import { Button, Card, Input } from '../components';
 import articles from '../constants/articles';
 import AddResource from './AddResource';
 import { height } from 'dom-helpers';
-import { withNavigation } from '@react-navigation/compat';
 
 var Map = require('../components/Map').default
 
 const { width } = Dimensions.get('screen');
 
+
 class Home extends React.Component {
+
   renderArticles = () => {
     const navigation = this.props.navigation
     console.log(this.props)
@@ -37,7 +38,7 @@ class Home extends React.Component {
 
           {
             articles.map((x, i) => (
-              <Card item={{...x, key: i}} key={"result"+i} horizontal />
+              <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
             ))
           }
         </Block>

@@ -9,8 +9,6 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-
-
 import { Block } from "galio-framework";
 
 // screens
@@ -36,6 +34,7 @@ const { width } = Dimensions.get("screen");
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 function ElementsStack(props) {
   return (
@@ -83,8 +82,8 @@ function ArticlesStack(props) {
         name="Articles"
         component={Articles}
         options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
+          header: ({ scene }) => (
+            <Header title="Articles" scene={scene} />  // navigation={navigation} 
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
           presentation: "card",
@@ -120,12 +119,12 @@ function ProfileStack(props) {
         name="Profile"
         component={Profile}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({ scene }) => (  // navigation
             <Header
               transparent
               white
               title=""  // Profile
-              navigation={navigation}
+              // navigation={navigation}
               scene={scene}
             />
           ),
@@ -161,12 +160,12 @@ function HomeStack(props) {
         name="ExplorePage"
         component={Home}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({ scene }) => (  // navigation, 
             <Header
               title="" // Explore
               search
               options
-              navigation={navigation}
+              // navigation={navigation}
               scene={scene}
             />
           ),
