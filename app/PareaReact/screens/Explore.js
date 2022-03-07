@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     fontWeight: '200',
     fontSize: 12,
+    paddingBottom: -5,
   }
 });
 

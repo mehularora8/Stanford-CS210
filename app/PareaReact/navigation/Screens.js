@@ -2,8 +2,7 @@ import * as React from "react";
 import ReactDOM from 'react-dom';
 import { Easing, Animated, Dimensions, Text } from "react-native";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useHeaderHeight } from '@react-navigation/elements';
 
@@ -35,8 +34,7 @@ import Images from "../constants/Images";
 
 const { width } = Dimensions.get("screen");
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
@@ -159,7 +157,7 @@ function HomeStack(props) {
   return (
     <Stack.Navigator screenOptions={{"headerShown": false}}>
       <Stack.Screen
-        name="Explore"
+        name="ExplorePage"
         component={Home}
         options={{
           header: ({ navigation, scene }) => (
