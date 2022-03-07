@@ -4,7 +4,8 @@ import { ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-nati
 import { Block, Text, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants";
-import { Button, Select, Icon, Input, Header, Switch, Slider } from "../components";
+import { Button, Select, Icon, Input, Header, Switch } from "../components";
+import RatingSlider  from '../components/RatingSlider';
 
 const { width } = Dimensions.get("screen");
 
@@ -19,6 +20,11 @@ class AddReviewStars extends React.Component {
 				<Text style={styles.inputCaption}>
 					How would you rate your experience?
 				</Text>
+				<Block>
+					<Text>Accessibility</Text>
+					<RatingSlider />
+				</Block>
+				
 				<Block right>
 					<Button right>Next</Button>
 				</Block>
