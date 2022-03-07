@@ -21,6 +21,7 @@ class RatingSlider extends React.Component {
   };
 
   // TODO: Assign thumb slider style colors etc. (TBD)
+  // <Text>{this.state.currentValue}</Text>
   render() {
     return (
       <Block>
@@ -28,10 +29,10 @@ class RatingSlider extends React.Component {
           value={this.state.startingValue}
           minimumValue={this.state.minimumValue}
           maximumValue={this.state.maximumValue}
-          step={this.props.step}
+          step={this.state.step}
           onValueChange={(val) => this.setState({ currentValue: val })}
+          thumbStyle = {styles.thumbStyle}
         />
-        <Text>{this.state.currentValue}</Text>
       </Block>
     )
   }
@@ -41,6 +42,8 @@ const styles = StyleSheet.create({
   sliderContainer: {
     backgroundColor: '#dedede',
   },
+  thumbStyle: {
+  }
 });
 
 export default RatingSlider;

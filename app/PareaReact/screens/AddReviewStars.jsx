@@ -11,6 +11,29 @@ const { width } = Dimensions.get("screen");
 
 class AddReviewStars extends React.Component {
 
+	renderSliders = () => {
+		const headers = ["Safety", "Accessibility", "Environment", "Communication"];
+		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
+
+		return (
+			<Block style={styles.slidersContainer}>
+				{
+					headers.map(h => (
+						<Block style={styles.slider}>
+							<Text bold> {h} </Text>
+							<RatingSlider/>
+							<Block style = {styles.labelsContainer}>
+							{
+								labels.map(r =>  <Text> {r} </Text>)
+							}
+							</Block>
+						</Block>
+					))
+				}
+			</Block>
+		)
+	}
+
 	render() {
 		return (
 			<Block style={styles.reviewContainer}>
@@ -20,13 +43,11 @@ class AddReviewStars extends React.Component {
 				<Text style={styles.inputCaption}>
 					How would you rate your experience?
 				</Text>
-				<Block>
-					<Text>Accessibility</Text>
-					<RatingSlider />
-				</Block>
+
+				{this.renderSliders()}
 				
 				<Block right>
-					<Button right>Next</Button>
+					<Button right>Submit</Button>
 				</Block>
 				
 			</Block>
@@ -35,14 +56,24 @@ class AddReviewStars extends React.Component {
 }
 
 const styles = StyleSheet.create({
+	slider: {
+		marginTop: '7%',
+		marginBottom: '7%',
+	},
+	labelsContainer:{
+		minHeight: '5%',
+		minWidth: '100%',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	slidersContainer: {
+		marginTop: '10%',
+		marginBottom: '10%'
+	},
 	inputCaption: {
 		color: 'gray',
 		textAlign: 'center'
-	},
-	inputContainer: {
-		height: '40%', 
-		marginTop: '10%',
-		marginBottom: '10%'
 	},
 	reviewContainer:{
 		height: '100%',
