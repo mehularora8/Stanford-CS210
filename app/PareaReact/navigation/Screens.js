@@ -23,6 +23,7 @@ import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 import ResourceFull from "../screens/ResourceFull";
 import AddReview from "../screens/AddReview";
+import AddReviewStars from "../screens/AddReviewStars";
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -195,6 +196,23 @@ function HomeStack(props) {
       <Stack.Screen
         name="AddReview"
         component={AddReview}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="AddReviewStars"
+        component={AddReviewStars}
         options={{
           header: ({ navigation, scene }) => (
             <Header
