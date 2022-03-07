@@ -31,8 +31,8 @@ class AddReview extends React.Component {
 					Tell us about your experience
 				</Text>
 				{this.renderInput()}
-				<Block right>
-					<Button right onPress={() =>  navigation.navigate('AddReviewStars') }>
+				<Block>
+					<Button style={styles.nextButton} onPress={() =>  navigation.navigate('AddReviewStars') }>
 						Next
 					</Button>
 				</Block>
@@ -61,7 +61,9 @@ const styles = StyleSheet.create({
 	reviewBox: {
 		height: '100%',
 		width: '100%',
-
+	},
+	nextButton: {
+		alignSelf: 'center',
 	}
 });
 
