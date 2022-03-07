@@ -7,6 +7,25 @@ import { HeaderHeight } from "../constants/utils";
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+import uuid from 'react-native-uuid';
+
+
+
+function storeReview(review) {
+  const db = getDatabase();
+
+  if (!review['id']) {
+    review['id'] = uuid.v4();
+  }
+
+  const reference = ref(db, 'reviews/' + review['id']);
+  
+  set(reference, {
+    "title": review['title'],
+  });
+  return true
+}
 
 
 export default class ResourceFull extends React.Component {
@@ -54,7 +73,7 @@ export default class ResourceFull extends React.Component {
                   ))}
                 </Block>
 
-                <Button style={styles.addButton}>
+                <Button style={styles.addButton} onPress={()=> storeReview({title: "testing1234"})}>
                   ADD A REVIEW
                 </Button>
 

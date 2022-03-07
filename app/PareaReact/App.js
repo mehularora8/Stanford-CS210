@@ -7,7 +7,6 @@ import { Block, GalioProvider } from "galio-framework";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
@@ -21,17 +20,14 @@ import { Images, articles, argonTheme } from "./constants";
 const firebaseConfig = {
   apiKey: 'AIzaSyApwcLq6zs_TCUavgap-G8MFjq6QtpH8nc',
   authDomain: 'cs210-parea.firebaseapp.com',
-  databaseURL: 'https://cs210-parea.firebaseio.com',
+  databaseURL: 'https://cs210-parea-default-rtdb.firebaseio.com/',
   projectId: 'cs210-parea',
   storageBucket: 'cs210-parea.appspot.com',
   messagingSenderId: '1093038960119',
   appId: 'app-1-1093038960119-ios-f5df5c908428a2750292f2',
 };
 
-// initializeApp(firebaseConfig);
-
-// // Get a reference to the database service
-// const database = getDatabase(app);
+initializeApp(firebaseConfig);
 
 // cache app images
 const assetImages = [

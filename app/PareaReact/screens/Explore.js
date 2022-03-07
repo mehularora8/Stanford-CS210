@@ -11,7 +11,9 @@ var Map = require('../components/Map').default
 
 const { width } = Dimensions.get('screen');
 
-function Home({ navigation }) {
+
+class Home extends React.Component {
+
   renderArticles = () => {
     return (
       <ScrollView
@@ -29,7 +31,7 @@ function Home({ navigation }) {
 
           {
             articles.map((x, i) => (
-              <Card item={{...x, key: i}} key={"result"+i} navigation={navigation} horizontal />
+              <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
             ))
           }
         </Block>
@@ -37,7 +39,7 @@ function Home({ navigation }) {
     )
   }
 
-  // render() {
+  render() {
     return (
       <>
         <Block flex center style={styles.home}>
@@ -45,7 +47,7 @@ function Home({ navigation }) {
         </Block>
       </>
     );
-  // }
+  }
 }
 
 const styles = StyleSheet.create({
