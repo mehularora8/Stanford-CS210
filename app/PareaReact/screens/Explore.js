@@ -29,8 +29,13 @@ class Home extends React.Component {
         <Map navigation={navigation}/>
         <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
-          <Button onPress={()=> navigation.navigate('AddResource')}>
-            Add Resource
+          <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+            <Text style={styles.addResourceText}>
+              Add a
+              </Text>
+              <Text style={styles.addResourceText}>
+              Resource
+              </Text>
           </Button>
         <Block flex style={styles.articles}>
           <Block flex style={styles.resourcesText}>
@@ -103,6 +108,17 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     fontSize: 12,
     paddingBottom: -5,
+  }, 
+  addResource: {
+    marginTop: -100,
+    marginBottom: 20,
+    alignSelf: 'flex-end',
+    borderRadius: 100,
+    width: 80,
+    height: 80
+  },
+  addResourceText: {
+    color: 'white'
   }
 });
 

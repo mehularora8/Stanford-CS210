@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View, Linking} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+import call from 'react-native-phone-call';
+
 
 //data needed: resource id, pull in phone number
 class ContactCard extends React.Component {
@@ -13,7 +15,14 @@ class ContactCard extends React.Component {
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Contact</Text>
-              <Button style={styles.contactButton}>
+              <Button style={styles.contactButton} onPress={() => {  
+                const args = {
+                number: '13109930092', //Taylor's phone number
+                prompt: true,
+              };
+              // Make a call
+              call(args).catch(console.error);}
+              }>
                   <Text style={styles.phoneNumber}>
                   (650) 321-6448
                   </Text>
