@@ -227,6 +227,8 @@ function HomeStack(props) {
       <Stack.Screen
         name="AddResource"
         component={AddResource}
+        options= {{presentation: 'modal'}}
+        
         // option={{
         //   headerTransparent: true,
         //   presentation: "card",

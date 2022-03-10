@@ -101,7 +101,6 @@ export default class ResourceFull extends React.Component {
             </Button>
             <Divider style={styles.divider}/>
             <QandA />
-            <UnansweredQ/>
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>

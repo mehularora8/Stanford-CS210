@@ -29,7 +29,7 @@ const QandA = () => {
                 <Button style={styles.askButton}>
                     Ask
                 </Button>
-                <UnansweredQ questionText={text}/>
+               
             </View>
           </Block>
         );   

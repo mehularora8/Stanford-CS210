@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
-
+import { BottomSheet } from 'react-native-elements';
 import { Button, Card, Input } from '../components';
 
 import articles from '../constants/articles';
 import AddResource from './AddResource';
 import { height } from 'dom-helpers';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 var Map = require('../components/Map').default
 
@@ -19,8 +19,10 @@ const { width } = Dimensions.get('screen');
 class Home extends React.Component {
 
   renderArticles = () => {
+    
     const navigation = this.props.navigation
     console.log(this.props)
+ 
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
