@@ -4,15 +4,16 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import Images from "../constants/Images";
 import { Rating } from 'react-native-ratings';
 
-
-
 const Map = (props) => {
     // state = {
     //     value: 1,
     // }
     console.log(props.navigation)
     const navigation = props.navigation
- 
+
+    
+
+  
         // const mapRef = useRef(null);
         // const [location, setLocation] = useState(null)
 
@@ -26,8 +27,8 @@ const Map = (props) => {
                     initialRegion={{
                         latitude: 37.430050,
                         longitude: -122.173420,
-                        latitudeDelta: 0.1,
-                        longitudeDelta: 0.1,
+                        latitudeDelta: 0.15,
+                        longitudeDelta: 0.15,
                     }}
                 >
                 {/* User's current location, fixed */}
