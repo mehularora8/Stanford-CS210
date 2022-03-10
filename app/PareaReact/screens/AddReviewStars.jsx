@@ -7,7 +7,7 @@ import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import RatingSlider  from '../components/RatingSlider';
 
-import firestoreDb from "../firebaseConfig";
+// import firestoreDb from "../firebaseConfig";
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
 
 import uuid from 'react-native-uuid';
