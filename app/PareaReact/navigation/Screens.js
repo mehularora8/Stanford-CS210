@@ -204,6 +204,7 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
+          // presentation: 'modal',
           headerTransparent: true
         }}
       />
@@ -221,6 +222,7 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
+          // presentation: 'modal',
           headerTransparent: true
         }}
       />

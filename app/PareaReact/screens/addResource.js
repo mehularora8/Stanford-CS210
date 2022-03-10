@@ -5,10 +5,11 @@ import {
   Dimensions,
   StatusBar,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  View
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
-
+import { Feather } from '@expo/vector-icons';
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 
@@ -16,16 +17,21 @@ import { Images, argonTheme } from "../constants";
 
 const { width, height } = Dimensions.get("screen");
 
+
 class AddResource extends React.Component {
   render() {
+    const { navigation } = this.props;
     return (
       <Block flex middle>
         <StatusBar hidden />
           <Block safe flex middle>
             <Block style={styles.registerContainer}>
               <Block flex>
+              <Button onPress={() => navigation.goBack()} style={styles.cancel} title="X" >
+                <Feather name="x" size={28} color="black" />	
+              </Button>
                 <Block flex middle style={{marginTop:20}}>
-                  <Text color="#FC3901" size={16}>
+                  <Text color="#FC3901" size={17}>
                     Add a Resource
                   </Text>
                 </Block>
@@ -193,7 +199,8 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25
+    marginTop: 25,
+    borderRadius: 12,
   },
   boldText: {
     fontWeight: 'bold'
@@ -205,7 +212,16 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     width: width*0.9
-  }
+  },
+  cancel: {
+		backgroundColor: 'transparent',
+		color: 'black',
+		alignItems: 'flex-start',
+    marginTop: 50,
+		width: 28,
+		marginLeft: 10,
+    marginBottom: -40,
+	}
 });
 
 export default AddResource;
