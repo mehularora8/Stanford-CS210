@@ -15,6 +15,8 @@ const ComingSoonImg = require("../assets/imgs/ComingSoon.png")
 const ComingSoonSaved = require("../assets/imgs/ComingSoonSaved.png")
 const ComingSoonGroups = require("../assets/imgs/ComingSoonGroups.png")
 const ProfGradient = require("../assets/imgs/ProfileBackgroundGradient.png")
+const Check = require("../assets/imgs/check.png");
+
 // internet imgs
 
 const ProfilePicture = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?fit=crop&w=1650&q=80';
@@ -51,5 +53,6 @@ export default {
   ComingSoonImg,
   ComingSoonSaved,
   ComingSoonGroups,
-  ProfGradient
+  ProfGradient,
+  Check
 };
