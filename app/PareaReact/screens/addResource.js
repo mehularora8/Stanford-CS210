@@ -12,7 +12,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Feather } from '@expo/vector-icons';
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
-import AddResourceSuccess from "../screens/AddResourceSuccess";
+import AddResourceSuccess from "./AddResourceSuccess";
 
 
 // import auth from '@react-native-firebase/auth';
