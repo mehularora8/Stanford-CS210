@@ -6,12 +6,13 @@ import { Rating } from 'react-native-ratings';
 
 
 
-class Map extends React.Component {
-    state = {
-        value: 1,
-    }
-
-    render() {
+const Map = (props) => {
+    // state = {
+    //     value: 1,
+    // }
+    console.log(props.navigation)
+    const navigation = props.navigation
+ 
         // const mapRef = useRef(null);
         // const [location, setLocation] = useState(null)
 
@@ -47,6 +48,7 @@ class Map extends React.Component {
                     }}
                     title="Pediatric Dentistry of Palo Alto"
                     image={require("../assets/imgs/locationIcon2.png")}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: "Pediatric Dentistry of Palo Alto", tags: ["test"]})}
                 > 
                     <Callout tooltip>
                         <View >
@@ -74,7 +76,7 @@ class Map extends React.Component {
                 </MapView>
             </View>
         );
-    }
+    
 }
 
 const styles = StyleSheet.create({

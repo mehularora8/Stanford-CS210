@@ -26,7 +26,7 @@ class Home extends React.Component {
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
         <Block flex style={styles.topBlock} />
-        <Map />
+        <Map navigation={navigation}/>
         <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
           <Button onPress={()=> navigation.navigate('AddResource')}>
