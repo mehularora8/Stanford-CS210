@@ -84,20 +84,11 @@ export default class ResourceFull extends React.Component {
                       </Text>
                     ))}
                   </Block>
-                  {/* ))} */}
-                </Block>
-
-                <Button style={styles.addButton} onPress={() => navigation.navigate('AddReview')}>
+              
+                  <Button style={styles.addButton} onPress={() => navigation.navigate('AddReview')}>
                   ADD A REVIEW
                 </Button>
-
-                {/* </Block> */}
-
-                  <Button 
-                    style={styles.addButton} 
-                    onPress={() => navigation.navigate("AddReview", {})}>
-                    ADD A REVIEW
-                  </Button>
+                </Block>
                 </Block> 
                 {/* end of topInfoText */}
             {/* end of topInfoCard */}
