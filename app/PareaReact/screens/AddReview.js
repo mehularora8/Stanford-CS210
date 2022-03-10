@@ -31,10 +31,12 @@ class AddReview extends React.Component {
 	handleNextButton = ()  => {
 		const { navigation } = this.props;
 		const review = {
-			resourceId: this.state.resourceId,
+			// This is a hack to test
+			resourceId: this.state.resourceId ? this.state.resourceId : 'mxhbRimhbDk6nxbf6wxc',
 			reviewText: this.state.reviewText,
 		}
-		console.log(review);
+		
+		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review});
 	}
 
