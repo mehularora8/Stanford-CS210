@@ -9,7 +9,9 @@ import articles from '../constants/articles';
 import AddResource from './AddResource';
 import { height } from 'dom-helpers';
 
+
 var Map = require('../components/Map').default
+
 
 const { width } = Dimensions.get('screen');
 

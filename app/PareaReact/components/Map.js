@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, View, Image } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
+import Images from "../constants/Images";
 
 
 
@@ -23,8 +24,8 @@ class Map extends React.Component {
                     initialRegion={{
                         latitude: 37.77634752089827,
                         longitude: -122.44181123023144,
-                        latitudeDelta: 0.5,
-                        longitudeDelta: 0.5,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 0.1,
                     }}
                 >
                 <Marker
@@ -33,7 +34,11 @@ class Map extends React.Component {
                             longitude: -122.44181123023144,
                         }}
                         title="You are here!"
-                    /> 
+                        image={require("../assets/imgs/locationIcon2.png")}
+                        // pinColor={"coral"}
+                    > 
+                 
+                    </Marker>
                 </MapView>
             </View>
         );

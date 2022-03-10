@@ -10,6 +10,7 @@ const iOSLogo = require("../assets/imgs/ios.png");
 const androidLogo = require("../assets/imgs/android.png");
 const SplashOnboard = require("../assets/imgs/Splash-no-bottom.png");
 const SearchIcon = require("../assets/imgs/Search.svg");
+const LocationMarker = require("../assets/imgs/locationMarker.svg");
 // internet imgs
 
 const ProfilePicture = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?fit=crop&w=1650&q=80';
@@ -41,5 +42,6 @@ export default {
   iOSLogo,
   androidLogo,
   SplashOnboard,
-  SearchIcon
+  SearchIcon,
+  LocationMarker
 };
