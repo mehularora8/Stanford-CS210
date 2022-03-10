@@ -7,7 +7,9 @@ import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import RatingSlider  from '../components/RatingSlider';
 
-import { getDatabase, ref, onValue, set } from 'firebase/database';
+import firestoreDb from "../firebaseConfig";
+import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
+
 import uuid from 'react-native-uuid';
 
 
@@ -28,20 +30,28 @@ class AddReviewStars extends React.Component {
 		}
 	}
 
-	storeReview = () => {
+	storeReview = async () => {
 
-		const db = getDatabase();
-	  
-		if (!review['id']) {
-		  review['id'] = uuid.v4();
+		if (!this.state.review.resourceId) return;
+
+		const finalReview = {
+			reviewId: uuid.v4(),
+			reviewText: this.state.review.reviewText,
+			reviewRatings: this.state.ratings
 		}
-	  
-		const reference = ref(db, 'reviews/' + review['id']);
-		
-		set(reference, {
-		  "title": review['title'],
-		});
-		return true
+
+		console.log("Attempting to add", finalReview);
+
+		const reviewDoc = doc(firestoreDb, 'resources', this.state.review.resourceId);
+		const docSnap = await getDoc(reviewDoc);
+		console.log("Got docsnap:", docSnap);
+
+		await setDoc(reviewDoc, finalReview);
+
+		console.log("ADDED");
+
+		const { navigation } = this.props;
+		navigation.navigate("ExplorePage");
 	}
 
 	onChangeValue = (header, value) => {
@@ -65,6 +75,7 @@ class AddReviewStars extends React.Component {
 							<RatingSlider 
 								header = {h}
 								changeHeaderValue = {this.onChangeValue}
+								id={h}
 							/>
 							<Block style = {styles.labelsContainer}>
 							{
@@ -91,7 +102,7 @@ class AddReviewStars extends React.Component {
 				{this.renderSliders()}
 				
 				<Block>
-					<Button style={styles.subButton} onPress={this.storeReview}>Submit</Button>
+					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
 				</Block>
 				
 			</Block>
