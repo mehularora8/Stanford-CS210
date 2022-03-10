@@ -5,6 +5,8 @@ export default [
     image: 'https://images.unsplash.com/photo-1516559828984-fb3b99548b21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
     cta: 'See Reviews',
     labels: ['ASD Specialist', 'Parea Approved'],
+    latitude: 37.423470, 
+    longitude: -122.197740,
   },
   {
     title: 'Magical Bridge Playground',

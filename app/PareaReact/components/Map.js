@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Dimensions, View, Image, Text, Block } from "react-native";
 import MapView, { Marker, Callout } from 'react-native-maps';
-import Images from "../constants/Images";
+import {Images} from "../constants/Images";
+import articles from '../constants/articles';
 import { Rating } from 'react-native-ratings';
 
 const Map = (props) => {
@@ -41,20 +42,23 @@ const Map = (props) => {
                     > 
                     </Marker>
                 
-                {/* Resources */}
-                <Marker
+                {/* Resources temporarily mapped from articles js file, rather than firebase */}
+                {
+                    articles.map((x, i) => (
+                    <Marker
+                    key={"result" + i}
                     coordinate={{
-                        latitude: 37.423470, 
-                        longitude: -122.197740,
+                        latitude: x.latitude, 
+                        longitude: x.longitude,
                     }}
-                    title="Pediatric Dentistry of Palo Alto"
+                    title={x.title}
                     image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: "Pediatric Dentistry of Palo Alto", tags: ["test"]})}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels})}
                 > 
                     <Callout tooltip>
                         <View >
                             <View style={styles.locPreview}>
-                            <Text style={styles.resourceTitle}>Pediatric Dentistry of Palo Alto </Text>
+                            <Text style={styles.resourceTitle}>{x.title} </Text>
                             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                                 <Text style={styles.resourceType}>Type</Text>
                                 <Rating 
@@ -62,7 +66,7 @@ const Map = (props) => {
                                     ratingColor="#fc3901"
                                     ratingBackgroundColor="#999999"
                                     fractions={1}
-                                    startingValue={5}
+                                    startingValue={x.stars}
                                     imageSize={15}
                                     readonly  
                                     />
@@ -74,6 +78,10 @@ const Map = (props) => {
                         </View>
                     </Callout>
                 </Marker>
+        
+                    ))
+                }
+                
                 </MapView>
             </View>
         );
