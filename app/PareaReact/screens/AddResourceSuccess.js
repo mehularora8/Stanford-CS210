@@ -39,7 +39,7 @@ class AddResourceSuccess extends React.Component {
                     </Block>
 
                     <Block style={{alignItems: 'center', marginTop: 20}}>
-                        <Text color="black" size={14} textAlign='center'>
+                        <Text color="black" size={13}  style={{marginLeft: 35, marginRight: 35, textAlign: 'center'}}>
                             Your resource is being reviewed by our community moderators and will be up on the map soon!
                         </Text>
                     </Block>
