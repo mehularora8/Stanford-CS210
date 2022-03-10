@@ -1,3 +1,6 @@
+# Mission Statement
+Home base for caretakers of ASD.
+
 # 2022-87Capital
 <img src="https://img.shields.io/badge/%F0%9F%8E%89%20CS%20210%20Best%20Of-VC:%20Best%20Use%20of%20Time-purple?colorA=ffd700"/>
 
