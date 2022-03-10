@@ -51,9 +51,9 @@ class Map extends React.Component {
                     <Callout tooltip>
                         <View >
                             <View style={styles.locPreview}>
-                            <Text>Pediatric Dentistry of Palo Alto </Text>
+                            <Text style={styles.resourceTitle}>Pediatric Dentistry of Palo Alto </Text>
                             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                                <Text>Type</Text>
+                                <Text style={styles.resourceType}>Type</Text>
                                 <Rating 
                                     type="custom"
                                     ratingColor="#fc3901"
@@ -95,6 +95,15 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 12,
         // marginBottom: -32,
+    },
+    resourceTitle: {
+        fontWeight: '500'
+
+    },
+    resourceType: {
+        fontWeight: '300',
+        color: 'gray',
+        fontSize: 13,
     },
     // arrow: {
     //     backgroundColor: 'transparent',
