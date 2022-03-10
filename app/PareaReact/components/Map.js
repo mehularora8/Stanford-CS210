@@ -26,8 +26,8 @@ const Map = (props) => {
                     mapType={"mutedStandard"}
                     showsPointsOfInterest={true}
                     initialRegion={{
-                        latitude: 37.430050,
-                        longitude: -122.173420,
+                        latitude: 37.441840128888735,
+                        longitude: -122.13979504998588,
                         latitudeDelta: 0.15,
                         longitudeDelta: 0.15,
                     }}
@@ -35,8 +35,8 @@ const Map = (props) => {
                 {/* User's current location, fixed */}
                 <Marker
                         coordinate={{
-                            latitude: 37.430050, 
-                            longitude: -122.173420,
+                            latitude: 37.42676160389133, 
+                            longitude: -122.17060759659671,
                         }}
                         title="You are here!"
                     > 
@@ -60,7 +60,7 @@ const Map = (props) => {
                             <View style={styles.locPreview}>
                             <Text style={styles.resourceTitle}>{x.title} </Text>
                             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                                <Text style={styles.resourceType}>Type</Text>
+                                <Text style={styles.resourceType}>{x.type}</Text>
                                 <Rating 
                                     type="custom"
                                     ratingColor="#fc3901"
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 10,
         borderRadius: 12,
+        width: 225,
         // marginBottom: -32,
     },
     resourceTitle: {
