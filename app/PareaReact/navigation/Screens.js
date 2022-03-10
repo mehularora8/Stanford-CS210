@@ -21,6 +21,8 @@ import Articles from "../screens/Articles";
 import ResourceFull from "../screens/ResourceFull";
 import AddReview from "../screens/AddReview";
 import AddReviewStars from "../screens/AddReviewStars";
+import ComingSoon from "../components/ComingSoon";
+import ComingSoonGroups from "../components/ComingSoonGroups";
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -325,7 +327,7 @@ function AppStack(props) {
         }}/>
       <Tab.Screen 
         name="Sav" 
-        component={AddResource} 
+        component={ComingSoon} 
         options={{
           tabBarLabel: 'Saved',
           tabBarIcon: ({ color, size }) => (
@@ -335,7 +337,7 @@ function AppStack(props) {
         }}/>
       <Tab.Screen 
         name="Gro" 
-        component={ElementsStack}
+        component={ComingSoonGroups}
         options={{
           tabBarLabel: 'Groups',
           tabBarIcon: ({ color, size }) => (
