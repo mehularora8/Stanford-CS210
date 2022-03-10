@@ -41,7 +41,7 @@ export default class ResourceFull extends React.Component {
     const { navigation } = this.props;
     let name = this.props.route.params.name
     let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
-
+ 
 
     return (
       <Block flex style={styles.container}>
@@ -58,9 +58,8 @@ export default class ResourceFull extends React.Component {
           <Block flex>
             <Block flex style={styles.topInfoCard}>
                 <Block style={styles.topInfoImg}>
-                  <Text>
-                    IMG
-                  </Text>
+
+                  <Image source={{url: this.props.route.params.image}} style={{width: 145, height: 145}} />
                 </Block>
                 <Block flex style={styles.topInfoText}>
                   <Block>
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
   topInfoImg: {
     width: "40%",
     height: 145,
-    backgroundColor: "#999999",
+    // backgroundColor: "#999999",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

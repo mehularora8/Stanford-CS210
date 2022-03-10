@@ -5,6 +5,7 @@ import {Images} from "../constants/Images";
 import articles from '../constants/articles';
 import { Rating } from 'react-native-ratings';
 
+
 const Map = (props) => {
     // state = {
     //     value: 1,
@@ -53,7 +54,7 @@ const Map = (props) => {
                     }}
                     title={x.title}
                     image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels, type: x.type})}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels, type: x.type, image: x.image})}
                 > 
                     <Callout tooltip>
                         <View >
