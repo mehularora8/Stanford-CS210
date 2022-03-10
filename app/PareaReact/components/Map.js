@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width,  // -33
-        height: Dimensions.get('window').height / 2,
+        height: Dimensions.get('window').height / 1.8,
         zIndex: -1,
         // borderRadius: 9,
     },

@@ -27,17 +27,17 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
-        <Block flex style={styles.topBlock} />
-        <Map navigation={navigation}/>
-        <Input placeholder="Search for activities, care providers, restaurants" 
+        {/* <Block flex style={styles.topBlock} /> */}
+          <Map navigation={navigation}/>
+          <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
           <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
-            <Text style={styles.addResourceText}>
-              Add a
-              </Text>
               <Text style={styles.addResourceText}>
-              Resource
-              </Text>
+                Add a
+                </Text>
+                <Text style={styles.addResourceText}>
+                Resource
+                </Text>
           </Button>
         <Block flex style={styles.articles}>
           <Block flex style={styles.resourcesText}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   input: {
     // backgroundColor: "#FC3901",
-    marginVertical: -450,
+    marginVertical: -430,
     width: width - 40,
     alignSelf: 'center',
     // opacity: 0.70,
