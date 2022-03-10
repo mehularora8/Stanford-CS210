@@ -53,7 +53,7 @@ const Map = (props) => {
                     }}
                     title={x.title}
                     image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels})}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels, type: x.type})}
                 > 
                     <Callout tooltip>
                         <View >

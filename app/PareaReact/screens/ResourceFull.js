@@ -65,7 +65,7 @@ export default class ResourceFull extends React.Component {
                 <Block flex style={styles.topInfoText}>
                   <Block>
                     <Text>
-                      Type
+                      {this.props.route.params.type}
                     </Text>
                   </Block>
                   <Block flex style={styles.locationInfo}>
