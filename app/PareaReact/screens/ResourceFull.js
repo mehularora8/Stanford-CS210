@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, Linking, ScrollView } from 'react-native';
+import { ImageBackground, Image, StyleSheet, StatusBar, View, Dimensions, Platform, Linking, ScrollView } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
@@ -13,7 +13,6 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import uuid from 'react-native-uuid';
 
@@ -48,9 +47,11 @@ export default class ResourceFull extends React.Component {
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
+        <Ionicons name="md-chevron-back" size={24} style={{flex: 1}}color="white" onPress={() =>{  navigation.goBack()}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
+          <View style={{flex: 1}}/>
         </Block>
         <ScrollView>
 
@@ -123,6 +124,8 @@ const styles = StyleSheet.create({
     paddingBottom: "2%",
     alignItems: 'center',
     backgroundColor: argonTheme.COLORS.PRIMARY,
+    display: 'flex',
+    flexDirection: 'row',
   },
   titleText: {
     color: "white",
