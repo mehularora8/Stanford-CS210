@@ -21,7 +21,6 @@ class Home extends React.Component {
   renderArticles = () => {
     
     const navigation = this.props.navigation
-    console.log(this.props)
  
     return (
       <ScrollView
