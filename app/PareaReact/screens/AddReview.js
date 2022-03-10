@@ -1,10 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, StatusBar, View } from "react-native";
 // Galio components
 import { Block, Text, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get("screen");
 
@@ -36,15 +37,24 @@ class AddReview extends React.Component {
 			reviewText: this.state.reviewText,
 		}
 		console.log("Review from Add Review:", review);
-		navigation.navigate('AddReviewStars', {review});
+		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
 	}
 
 	render() {
 		const { navigation } = this.props;
 
 		return (
+			<View>
+			<StatusBar barStyle="light-content" />
+			<Block style={styles.titleContainer}>
+			<Ionicons name="md-chevron-back" size={24} style={{flex: 1}}color="white" onPress={() =>{  navigation.goBack()}}/>
+			<Text style={styles.titleText}>
+				{this.props.route.params.name}
+			</Text>
+			<View style={{flex: 1}}/>
+			</Block>
 			<Block style={styles.reviewContainer}>
-				<Text h3 bold center>
+				<Text h4 bold center>
 					Add a Review
 				</Text>
 				<Text style={styles.inputCaption}>
@@ -58,6 +68,7 @@ class AddReview extends React.Component {
 				</Block>
 				
 			</Block>
+			</View>
 		);
 	}
 }
@@ -84,7 +95,19 @@ const styles = StyleSheet.create({
 	},
 	nextButton: {
 		alignSelf: 'center',
-	}
+	},
+	titleContainer: {
+		paddingTop: "12%",
+		paddingBottom: "2%",
+		alignItems: 'center',
+		backgroundColor: argonTheme.COLORS.PRIMARY,
+		display: 'flex',
+		flexDirection: 'row',
+	  },
+	  titleText: {
+		color: "white",
+		fontSize: 17,
+	  }
 });
 
 export default AddReview;

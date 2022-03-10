@@ -85,7 +85,7 @@ export default class ResourceFull extends React.Component {
                     ))}
                   </Block>
               
-                  <Button style={styles.addButton} onPress={() => navigation.navigate('AddReview')}>
+                  <Button style={styles.addButton} onPress={() => navigation.navigate('AddReview', {name: name})}>
                   ADD A REVIEW
                 </Button>
                 </Block>

@@ -1,11 +1,13 @@
 import React from "react";
-import { ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, View, StatusBar } from "react-native";
 // Galio components
 import { Block, Text, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import RatingSlider  from '../components/RatingSlider';
+import { Ionicons } from '@expo/vector-icons';
+import { Rating } from 'react-native-ratings';
 
 // import firestoreDb from "../firebaseConfig";
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
@@ -67,6 +69,8 @@ class AddReviewStars extends React.Component {
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
 
 		return (
+		
+
 			<Block style={styles.slidersContainer}>
 				{
 					headers.map(h => (
@@ -86,33 +90,54 @@ class AddReviewStars extends React.Component {
 					))
 				}
 			</Block>
+		
 		)
 	}
 
 	render() {
+		const { navigation } = this.props;
 		return (
+			<View>
+			<StatusBar barStyle="light-content" />
+				<Block style={styles.titleContainer}>
+				<Ionicons name="md-chevron-back" size={24} style={{flex: 1}}color="white" onPress={() =>{  navigation.goBack()}}/>
+				<Text style={styles.titleText}>
+					{this.props.route.params.name}
+				</Text>
+				<View style={{flex: 1}}/>
+				</Block>
 			<Block style={styles.reviewContainer}>
-				<Text h3 bold center>
+				<Text h4 bold center style={{marginTop: -30}}>
 					Add a Review
 				</Text>
 				<Text style={styles.inputCaption}>
 					How would you rate your experience?
 				</Text>
+				<Text bold style={{ marginTop: 20, alignSelf: 'flex-start', marginBottom: -20}}>
+					Overall
+				</Text>
+				<Rating 
+                type="custom"
+                ratingColor="#fc3901"
+                ratingBackgroundColor="#999999"
+                tintColor="#f2f2f2"
+                startingValue={0}
+                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
+                imageSize={45}
+                 />
 
 				{this.renderSliders()}
+				<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
 				
-				<Block>
-					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
-				</Block>
 				
 			</Block>
+			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	slider: {
-		marginTop: '7%',
 		marginBottom: '7%',
 	},
 	labelsContainer:{
@@ -137,9 +162,21 @@ const styles = StyleSheet.create({
 		padding: '2.5%',
 	},
 	subButton: {
-		marginVertical: -20,
+		marginTop: -70,
 		alignSelf: 'center',
-	}
+	},
+	titleContainer: {
+		paddingTop: "12%",
+		paddingBottom: "2%",
+		alignItems: 'center',
+		backgroundColor: argonTheme.COLORS.PRIMARY,
+		display: 'flex',
+		flexDirection: 'row',
+	  },
+	  titleText: {
+		color: "white",
+		fontSize: 17,
+	  }
 });
 
 export default AddReviewStars;
