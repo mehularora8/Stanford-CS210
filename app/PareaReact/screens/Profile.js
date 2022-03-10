@@ -109,6 +109,11 @@ class Profile extends React.Component {
                 <Block flex>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
                     <Block style={styles.divider} />
+                    <Block style={{ marginTop: 30, marginBottom: 16 }}>
+                      <Text>
+                        Under construction!
+                      </Text>
+                    </Block>
                   </Block>
                 </Block>
               </Block>
