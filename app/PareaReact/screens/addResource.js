@@ -12,6 +12,8 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Feather } from '@expo/vector-icons';
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
+import AddResourceSuccess from "../screens/AddResourceSuccess";
+
 
 // import auth from '@react-native-firebase/auth';
 
@@ -143,7 +145,10 @@ class AddResource extends React.Component {
                         />
                       </Block>
                       <Block middle>
-                        <Button color="primary" style={styles.createButton}>
+                        <Button onPress={() => {
+                          navigation.goBack()
+                          navigation.navigate(AddResourceSuccess)
+                          }} color="primary" style={styles.createButton}>
                           <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                             Submit
                           </Text>

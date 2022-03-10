@@ -16,11 +16,13 @@ import Home from "../screens/Explore";
 import Onboarding from "../screens/Onboarding";
 import Profile from "../screens/Profile";
 import AddResource from "../screens/AddResource";
+import AddResourceSuccess from "../screens/AddResourceSuccess";
 import Elements from "../screens/Groups";
 import Articles from "../screens/Articles";
 import ResourceFull from "../screens/ResourceFull";
 import AddReview from "../screens/AddReview";
 import AddReviewStars from "../screens/AddReviewStars";
+
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -237,6 +239,12 @@ function HomeStack(props) {
         //   headerShown: false,
         // }}
       />
+      <Stack.Screen
+        name="AddResourceSuccess"
+        component={AddResourceSuccess}
+        options= {{presentation: 'modal'}}
+      />
+      
     </Stack.Navigator>
   );
 }
