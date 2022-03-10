@@ -1,7 +1,7 @@
 export default [
   {
     title: 'Pediatric Dentistry of Palo Alto',
-    stars: 5,
+    stars: 5.0,
     image: 'https://i.ibb.co/cXF2rrc/dentist.png',
     cta: 'See Reviews',
     labels: ['ASD Specialist', 'Insurance Accepted'],
@@ -54,7 +54,7 @@ export default [
     stars: 4.7,
     image: 'https://i.ibb.co/X481MbZ/lisa.png',
     cta: 'See Reviews',
-    labels: ['CBT'],
+    labels: ['Cognitive Behavioral Therapy'],
     latitude: 37.448970,
     longitude: -122.156450,
     type: 'Psychologist',

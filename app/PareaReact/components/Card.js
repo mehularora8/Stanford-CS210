@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
-
+import { Rating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 
 
@@ -28,6 +28,24 @@ class Card extends React.Component {
               <Text size={14}>{item.key+1}. </Text>
             <Text size={14} style={styles.cardTitle}>{item.title}</Text>
             </Block>
+            <Block row={horizontal}>
+              <Rating 
+                  type="custom"
+                  ratingColor="#fc3901"
+                  ratingBackgroundColor="#999999"
+                  fractions={1}
+                  startingValue={item.stars}
+                  imageSize={15}
+                  readonly  
+                  style={{alignSelf: 'flex-start', marginLeft: 4}}
+                  />
+                  <Text style={{marginLeft: 3, marginRight: 3}}>
+                    {item.stars}
+                  </Text>
+                  <Text style={{color: 'grey'}}>
+                    [{15 - item.key}]
+                  </Text>
+              </Block>
 
             <Block row={horizontal}>
             {item.labels.map((x) => (
@@ -36,7 +54,7 @@ class Card extends React.Component {
               </Text>
             ))}
             </Block>
-            <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text>
+            {/* <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text> */}
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels, type: item.type, image: item.image})}>
