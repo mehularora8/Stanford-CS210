@@ -8,7 +8,6 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { initializeApp } from 'firebase/app';
 
-
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
 enableScreens();
@@ -27,9 +26,8 @@ const firebaseConfig = {
   messagingSenderId: '1093038960119',
   appId: 'app-1-1093038960119-ios-f5df5c908428a2750292f2',
 };
+
 initializeApp(firebaseConfig);
-
-
 
 // cache app images
 const assetImages = [

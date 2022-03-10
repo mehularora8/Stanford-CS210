@@ -7,31 +7,61 @@ import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import RatingSlider  from '../components/RatingSlider';
 
-import { getDatabase, ref, onValue, set } from 'firebase/database';
+import firestoreDb from "../firebaseConfig";
+import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
+
 import uuid from 'react-native-uuid';
 
 
 const { width } = Dimensions.get("screen");
 
 
-function storeReview(review) {
-	console.log(review);
-	const db = getDatabase();
-  
-	if (!review['id']) {
-	  review['id'] = uuid.v4();
-	}
-  
-	const reference = ref(db, 'reviews/' + review['id']);
-	
-	set(reference, {
-	  "title": review['title'],
-	});
-	return true
-  }
-
-
 class AddReviewStars extends React.Component {
+
+	// The state assumes that the resourceId is pre-packaged
+	// inside the review object passed in the props.
+	state =  {
+		review: this.props.route.params.review,
+		ratings: {
+			"Safety": 1, 
+			"Accessibility": 1, 
+			"Environment": 1, 
+			"Communication": 1
+		}
+	}
+
+	storeReview = async () => {
+
+		if (!this.state.review.resourceId) return;
+
+		const finalReview = {
+			reviewId: uuid.v4(),
+			reviewText: this.state.review.reviewText,
+			reviewRatings: this.state.ratings
+		}
+
+		console.log("Attempting to add", finalReview);
+
+		const reviewDoc = doc(firestoreDb, 'resources', this.state.review.resourceId);
+		const docSnap = await getDoc(reviewDoc);
+		console.log("Got docsnap:", docSnap);
+
+		await setDoc(reviewDoc, finalReview);
+
+		console.log("ADDED");
+
+		const { navigation } = this.props;
+		navigation.navigate("ExplorePage");
+	}
+
+	onChangeValue = (header, value) => {
+		let newRatings = this.state.ratings;
+		newRatings[header] = value;
+		this.setState({
+			ratings: newRatings,
+		})
+	}
+
 	renderSliders = () => {
 		const headers = ["Safety", "Accessibility", "Environment", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
@@ -42,7 +72,11 @@ class AddReviewStars extends React.Component {
 					headers.map(h => (
 						<Block style={styles.slider}>
 							<Text bold> {h} </Text>
-							<RatingSlider/>
+							<RatingSlider 
+								header = {h}
+								changeHeaderValue = {this.onChangeValue}
+								id={h}
+							/>
 							<Block style = {styles.labelsContainer}>
 							{
 								labels.map(r =>  <Text> {r} </Text>)
@@ -68,7 +102,7 @@ class AddReviewStars extends React.Component {
 				{this.renderSliders()}
 				
 				<Block>
-					<Button style={styles.subButton} onPress={() => storeReview({'title': 'testing7161661611'})}>Submit</Button>
+					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
 				</Block>
 				
 			</Block>

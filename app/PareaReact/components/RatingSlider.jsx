@@ -13,6 +13,7 @@ const { width, height } = Dimensions.get("screen");
 class RatingSlider extends React.Component {
   // Initialize using props otherwise assign default value
   state = {
+    header:         this.props.header,
     minimumValue:   this.props.minimumValue ? this.props.minimumValue : 1,
     maximumValue:   this.props.maximumValue ? this.props.maximumValue : 5,
     startingValue:  this.props.startingValue ? this.props.startingValue : 1,
@@ -20,8 +21,11 @@ class RatingSlider extends React.Component {
     currentValue:   this.props.startingValue ? this.props.startingValue : 1,
   };
 
+  handleValueChange = (value) => {
+    this.props.changeHeaderValue(this.state.header, value);
+  }
+
   // TODO: Assign thumb slider style colors etc. (TBD)
-  // <Text>{this.state.currentValue}</Text>
   render() {
     return (
       <Block>
@@ -30,7 +34,7 @@ class RatingSlider extends React.Component {
           minimumValue={this.state.minimumValue}
           maximumValue={this.state.maximumValue}
           step={this.state.step}
-          onValueChange={(val) => this.setState({ currentValue: val })}
+          onValueChange={(val) => this.handleValueChange(val)}
           thumbStyle = {styles.thumbStyle}
         />
       </Block>
