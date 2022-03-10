@@ -40,8 +40,8 @@ class Card extends React.Component {
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels, type: item.type})}>
-          <Block flex style={imgContainer}>
-            <Image source={{uri: item.image}} style={imageStyles} />
+          <Block  style={imgContainer}>
+            <Image source={{url: item.image}} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
       </Block>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2
+    padding: theme.SIZES.BASE / 2,
   },
   labels: {
     backgroundColor: "rgba(196, 196, 196, 0.3)",
@@ -87,14 +87,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 1,
     overflow: 'hidden',
-    width: 10,
   },
   image: {
     // borderRadius: 3,
   },
   horizontalImage: {
-    width: 'auto',
-    height: 112,
+    width: 100,
+    height: 100,
 
   },
   horizontalStyles: {

@@ -2,7 +2,7 @@ export default [
   {
     title: 'Pediatric Dentistry of Palo Alto',
     stars: 5,
-    image: 'https://images.unsplash.com/photo-1516559828984-fb3b99548b21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
+    image: 'https://i.ibb.co/cXF2rrc/dentist.png',
     cta: 'See Reviews',
     labels: ['ASD Specialist', 'Insurance Accepted'],
     type: 'Dentist',
@@ -51,7 +51,7 @@ export default [
   },
   {
     title: 'Dr. Lisa Talbott, PHD',
-    stars: 5.0,
+    stars: 4.7,
     image: 'https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1326&q=80',
     cta: 'See Reviews',
     labels: ['CBT'],
@@ -61,7 +61,7 @@ export default [
   },
   {
     title: 'Community School of Music & Art',
-    stars: 5.0,
+    stars: 4.2,
     image: 'https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1326&q=80',
     cta: 'See Reviews',
     labels: ['Music', 'After School'],
