@@ -14,24 +14,44 @@ import uuid from 'react-native-uuid';
 const { width } = Dimensions.get("screen");
 
 
-function storeReview(review) {
-	console.log(review);
-	const db = getDatabase();
-  
-	if (!review['id']) {
-	  review['id'] = uuid.v4();
-	}
-  
-	const reference = ref(db, 'reviews/' + review['id']);
-	
-	set(reference, {
-	  "title": review['title'],
-	});
-	return true
-  }
-
-
 class AddReviewStars extends React.Component {
+
+	// The state assumes that the resourceId is pre-packaged
+	// inside the review object passed in the props.
+	state =  {
+		review: this.props.route.params.review,
+		ratings: {
+			"Safety": 1, 
+			"Accessibility": 1, 
+			"Environment": 1, 
+			"Communication": 1
+		}
+	}
+
+	storeReview = () => {
+
+		const db = getDatabase();
+	  
+		if (!review['id']) {
+		  review['id'] = uuid.v4();
+		}
+	  
+		const reference = ref(db, 'reviews/' + review['id']);
+		
+		set(reference, {
+		  "title": review['title'],
+		});
+		return true
+	}
+
+	onChangeValue = (header, value) => {
+		let newRatings = this.state.ratings;
+		newRatings[header] = value;
+		this.setState({
+			ratings: newRatings,
+		})
+	}
+
 	renderSliders = () => {
 		const headers = ["Safety", "Accessibility", "Environment", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
@@ -42,7 +62,10 @@ class AddReviewStars extends React.Component {
 					headers.map(h => (
 						<Block style={styles.slider}>
 							<Text bold> {h} </Text>
-							<RatingSlider/>
+							<RatingSlider 
+								header = {h}
+								changeHeaderValue = {this.onChangeValue}
+							/>
 							<Block style = {styles.labelsContainer}>
 							{
 								labels.map(r =>  <Text> {r} </Text>)
@@ -68,7 +91,7 @@ class AddReviewStars extends React.Component {
 				{this.renderSliders()}
 				
 				<Block>
-					<Button style={styles.subButton} onPress={() => storeReview({'title': 'testing7161661611'})}>Submit</Button>
+					<Button style={styles.subButton} onPress={this.storeReview}>Submit</Button>
 				</Block>
 				
 			</Block>

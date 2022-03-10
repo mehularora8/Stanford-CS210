@@ -10,13 +10,32 @@ const { width } = Dimensions.get("screen");
 
 class AddReview extends React.Component {
 
+	state = {
+		resourceId: null, // TBD: Update actual resource ID here, probably going to be passed in.
+		reviewText: '',
+	}
+
 	renderInput = () => {
 		return (
 			<Block style={styles.inputContainer}>
-				<Input rounded style = {styles.reviewBox}/>
+				<Input 
+					rounded 
+					style = {styles.reviewBox}
+					onChangeText = {(newText) => this.setState({reviewText: newText})}
+				/>
 			</Block>
 		);
 		
+	}
+
+	handleNextButton = ()  => {
+		const { navigation } = this.props;
+		const review = {
+			resourceId: this.state.resourceId,
+			reviewText: this.state.reviewText,
+		}
+		console.log(review);
+		navigation.navigate('AddReviewStars', {review});
 	}
 
 	render() {
@@ -32,7 +51,7 @@ class AddReview extends React.Component {
 				</Text>
 				{this.renderInput()}
 				<Block>
-					<Button style={styles.nextButton} onPress={() =>  navigation.navigate('AddReviewStars') }>
+					<Button style={styles.nextButton} onPress={ this.handleNextButton }>
 						Next
 					</Button>
 				</Block>
