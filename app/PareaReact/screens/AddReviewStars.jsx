@@ -45,9 +45,9 @@ class AddReviewStars extends React.Component {
 			reviewRatings: this.state.ratings
 		}
 
+		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
 		console.log("Attempting to add", finalReview);
-		putObject('resources/'  + this.state.review.resourceId + '/reviews', finalReview.reviewId, finalReview);
-
+		putObject(collectionPath, finalReview.reviewId, finalReview);
 		console.log("ADDED");
 
 		const { navigation } = this.props;
@@ -63,6 +63,8 @@ class AddReviewStars extends React.Component {
 	}
 
 	renderSliders = () => {
+		// TBD: Tapping a label on the slider should make the thumb come
+		// that location on the slider
 		const headers = ["Safety", "Accessibility", "Environment", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
 
@@ -96,45 +98,58 @@ class AddReviewStars extends React.Component {
 		const { navigation } = this.props;
 		return (
 			<View>
-			<StatusBar barStyle="light-content" />
-				<Block style={styles.titleContainer}>
-				<Ionicons name="md-chevron-back" size={24} style={{flex: 1}}color="white" onPress={() =>{  navigation.goBack()}}/>
-				<Text style={styles.titleText}>
-					{this.props.route.params.name}
-				</Text>
-				<View style={{flex: 1}}/>
-				</Block>
-			<Block style={styles.reviewContainer}>
-				<Text h4 bold center style={{marginTop: -30}}>
-					Add a Review
-				</Text>
-				<Text style={styles.inputCaption}>
-					How would you rate your experience?
-				</Text>
-				<Text bold style={{ marginTop: 20, alignSelf: 'flex-start', marginBottom: -20}}>
-					Overall
-				</Text>
-				<Rating 
-                type="custom"
-                ratingColor="#fc3901"
-                ratingBackgroundColor="#999999"
-                tintColor="#f2f2f2"
-                startingValue={0}
-                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
-                imageSize={45}
-                 />
+				<StatusBar barStyle="light-content" />
+					<Block style={styles.titleContainer}>
+					<Ionicons 
+						name="md-chevron-back" 
+						size={24} style={styles.backIcon}
+						color="white" 
+						onPress={() =>  navigation.goBack() }
+					/>
+					<Text style={styles.titleText}>
+						{this.props.route.params.name}
+					</Text>
 
-				{this.renderSliders()}
-				<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
-				
-				
-			</Block>
+					<View style={{flex: 1}}/>
+					</Block>
+				<Block style={styles.reviewContainer}>
+					<Text h4 bold center style={{marginTop: -30}}>
+						Add a Review
+					</Text>
+
+					<Text style={styles.inputCaption}>
+						How would you rate your experience?
+					</Text>
+
+					<Text bold style={{ marginTop: 20, alignSelf: 'flex-start', marginBottom: -20}}>
+						Overall
+					</Text>
+
+					<Rating 
+		                type="custom"
+		                ratingColor="#fc3901"
+		                ratingBackgroundColor="#999999"
+		                tintColor="#f2f2f2"
+		                startingValue={0}
+		                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
+		                imageSize={45}
+	                />
+
+					{this.renderSliders()}
+					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
+					
+					
+				</Block>
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	backIcon: {
+		flex: 1,
+		marginLeft: 8
+	},
 	slider: {
 		marginBottom: '7%',
 	},

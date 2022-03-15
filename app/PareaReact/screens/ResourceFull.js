@@ -29,7 +29,7 @@ export default class ResourceFull extends React.Component {
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
-        <Ionicons name="md-chevron-back" size={24} style={{flex: 1, marginLeft: 8}} color="white" onPress={() =>{  navigation.goBack()}}/>
+        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  navigation.goBack()}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
@@ -99,6 +99,10 @@ export default class ResourceFull extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  backIcon: {
+    flex: 1, 
+    marginLeft: 8
+  },
   container: {
     backgroundColor: theme.COLORS.TERTIARY,
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
