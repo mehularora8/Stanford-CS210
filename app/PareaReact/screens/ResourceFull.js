@@ -21,7 +21,7 @@ export default class ResourceFull extends React.Component {
   render() {
     
     const { navigation } = this.props;
-    let name = this.props.route.params.name
+    let name = this.props.route.params.name ? this.props.route.params.name : "Default";
     let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
  
 
@@ -69,7 +69,7 @@ export default class ResourceFull extends React.Component {
               
                   <Button style={styles.addButton} onPress={() => {
                       console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      navigation.navigate('AddReview');
+                      navigation.navigate('AddReview', { name: this.props.route.params.name });
                     }}>
                   ADD A REVIEW
                 </Button>

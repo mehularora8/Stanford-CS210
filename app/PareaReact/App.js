@@ -17,11 +17,6 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs(["[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
-/* DEMO TEST */
-import { LogBox } from 'react-native';
-LogBox.ignoreLogs(["[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!"]); // Ignore log notification by message
-LogBox.ignoreAllLogs(); //Ignore all log notifications
-
 
 // cache app images
 const assetImages = [
