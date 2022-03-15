@@ -10,6 +10,9 @@ import RatingSlider  from '../components/RatingSlider';
 // import firestoreDb from "../firebaseConfig";
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
 
+
+import { putObject } from "../firebase_utils";
+
 import uuid from 'react-native-uuid';
 
 
@@ -41,12 +44,7 @@ class AddReviewStars extends React.Component {
 		}
 
 		console.log("Attempting to add", finalReview);
-
-		const reviewDoc = doc(firestoreDb, 'resources', this.state.review.resourceId);
-		const docSnap = await getDoc(reviewDoc);
-		console.log("Got docsnap:", docSnap);
-
-		await setDoc(reviewDoc, finalReview);
+		putObject('resources/'  + this.state.review.resourceId + '/reviews', finalReview.reviewId, finalReview);
 
 		console.log("ADDED");
 
