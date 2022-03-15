@@ -13,25 +13,7 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
-import uuid from 'react-native-uuid';
-
-
-
-function storeReview(review) {
-  const db = getDatabase();
-
-  if (!review['id']) {
-    review['id'] = uuid.v4();
-  }
-
-  const reference = ref(db, 'reviews/' + review['id']);
-  
-  set(reference, {
-    "title": review['title'],
-  });
-  return true
-}
+import {getObjectsFromCollection} from '../firebase_utils'
 
 
 export default class ResourceFull extends React.Component {
@@ -85,7 +67,10 @@ export default class ResourceFull extends React.Component {
                     ))}
                   </Block>
               
-                  <Button style={styles.addButton} onPress={() => navigation.navigate('AddReview', {name: name})}>
+                  <Button style={styles.addButton} onPress={() => {
+                      console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
+                      navigation.navigate('AddReview');
+                    }}>
                   ADD A REVIEW
                 </Button>
                 </Block>
