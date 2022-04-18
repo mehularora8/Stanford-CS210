@@ -41,7 +41,7 @@ class Onboarding extends React.Component {
                   onPress={() => navigation.navigate("App")}
                   textStyle={{ color: argonTheme.COLORS.WHITE, fontFamily: 'Open Sans' }}
                 >
-                  Get Started
+                  Continue as Guest
                 </Button>
                 <Button
                   style={styles.button}
@@ -49,8 +49,18 @@ class Onboarding extends React.Component {
                   onPress={() => navigation.navigate("App")}
                   textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
                 >
-                  Already have an account?
+                  Login
                 </Button>
+                <Block>
+                  <Text 
+                    color={argonTheme.COLORS.PRIMARY}
+                    onPress={() => navigation.navigate("Register")}
+                    style={{padding: 8 }}
+                    textStyle={{ color: "#999999", fontFamily: 'Open Sans'}}
+                  >
+                    Create an account
+                  </Text>
+                </Block>
               </Block>
               <Block style={styles.subTitle}>
                   <Text color="rgba(252, 57, 1, 0.7)" size={13}>
