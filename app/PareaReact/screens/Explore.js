@@ -1,4 +1,6 @@
 import React from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
@@ -16,6 +18,23 @@ var Map = require('../components/Map').default
 const { width } = Dimensions.get('screen');
 
 
+function addResourceClick(nav) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user && !user.isAnonymous) {
+      console.log("detected logged in user: %s", user.email)
+      const uid = user.uid;
+      console.log(user)
+      nav.navigate('AddResource')
+    } else {
+      console.log("Unknown user!")
+      // Popup login/register?
+      nav.navigate('RegisterPage')
+    }
+  })
+}
+
+
 class Home extends React.Component {
 
   renderArticles = () => {
@@ -30,7 +49,7 @@ class Home extends React.Component {
           <Map navigation={navigation}/>
           <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
-          <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+          <Button  style={styles.addResource} onPress={()=> addResourceClick(navigation)}>
               <Text style={styles.addResourceText}>
                 Add a
                 </Text>

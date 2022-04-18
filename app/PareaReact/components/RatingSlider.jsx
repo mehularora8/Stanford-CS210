@@ -8,7 +8,9 @@ import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { TextInput } from 'react-native-gesture-handler';
 
+
 const { width, height } = Dimensions.get("screen");
+
 
 class RatingSlider extends React.Component {
   // Initialize using props otherwise assign default value

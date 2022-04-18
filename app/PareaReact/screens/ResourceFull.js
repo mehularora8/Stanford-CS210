@@ -68,7 +68,7 @@ export default class ResourceFull extends React.Component {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
+                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
                       navigation.navigate('AddReview', { name: this.props.route.params.name });
                     }}>
                   ADD A REVIEW

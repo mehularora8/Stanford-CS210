@@ -10,7 +10,7 @@ const Map = (props) => {
     // state = {
     //     value: 1,
     // }
-    console.log(props.navigation)
+    // console.log(props.navigation)
     const navigation = props.navigation
 
     
