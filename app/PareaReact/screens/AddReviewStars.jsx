@@ -52,6 +52,7 @@ class AddReviewStars extends React.Component {
 
 		const { navigation } = this.props;
 		navigation.navigate("ExplorePage");
+		//Add toast to show review submitted 
 	}
 
 	onChangeValue = (header, value) => {

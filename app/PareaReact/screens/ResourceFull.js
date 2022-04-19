@@ -13,7 +13,7 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import {getObjectsFromCollection} from '../firebase_utils'
+import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
 
 
 export default class ResourceFull extends React.Component {
@@ -22,8 +22,10 @@ export default class ResourceFull extends React.Component {
     
     const { navigation } = this.props;
     let name = this.props.route.params.name ? this.props.route.params.name : "Default";
+    //let id = this.props.route.params.id;
     let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
- 
+    console.log(getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => console.log(x)))
+    // console.log(getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => console.log(x)));
 
     return (
       <Block flex style={styles.container}>
@@ -81,6 +83,13 @@ export default class ResourceFull extends React.Component {
             <ReviewSummaryCard/>
             <ReviewPreviewCard/>
             <ReviewPreviewCard/>
+            {/* </Block>
+                {
+                  articles.map((x, i) => (
+                    <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
+                  ))
+                }
+            </Block> */}
             <Button style={styles.seeReviewsButton}>
                     See all reviews
             </Button>

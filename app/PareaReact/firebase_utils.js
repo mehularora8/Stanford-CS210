@@ -1,5 +1,5 @@
 import uuid from 'react-native-uuid';
-import { collection, setDoc, getDoc, getDocs, doc } from 'firebase/firestore';
+import { collection, setDoc, getDoc, getDocs, doc, listCollections } from 'firebase/firestore';
 
 import db from './config.js';
 
@@ -19,6 +19,20 @@ export async function getObject(col, key) {
     return null;
   }
 }
+
+export async function getReviews(col, key) {
+  /* 
+  Helper function for getting reviews for a given resource
+  pass a collection ('resources'), and the primary key of the object
+  Always the object if found, else null
+  */
+  const docRef = doc(db, col, key)
+  const reviewsRef = collection(db, col, key, 'reviews')
+  const reviewsSnap = await getDocs(reviewsRef)
+  const reviewsArray = reviewsSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+  return reviewsArray;
+}
+
 
 
 export async function putObject(col, key, object) {
