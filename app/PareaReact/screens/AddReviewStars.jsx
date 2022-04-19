@@ -31,7 +31,8 @@ class AddReviewStars extends React.Component {
 			"Safety": 1, 
 			"Accessibility": 1, 
 			"Environment": 1, 
-			"Communication": 1
+			"Communication": 1,
+			"Overall": 0,
 		}
 	}
 
@@ -62,6 +63,7 @@ class AddReviewStars extends React.Component {
 			ratings: newRatings,
 		})
 	}
+
 
 	renderSliders = () => {
 		// TBD: Tapping a label on the slider should make the thumb come
@@ -134,6 +136,7 @@ class AddReviewStars extends React.Component {
 		                startingValue={0}
 		                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
 		                imageSize={45}
+						onFinishRating={(rating) => this.onChangeValue("Overall", rating)}
 	                />
 
 					{this.renderSliders()}
