@@ -41,8 +41,7 @@
     "react-native-screens": "^3.10.2",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.1",
-    "react-navigation": "^4.4.4",
-    "undefined": "firebase/firestore"
+    "react-navigation": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
