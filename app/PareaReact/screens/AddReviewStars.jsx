@@ -141,8 +141,6 @@ class AddReviewStars extends React.Component {
 
 					{this.renderSliders()}
 					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
-					
-					
 				</Block>
 			</View>
 		);
