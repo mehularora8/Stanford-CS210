@@ -14,6 +14,25 @@ import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection} from '../firebase_utils'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+
+
+function addReviewClick(nav, paramname) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user && !user.isAnonymous) {
+      console.log("detected logged in user: %s", user.email)
+      const uid = user.uid;
+      console.log(user)
+      nav.navigate('AddReview', { name: paramname });
+    } else {
+      console.log("Unknown user!")
+      // Popup login/register?
+      nav.navigate('RegisterPage')
+    }
+  })
+}
 
 
 export default class ResourceFull extends React.Component {
@@ -68,8 +87,8 @@ export default class ResourceFull extends React.Component {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      navigation.navigate('AddReview', { name: this.props.route.params.name });
+                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
+                      addReviewClick(navigation, this.props.route.params.name);
                     }}>
                   ADD A REVIEW
                 </Button>
