@@ -12,13 +12,27 @@ import { Ionicons } from '@expo/vector-icons';
 import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 
 const { width, height } = Dimensions.get("screen");
 
 const thumbMeasure = (width - 48 - 32) / 3;
+
+
+function doSignOut(nav, setUser) {
+  const auth = getAuth();
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    console.log(auth.currentUser)
+    setUser(null)
+    nav.navigate("Explore")
+  }).catch((error) => {
+    // An error happened.
+    console.log(error)
+  });
+}
 
 
 const Profile = ({navigation}) => {
@@ -30,7 +44,7 @@ const Profile = ({navigation}) => {
           const auth = getAuth();
           onAuthStateChanged(auth, (user) => {
             if (user && !user.isAnonymous) {
-              setUser(user.uid)
+              setUser(user)
             } else {
               console.log("anon user hit profile page")
             }
@@ -78,7 +92,7 @@ const Profile = ({navigation}) => {
                 <Block style={styles.info}>
                 <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color={argonTheme.COLORS.PRIMARY}>
-                      Jessica J
+                      {user.displayName}
                     </Text>
                     <Block row style={{alignItems: 'center'}}>
                     <Ionicons name="location-outline" size={28} color="black" />
@@ -154,8 +168,14 @@ const Profile = ({navigation}) => {
                 </Block>
               </Block>
             </ScrollView>
+            
           </ImageBackground>
         </Block>
+        <Block center>
+            <Button onPress={() => doSignOut(navigation, setUser)}>
+              Sign out
+            </Button>
+          </Block>
       </Block>
       }
     );

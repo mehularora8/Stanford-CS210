@@ -1,5 +1,5 @@
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import {
   ImageBackground,
@@ -23,9 +23,20 @@ function registerUser(nav, email, password, first, last, setError) {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      // ...
-      console.log("Cool, user created: ")
-      console.log(user)
+
+      updateProfile(auth.currentUser, {
+        displayName: first + " " + last, 
+        // photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => {
+        // Profile updated!
+        // ...
+        console.log(auth.currentUser)
+      }).catch((error) => {
+        // An error occurred
+        // ...
+        console.log("error updating profile")
+      });
+
       nav.goBack()
     })
     .catch((error) => {
@@ -47,16 +58,16 @@ const RegisterPage = (props) => {
   const [err, setError] = React.useState(null);
 
     return (
-      <Block flex style={styles.container}>
-        <StatusBar hidden />
-        <Block flex center>
+      <Block flex center style={styles.container}>
+        {/* <StatusBar hidden /> */}
+        <Block flex top>
         <ImageBackground
             source={Images.Grad}
             style={{ height, width, zIndex: 0 }}
           />
         </Block>
         <Block flex space="between" style={styles.padded}>
-            <Block >
+            <Block>
               <Block style={styles.title}>
                 <Text size={23}>
                   Don't have an account? Create one here!
@@ -65,50 +76,50 @@ const RegisterPage = (props) => {
 
               {/* Some form here */}
               <Block width={width * 0.8}>
-                    <Input
-                        borderless
-                        placeholder="First name"
-                        onChangeText={firstname => changeFirst(firstname)}
-                        value={firstname}
-                    />
-                </Block>
-                <Block width={width * 0.8}>
-                    <Input
-                        borderless
-                        placeholder="Last name"
-                        onChangeText={lastname => changeLast(lastname)}
-                        value={lastname}
-                    />
-                </Block>
+                <Input
+                    borderless
+                    placeholder="First name"
+                    onChangeText={firstname => changeFirst(firstname)}
+                    value={firstname}
+                />
+              </Block>
               <Block width={width * 0.8}>
-                    <Input
-                        borderless
-                        placeholder="Email"
-                        onChangeText={email => changeEmail(email)}
-                        value={email}
-                    />
-                </Block>
-                <Block width={width * 0.8} style={{ marginBottom: 2 }}>
-                    <Input
-                        borderless
-                        placeholder="Password"
-                        password={true}
-                        value={pass}
-                        onChangeText={pass => changePassword(pass)}
-                    />
-                </Block>
+                <Input
+                    borderless
+                    placeholder="Last name"
+                    onChangeText={lastname => changeLast(lastname)}
+                    value={lastname}
+                />
+              </Block>
+              <Block width={width * 0.8}>
+                <Input
+                    borderless
+                    placeholder="Email"
+                    onChangeText={email => changeEmail(email)}
+                    value={email}
+                />
+              </Block>
+              <Block width={width * 0.8} style={{ marginBottom: 2 }}>
+                <Input
+                    borderless
+                    placeholder="Password"
+                    password={true}
+                    value={pass}
+                    onChangeText={pass => changePassword(pass)}
+                />
+              </Block>
             {err != null ? 
                  <Text color="rgba(252, 57, 1, 0.7)" size={13}>{err}</Text>: <></>
             }
 
-              <Button
-                  style={styles.button}
-                  color={argonTheme.COLORS.TERTIARY}
-                  onPress={() => registerUser(navigation, email, pass, firstname, lastname, setError)}
-                  textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
-                >
-                  Register
-                </Button>
+            <Button
+                style={styles.button}
+                color={argonTheme.COLORS.TERTIARY}
+                onPress={() => registerUser(navigation, email, pass, firstname, lastname, setError)}
+                textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+            >
+              Register
+            </Button>
               
               <Block style={styles.subTitle}>
                   <Text color="rgba(252, 57, 1, 0.7)" size={13}>
@@ -123,7 +134,7 @@ const RegisterPage = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: theme.COLORS.BLACK,
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
