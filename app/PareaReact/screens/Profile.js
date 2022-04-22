@@ -25,7 +25,6 @@ function doSignOut(nav, setUser) {
   const auth = getAuth();
   signOut(auth).then(() => {
     // Sign-out successful.
-    console.log(auth.currentUser)
     setUser(null)
     nav.navigate("Explore")
   }).catch((error) => {
@@ -46,7 +45,7 @@ const Profile = ({navigation}) => {
             if (user && !user.isAnonymous) {
               setUser(user)
             } else {
-              console.log("anon user hit profile page")
+
             }
           })
         }
@@ -60,13 +59,12 @@ const Profile = ({navigation}) => {
             style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
-          <Block style={styles.drop}>
-            <Text bold size={28} color={argonTheme.COLORS.PRIMARY}>
-              Need an account? 
-              Register here 
+          <Block center style={styles.drop}>
+            <Text bold size={24} color={argonTheme.COLORS.TERTIARY}>
+              Create an account to view your profile
             </Text>
             <Button onPress={() => navigation.navigate('RegisterPage')}>
-              Register
+              Register / Login
             </Button>
           </Block>
           </ImageBackground>

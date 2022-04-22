@@ -1,5 +1,5 @@
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 
 import {
   ImageBackground,
@@ -30,7 +30,7 @@ function registerUser(nav, email, password, first, last, setError) {
       }).then(() => {
         // Profile updated!
         // ...
-        console.log(auth.currentUser)
+        // console.log(auth.currentUser)
       }).catch((error) => {
         // An error occurred
         // ...
@@ -40,9 +40,34 @@ function registerUser(nav, email, password, first, last, setError) {
       nav.goBack()
     })
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
-      setError(errorMessage)
+      if (errorMessage === "Firebase: Error (auth/invalid-email).") {
+        setError("Invalid Email")
+      } else if (errorMessage.includes("(auth/weak-password).")) {
+        setError("Password should contain at least 6 characters.")
+      } else {
+        setError(errorMessage)
+      }
+    });
+}
+
+function realLogin(nav, email, password, se) {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      // const user = userCredential.user;
+      // update state?
+      // console.log("user logged in with info: ")
+      // console.log(user)
+      console.log(nav.getState())
+      nav.goBack()
+      // nav.navigate("App");
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      console.log("Error message: %s", errorMessage)
+      se("Incorrect username or password")
     });
 }
 
@@ -53,20 +78,51 @@ const RegisterPage = (props) => {
 
   const [email, changeEmail] = React.useState("");
   const [pass, changePassword] = React.useState("");
+  const [emailLogin, changeEmailLogin] = React.useState("");
+  const [passLogin, changePasswordLogin] = React.useState("");
   const [firstname, changeFirst] = React.useState("");
   const [lastname, changeLast] = React.useState("");
   const [err, setError] = React.useState(null);
 
     return (
-      <Block flex center style={styles.container}>
-        {/* <StatusBar hidden /> */}
+      <Block center style={styles.container}>
         <Block flex top>
         <ImageBackground
             source={Images.Grad}
-            style={{ height, width, zIndex: 0 }}
+            style={{ height, width }}
           />
         </Block>
-        <Block flex space="between" style={styles.padded}>
+        <Block flex style={styles.login}>
+          <Text center>
+            Have an account? Login 
+          </Text>
+          <Block width={width * 0.8}>
+              <Input 
+                  borderless
+                  placeholder="Email"
+                  onChangeText={emailLogin => changeEmailLogin(emailLogin)}
+                  value={emailLogin}
+              />
+          </Block>
+          <Block width={width * 0.8} style={{ marginBottom: 2 }}>
+              <Input
+                  borderless
+                  placeholder="Password"
+                  password={true}
+                  value={passLogin}
+                  onChangeText={passLogin => changePasswordLogin(passLogin)}
+              />
+          </Block>
+          <Button
+                style={styles.button}
+                color={argonTheme.COLORS.TERTIARY}
+                onPress={() => {realLogin(navigation, emailLogin, passLogin, setError)}}
+                textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+            >
+                Login
+            </Button>
+        </Block>
+        <Block space="between" style={styles.padded}>
             <Block>
               <Block style={styles.title}>
                 <Text size={23}>
@@ -108,9 +164,6 @@ const RegisterPage = (props) => {
                     onChangeText={pass => changePassword(pass)}
                 />
               </Block>
-            {err != null ? 
-                 <Text color="rgba(252, 57, 1, 0.7)" size={13}>{err}</Text>: <></>
-            }
 
             <Button
                 style={styles.button}
@@ -120,6 +173,10 @@ const RegisterPage = (props) => {
             >
               Register
             </Button>
+
+            {err != null ? 
+                 <Text center color="rgba(252, 57, 1, 0.7)" size={17}>{err}</Text>: <></>
+            }
               
               <Block style={styles.subTitle}>
                   <Text color="rgba(252, 57, 1, 0.7)" size={13}>
@@ -139,9 +196,12 @@ const styles = StyleSheet.create({
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
     position: "relative",
-    bottom: theme.SIZES.BASE,
-    zIndex: 2,
+    bottom: theme.SIZES.BASE + 190,
   },
+  login: {
+    bottom: 160,
+    position: "relative",
+  },  
   button: {
     width: width - theme.SIZES.BASE * 6,
     height: theme.SIZES.BASE * 3,
@@ -168,6 +228,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     /* or 154% */
 
+    marginBottom: -120,
     display: 'flex',
     alignItems: 'center',
     letterSpacing: -0.41,

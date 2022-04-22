@@ -24,8 +24,8 @@ function realLogin(nav, email, password, se) {
         // Signed in 
         const user = userCredential.user;
         // update state?
-        console.log("user logged in with info: ")
-        console.log(user)
+        // console.log("user logged in with info: ")
+        // console.log(user)
         nav.navigate("App");
       })
       .catch((error) => {
@@ -33,7 +33,7 @@ function realLogin(nav, email, password, se) {
         console.log("Error message: %s", errorMessage)
         se("Incorrect username or password")
       });
-  }
+}
 
 
 const LoginPage = (props) => {

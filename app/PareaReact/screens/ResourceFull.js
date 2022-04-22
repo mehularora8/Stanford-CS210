@@ -87,13 +87,8 @@ export default class ResourceFull extends React.Component {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-<<<<<<< HEAD
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
                       addReviewClick(navigation, this.props.route.params.name);
-=======
-                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      navigation.navigate('AddReview', { name: this.props.route.params.name });
->>>>>>> d5d50ef (major auth additions. basic login, guest, register, and routing implemented)
                     }}>
                   ADD A REVIEW
                 </Button>
