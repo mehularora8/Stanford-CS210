@@ -11,8 +11,17 @@ import { style } from 'dom-helpers';
 //Person: userid, profile picture, name, persona tag, 
 //Review: date, rating value, upvotes, text, comments
 
-class ReviewPreviewCard extends React.Component {
-  render() {
+const ReviewPreviewCard = (props) => {
+  console.log("IN REVIEW ")
+  // console.log(props.item.reviewRatings)
+
+  let ratingsObj = null
+  if (props.item !== undefined) {
+    ratingsObj = props.item.reviewRatings
+    console.log(ratingsObj)
+  }
+
+
     return (
           <Block flex style={styles.reviewPreviewCard}>
             <Block style={{display: "inline-block"}}>
@@ -32,7 +41,7 @@ class ReviewPreviewCard extends React.Component {
                         ratingColor="#fc3901"
                         ratingBackgroundColor="#999999"
                         fractions={1}
-                        startingValue={5}
+                        startingValue={ratingsObj === undefined ? 0 : ratingsObj.Overall}
                         imageSize={15}
                         readonly  
                         />
@@ -51,13 +60,13 @@ class ReviewPreviewCard extends React.Component {
               </Block>
            <Text style={styles.reviewText}>
              {/* review text data */}
-              the second we walked in the office, my son was at ease, and, so was I. Most doctor visits tend to be a challenge, but our experience here was phenomenal. The staff here know kids! They kept my son engaged... <Text style={styles.readMore}>Read more</Text>
+             {props.text}
+               <Text style={styles.readMore}>Read more</Text>
            </Text>
 
         
           </Block>
         );
-    }  
 }
 
 const styles = StyleSheet.create({

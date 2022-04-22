@@ -17,29 +17,28 @@ import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils
 import { thisTypeAnnotation } from '@babel/types';
 
 
-export default class ResourceFull extends React.Component {
+const ResourceFull = (props) => {
 
+    const [reviewsArray, setReviewsArray] = React.useState(null);
 
-  getReviewDetails () {   
-    getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => { //need to pass resource id here 
-      console.log(x)
-      console.log(x.length + " reviews")
+    React.useEffect(() => {
+      if (reviewsArray == null) {
+        getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => { //need to pass resource id here 
+          setReviewsArray(x)
+        })
+      }
     })
-  }
+ 
 
-  
-  render() {
-    console.log(this.getReviewDetails())
-    const { navigation } = this.props;
-    let name = this.props.route.params.name ? this.props.route.params.name : "Default";
+    let name = props.route.params.name ? props.route.params.name : "Default";
     //let id = this.props.route.params.id;
-    let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
-        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  navigation.goBack()}}/>
+        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  props.navigation.goBack()}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
@@ -51,12 +50,12 @@ export default class ResourceFull extends React.Component {
             <Block flex style={styles.topInfoCard}>
                 <Block style={styles.topInfoImg}>
 
-                  <Image source={{url: this.props.route.params.image}} style={{width: 145, height: 145}} />
+                  <Image source={{url: props.route.params.image}} style={{width: 145, height: 145}} />
                 </Block>
                 <Block flex style={styles.topInfoText}>
                   <Block>
                     <Text>
-                      {this.props.route.params.type}
+                      {props.route.params.type}
                     </Text>
                   </Block>
                   <Block flex style={styles.locationInfo}>
@@ -79,7 +78,7 @@ export default class ResourceFull extends React.Component {
               
                   <Button style={styles.addButton} onPress={() => {
                       console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      navigation.navigate('AddReview', { name: this.props.route.params.name });
+                      props.navigation.navigate('AddReview', { name: props.route.params.name });
                     }}>
                   ADD A REVIEW
                 </Button>
@@ -89,9 +88,26 @@ export default class ResourceFull extends React.Component {
             {/* end of topInfoCard */}
         
             <ReviewSummaryCard/>
-            <ReviewPreviewCard reviewText={"hi"}/>
-            <ReviewPreviewCard/>
-
+            {
+              reviewsArray === null ? 
+              <Block>
+                <Text>
+                "No reviews yet! Add a review to help the community learn."
+                </Text>
+              </Block>
+              :
+              <Block>
+                {
+                  reviewsArray.map((x, i) => (
+                    <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
+                      text = {x.reviewText}
+                      navigation={props.navigation} />
+                  ))
+                }
+                {/* <ReviewPreviewCard />
+                <ReviewPreviewCard/> */}
+              </Block>
+            }
             <Button style={styles.seeReviewsButton}>
                     See all reviews
             </Button>
@@ -106,7 +122,7 @@ export default class ResourceFull extends React.Component {
           </ScrollView>
       </Block>
     );
-  }
+  
 }
 
 const styles = StyleSheet.create({
@@ -216,3 +232,5 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(153, 153, 153, 0.6)"
   },
 });
+
+export default ResourceFull
