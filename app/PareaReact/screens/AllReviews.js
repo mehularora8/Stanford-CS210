@@ -23,25 +23,8 @@ import { thisTypeAnnotation } from '@babel/types';
 //Make review summary metadata accurate 
 
 
-const ResourceFull = (props) => {
+const AllReviews = (props) => {
 
-    const [reviewsArray, setReviewsArray] = React.useState(null);
-    const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
-
-
-    React.useEffect(() => {
-      if (reviewsArray == null) {
-        getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => { //need to pass resource id here 
-          setReviewsArray(x)
-          if (x.length > 3) {
-            setReviewsArrayPrev(x.slice(0,3))
-          } else {
-            setReviewsArrayPrev(x)
-          }
-        })
-      }
-    })
- 
 
     let name = props.route.params.name ? props.route.params.name : "Default";
     //let id = this.props.route.params.id;
@@ -63,49 +46,8 @@ const ResourceFull = (props) => {
         <ScrollView>
 
           <Block flex>
-            <Block flex style={styles.topInfoCard}>
-                <Block style={styles.topInfoImg}>
-
-                  <Image source={{url: props.route.params.image}} style={{width: 145, height: 145}} />
-                </Block>
-                <Block flex style={styles.topInfoText}>
-                  <Block>
-                    <Text>
-                      {props.route.params.type}
-                    </Text>
-                  </Block>
-                  <Block flex style={styles.locationInfo}>
-                    <Ionicons name="location-outline" size={24} color="black" />
-                    <Block flex style={{flexDirection: "row", alignItems: "center"}}>
-                      <Text style={styles.locationText}> Palo Alto </Text>
-                      <Entypo name="dot-single" size={24} color="black" />  
-                      <Text style={styles.locationText}>
-                          3.9 mi
-                      </Text>
-                    </Block>
-                  </Block>
-                  <Block flex style={styles.tagsHolder}>
-                    {tags.map((x) => (
-                      <Text size={10} key={x} style={styles.labels}>
-                        {x}
-                      </Text>
-                    ))}
-                  </Block>
-              
-                  <Button style={styles.addButton} onPress={() => {
-                      console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      props.navigation.navigate('AddReview', { name: props.route.params.name });
-                    }}>
-                  ADD A REVIEW
-                </Button>
-                </Block>
-                </Block> 
-                {/* end of topInfoText */}
-            {/* end of topInfoCard */}
-        
-            <ReviewSummaryCard/>
             {
-              reviewsArrayPrev === null ? 
+              reviewsArray === null ? 
               <Block>
                 <Text>
                 "No reviews yet! Add a review to help the community learn."
@@ -114,26 +56,15 @@ const ResourceFull = (props) => {
               :
               <Block>
                 {
-                  reviewsArrayPrev.map((x, i) => (
+                  reviewsArray.map((x, i) => (
                     <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
                       text = {x.reviewText}
                       navigation={props.navigation} />
                   ))
                 }
-                {/* <ReviewPreviewCard />
-                <ReviewPreviewCard/> */}
+        
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllReviews', {reviewsArray: reviewsArray})}>
-                    See all reviews
-            </Button>
-            <Divider style={styles.divider}/>
-            <QandA />
-            <Divider style={styles.divider} />
-            <ContactCard />
-            <Divider style={styles.divider}/>
-            <ReportCard />
-      
             </Block>
           </ScrollView>
       </Block>
@@ -249,4 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResourceFull
+export default AllReviews

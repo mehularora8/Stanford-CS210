@@ -24,6 +24,8 @@ import AddReview from "../screens/AddReview";
 import AddReviewStars from "../screens/AddReviewStars";
 import ComingSoon from "../components/ComingSoon";
 import ComingSoonGroups from "../components/ComingSoonGroups";
+import AllReviews from "../screens/AllReviews";
+
 
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -180,6 +182,23 @@ function HomeStack(props) {
       <Stack.Screen
         name="ResourceFull"
         component={ResourceFull}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+       <Stack.Screen
+        name="AllReviews"
+        component={AllReviews}
         options={{
           header: ({ navigation, scene }) => (
             <Header
