@@ -6,9 +6,20 @@ import { argonTheme } from '../constants';
 import { LinearProgress, Divider } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
 
-class ReviewSummaryCard extends React.Component {
-  render() {
+const ReviewSummaryCard = (props) => {
+
+  const [reviewsSummaryArray, setReviewsSummaryArray] = React.useState(null);
+
+  React.useEffect(() => {
+    if (reviewsSummaryArray == null) {
+      getObject('resources', props.resourceId).then((x) => { //need to pass resource id here 
+        setReviewsSummaryArray(x.Ratings)
+      })
+    }
+  })
+
     return (
           <Block flex style={styles.reviewSummaryCard}>
             <Text style={styles.title}>
@@ -36,7 +47,7 @@ class ReviewSummaryCard extends React.Component {
                 readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                4.5  [27]
+                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall : "" }  [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
               </Text>
     
             </Block>
@@ -48,7 +59,7 @@ class ReviewSummaryCard extends React.Component {
                 <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.97} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
-                      4.9
+                      {reviewsSummaryArray !== null? reviewsSummaryArray.Safety: "" }
                   </Text>
                 </View>
               </Block>
@@ -60,7 +71,7 @@ class ReviewSummaryCard extends React.Component {
                   <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.88} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
-                      4.7
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility : "" }
                   </Text>
                 </View>
                 </Block>
@@ -72,7 +83,7 @@ class ReviewSummaryCard extends React.Component {
                   <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
-                      4.8
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment : "" }
                   </Text>
                 </View>
                 </Block>
@@ -84,7 +95,7 @@ class ReviewSummaryCard extends React.Component {
                   <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
                   <Text style={styles.subReviewNumVal}>
-                      4.8
+                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication : "" }
                   </Text>
                 </View>
                 </Block>
@@ -92,7 +103,7 @@ class ReviewSummaryCard extends React.Component {
               </Block>
           </Block>
         );
-    }  
+      
 }
 
 const styles = StyleSheet.create({

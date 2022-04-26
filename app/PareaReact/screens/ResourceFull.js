@@ -22,7 +22,6 @@ import { thisTypeAnnotation } from '@babel/types';
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
-
 const ResourceFull = (props) => {
 
     const [reviewsArray, setReviewsArray] = React.useState(null);
@@ -103,7 +102,7 @@ const ResourceFull = (props) => {
                 {/* end of topInfoText */}
             {/* end of topInfoCard */}
         
-            <ReviewSummaryCard/>
+            <ReviewSummaryCard resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
             {
               reviewsArrayPrev === null ? 
               <Block>
