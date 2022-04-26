@@ -23,15 +23,15 @@ const { width, height } = Dimensions.get("screen");
 
 const GOOGLE_PLACES_BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 
-export type PredictionType = {
-  description: string,
-  place_id: string,
-  reference: string,
-  matched_substrings: any[],
-  tructured_formatting: Object,
-  terms: Object[],
-  types: string[],
-}
+// export type PredictionType = {
+//   description: string,
+//   place_id: string,
+//   reference: string,
+//   matched_substrings: any[],
+//   tructured_formatting: Object,
+//   terms: Object[],
+//   types: string[],
+// }
 
 
 class AddResource extends React.Component {
@@ -49,22 +49,22 @@ class AddResource extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Block flex middle>
+      <Block middle>
         <StatusBar hidden />
-          <Block safe flex middle>
+          <Block safe middle>
             <Block style={styles.registerContainer}>
-              <Block flex>
+              <Block>
                 <Button onPress={() => navigation.goBack()} style={styles.cancel} title="X" >
                   <Feather name="x" size={28} color="black" />	
                 </Button>
-                <Block flex middle style={{marginTop:20}}>
+                <Block middle style={{marginTop:40}}>
                   <Text color="#FC3901" size={17}>
                     Add a Resource
                   </Text>
                 </Block>
 
                 <Block>
-                  <Block flex middle>
+                  <Block middle>
                     <Text style={styles.text}
                       color={argonTheme.COLORS.BLACK}
                       size={12}
@@ -73,13 +73,13 @@ class AddResource extends React.Component {
                     </Text>
                   </Block>
 
-                  <Block style = {styles.scroll} flex center>
-                    <KeyboardAvoidingView
+                  <Block style = {styles.scroll} center>
+                    {/* <KeyboardAvoidingView
                       style={{ flex: 1 }}
                       behavior="padding"
                       enabled
-                    >
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                    > */}
+                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
                           placeholder="Name of establishment/organization/person"
@@ -94,7 +94,7 @@ class AddResource extends React.Component {
                           }
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
                           placeholder="Resource Type"
@@ -109,21 +109,7 @@ class AddResource extends React.Component {
                           }
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
-                        <GooglePlacesAutocomplete
-                          placeholder='Address'
-                          onPress={(data, details = null) => {
-                            // 'details' is provided when fetchDetails = true
-                            console.log("Autocomplete is being called")
-                            console.log("DATA:", data);
-                          }}
-                          query={{
-                            key: 'AIzaSyD5FIODfpTMIyy_fS2Jyj6oCYpNloq8jS0',
-                            language: 'en',
-                          }}
-                        />
-                      </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
                           placeholder="(Optional) Link to Website"
@@ -138,7 +124,7 @@ class AddResource extends React.Component {
                           }
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
                           placeholder="(Optional) Phone Number"
@@ -153,7 +139,7 @@ class AddResource extends React.Component {
                           }
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
+                      <Block width={width * 0.9} style={{ marginBottom: 8 }}>
                         <Input
                           borderless
                           placeholder="Tags"
@@ -168,10 +154,25 @@ class AddResource extends React.Component {
                           }
                         />
                       </Block>
-                      <Block middle>
+                      <Block height={250} width={width * 0.9}> 
+                        <GooglePlacesAutocomplete
+                          placeholder='  Address'
+                          height={150} 
+                          width={width * 0.9}
+                          onPress={(data, details = null) => {
+                            // 'details' is provided when fetchDetails = true
+                            console.log("DATA:", data);
+                          }}
+                          query={{
+                            key: 'AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI',
+                            language: 'en',
+                          }}
+                        />
+                      </Block>
+                      <Block middle style={{ marginTop: 0 }} >
                         <Button onPress={() => {
-                          navigation.goBack()
-                          this.submitForReview()
+                          navigation.goBack();
+                          this.submitForReview();
                           navigation.navigate(AddResourceSuccess)
                           }} color="primary" style={styles.createButton}>
                           <Text bold size={14} color={argonTheme.COLORS.WHITE}>
@@ -179,7 +180,7 @@ class AddResource extends React.Component {
                           </Text>
                         </Button>
                       </Block>
-                    </KeyboardAvoidingView>
+                    {/* </KeyboardAvoidingView> */}
                   </Block>
                 </Block>
               </Block>
@@ -236,8 +237,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   scroll: {
-    marginVertical: -300,
-    
+    marginVertical: 100,
   },
   text: {
     textAlign: 'center',
