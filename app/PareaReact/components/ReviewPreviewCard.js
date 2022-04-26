@@ -13,15 +13,21 @@ import { format } from "date-fns";
 //Review: date, rating value, upvotes, text, comments
 
 //TODO 
-//Make read more conditional on character length of review string 
+//Make read more functional
+//Adjust size of card based on amount of text 
 
 const ReviewPreviewCard = (props) => {
   console.log("IN REVIEW ")
-  console.log(props.item)
 
   let ratingsObj = null
   let date = null
   let formattedDate = null
+  let longReview = false
+  if (props.text !== undefined) {
+    if (props.text.length > 150) {
+      longReview = true;
+    }
+  }
   if (props.item !== undefined) {
     ratingsObj = props.item.reviewRatings
     if (props.item.date != undefined) {
@@ -29,6 +35,7 @@ const ReviewPreviewCard = (props) => {
       formattedDate = format(date, "MMM yyyy");
     }
   }
+
 
 
     return (
@@ -70,10 +77,10 @@ const ReviewPreviewCard = (props) => {
            <Text style={styles.reviewText}>
              {/* review text data */}
              {props.text}
-               <Text style={styles.readMore}>Read more</Text>
+             { longReview ? 
+               <Text style={styles.readMore}>...Read more</Text> : ""
+             }
            </Text>
-
-        
           </Block>
         );
 }

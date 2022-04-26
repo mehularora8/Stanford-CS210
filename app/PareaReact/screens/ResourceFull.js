@@ -45,9 +45,12 @@ const ResourceFull = (props) => {
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
         <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  props.navigation.goBack()}}/>
+          <View style={{flex: 1}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
+          <View style={{flex: 1}}/>
+          <Ionicons name="bookmark-outline" size={24} color="white" />
           <View style={{flex: 1}}/>
         </Block>
         <ScrollView>
