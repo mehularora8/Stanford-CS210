@@ -6,19 +6,28 @@ import { argonTheme, Images } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+import { format } from "date-fns";
 
 //Data pieces needed: 
 //Person: userid, profile picture, name, persona tag, 
 //Review: date, rating value, upvotes, text, comments
 
+//TODO 
+//Make read more conditional on character length of review string 
+
 const ReviewPreviewCard = (props) => {
   console.log("IN REVIEW ")
-  // console.log(props.item.reviewRatings)
+  console.log(props.item)
 
   let ratingsObj = null
+  let date = null
+  let formattedDate = null
   if (props.item !== undefined) {
     ratingsObj = props.item.reviewRatings
-    console.log(ratingsObj)
+    if (props.item.date != undefined) {
+      date = props.item.date.toDate()
+      formattedDate = format(date, "MMM yyyy");
+    }
   }
 
 
@@ -53,7 +62,7 @@ const ReviewPreviewCard = (props) => {
                     </Text>
                     <Text style={styles.identityTag}>
                       {/* rating date */}
-                        Jan 2022
+                      {formattedDate !== null ? formattedDate : ""}
                     </Text>
                   </View>
                 </View>

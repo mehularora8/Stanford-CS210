@@ -16,6 +16,12 @@ import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 
+//TODO
+//Make reviews only show up under appropriate resource id
+//Sort reviews by Date 
+//Only show first 3 reviews 
+//Make review summary metadata accurate 
+
 
 const ResourceFull = (props) => {
 
