@@ -26,6 +26,7 @@ const ResourceFull = (props) => {
 
     const [reviewsArray, setReviewsArray] = React.useState(null);
     const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
+    const [resourceData, setResourceData] = React.useState(null);
 
 
     React.useEffect(() => {
@@ -37,6 +38,14 @@ const ResourceFull = (props) => {
           } else {
             setReviewsArrayPrev(x)
           }
+        })
+      }
+    })
+
+    React.useEffect(() => {
+      if (resourceData == null) {
+        getObject('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+          setResourceData(x)
         })
       }
     })
@@ -76,7 +85,7 @@ const ResourceFull = (props) => {
                   <Block flex style={styles.locationInfo}>
                     <Ionicons name="location-outline" size={24} color="black" />
                     <Block flex style={{flexDirection: "row", alignItems: "center"}}>
-                      <Text style={styles.locationText}> Palo Alto </Text>
+                      <Text style={styles.locationText}> {resourceData !== null? resourceData.City : ""}</Text>
                       <Entypo name="dot-single" size={24} color="black" />  
                       <Text style={styles.locationText}>
                           3.9 mi
@@ -92,7 +101,6 @@ const ResourceFull = (props) => {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
                       props.navigation.navigate('AddReview', { name: props.route.params.name });
                     }}>
                   ADD A REVIEW
@@ -123,7 +131,7 @@ const ResourceFull = (props) => {
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllReviews', {reviewsArray: reviewsArray})}>
+            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
@@ -131,8 +139,7 @@ const ResourceFull = (props) => {
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
-            <ReportCard />
-      
+            <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
             </Block>
           </ScrollView>
       </Block>

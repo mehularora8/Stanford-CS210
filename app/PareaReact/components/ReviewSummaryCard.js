@@ -99,7 +99,6 @@ const ReviewSummaryCard = (props) => {
                   </Text>
                 </View>
                 </Block>
-
               </Block>
           </Block>
         );

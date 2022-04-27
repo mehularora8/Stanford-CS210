@@ -1,21 +1,56 @@
 import React, {Component} from 'react';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, Modal, Pressable, View} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
 import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
+import Theme from '../constants/Theme';
 
 
-class ReportCard extends React.Component {
-  render() {
+const ReportCard = (props) => {
+
+    const [modalVisible, setModalVisible] = React.useState(false);
+
     return (
           <Block flex style={styles.contactReportCard}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Is <Text style={styles.resourceName}>{props.resourceName}</Text> no longer operating?</Text>
+                    <View style={{display: 'flex', flexDirection: 'row'}} >
+                    <View style={{flex: 1}}/>
+                      <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                          >
+                            <Text style={styles.textStyle}>Cancel</Text>
+                          </Pressable>
+                        <View style={{flex: 1}}/>
+                        <Pressable
+                          style={[styles.button, styles.buttonReport]}
+                          onPress={() => setModalVisible(!modalVisible)}
+                        >
+                          <Text style={styles.textStyle}>Yes, submit report.</Text>
+                        </Pressable>
+                        <View style={{flex: 1}}/>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
               <Text style={styles.title}> Report </Text>
               <View style={styles.buttonHolder}>
                 <View style={{display: "flex", flexDirection:"row"}}>
-                    <Button style={styles.seeReviewsButton}>
+                    <Button style={styles.seeReviewsButton}  onPress={() => setModalVisible(true)}>
                     Not operating
                     </Button>
                     <Button style={styles.seeReviewsButton}>
@@ -33,7 +68,7 @@ class ReportCard extends React.Component {
             </View>
           </Block>
         );
-    }  
+      
 }
 
 const styles = StyleSheet.create({
@@ -95,6 +130,55 @@ const styles = StyleSheet.create({
   },
   buttonHolder: {
       marginLeft: -5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 12,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "rgba(153, 153, 153, 0.6)",
+    paddingLeft: '8%',
+    paddingRight: '8%'
+  },
+  buttonReport: {
+    backgroundColor: "orange",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  resourceName: {
+    fontWeight: "600"
   }
 });
 

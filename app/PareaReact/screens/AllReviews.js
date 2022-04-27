@@ -27,8 +27,8 @@ const AllReviews = (props) => {
 
 
     let name = props.route.params.name ? props.route.params.name : "Default";
-    //let id = this.props.route.params.id;
-    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
+    let reviewsArray = props.route.params.reviewsArray ? props.route.params.reviewsArray : null; 
+    
 
     return (
       <Block flex style={styles.container}>
@@ -43,8 +43,12 @@ const AllReviews = (props) => {
           <Ionicons name="bookmark-outline" size={24} color="white" />
           <View style={{flex: 1}}/>
         </Block>
+        <Block>
+          <Text style={{fontSize: 17, padding: '3%'}}>
+            Viewing all <Text style={{fontWeight: '600'}}>{reviewsArray !== null ? reviewsArray.length : "" } </Text>reviews 
+          </Text>
+        </Block>
         <ScrollView>
-
           <Block flex>
             {
               reviewsArray === null ? 
