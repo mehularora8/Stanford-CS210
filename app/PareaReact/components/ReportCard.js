@@ -7,11 +7,27 @@ import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import Theme from '../constants/Theme';
+import uuid from 'react-native-uuid';
+import { putObject } from "../firebase_utils";
 
 
 const ReportCard = (props) => {
 
     const [modalVisible, setModalVisible] = React.useState(false);
+
+    submitReport = async (reportType) => {
+      if (!props.resourceId) return;
+      const report = {
+        reportId: uuid.v4(),
+        reportType: reportType,
+        date: new Date()
+      }
+  
+      const collectionPath = 'resources/'  + props.resourceId + '/reports';
+      console.log("Attempting to add", report);
+      putObject(collectionPath, report.reportId, report);
+      console.log("ADDED");
+    }
 
     return (
           <Block flex style={styles.contactReportCard}>
@@ -26,7 +42,7 @@ const ReportCard = (props) => {
               >
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Is <Text style={styles.resourceName}>{props.resourceName}</Text> no longer operating?</Text>
+                    <Text style={styles.modalText}>Did <Text style={styles.resourceName}>{props.resourceName}</Text> permanently closed?</Text>
                     <View style={{display: 'flex', flexDirection: 'row'}} >
                     <View style={{flex: 1}}/>
                       <Pressable
@@ -38,7 +54,10 @@ const ReportCard = (props) => {
                         <View style={{flex: 1}}/>
                         <Pressable
                           style={[styles.button, styles.buttonReport]}
-                          onPress={() => setModalVisible(!modalVisible)}
+                          onPress={() => {
+                              submitReport("closed")
+                              setModalVisible(!modalVisible)
+                          }}
                         >
                           <Text style={styles.textStyle}>Yes, submit report.</Text>
                         </Pressable>
@@ -166,7 +185,7 @@ const styles = StyleSheet.create({
     paddingRight: '8%'
   },
   buttonReport: {
-    backgroundColor: "orange",
+    backgroundColor: argonTheme.COLORS.PRIMARY,
   },
   textStyle: {
     color: "white",

@@ -8,6 +8,8 @@ import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
 
+//TO DO: Make read more a pressable opacity that extends the size of the card 
+
 const ReviewSummaryCard = (props) => {
 
   const [reviewsSummaryArray, setReviewsSummaryArray] = React.useState(null);
