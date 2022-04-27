@@ -362,7 +362,7 @@ function AppStack(props) {
           ),
           headerShown: false, // true to show 
         }}/>
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="Gro" 
         component={ComingSoonGroups}
         options={{
@@ -371,7 +371,7 @@ function AppStack(props) {
             <MaterialIcons name="group-work" size={size} color={color} />
           ),
           headerShown: false, // true to show 
-        }} />
+        }} /> */}
       <Tab.Screen 
         name="Prof" 
         component={ProfileStack} 
