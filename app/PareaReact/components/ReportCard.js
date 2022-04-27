@@ -9,18 +9,22 @@ import { style } from 'dom-helpers';
 import Theme from '../constants/Theme';
 import uuid from 'react-native-uuid';
 import { putObject } from "../firebase_utils";
+import { TextInput } from 'react-native-gesture-handler';
 
 
 const ReportCard = (props) => {
 
     const [modalVisible, setModalVisible] = React.useState(false);
+    const [reportType, setReportType] = React.useState("");
+    const [text, onChangeText] = React.useState(null);
 
     submitReport = async (reportType) => {
       if (!props.resourceId) return;
       const report = {
         reportId: uuid.v4(),
         reportType: reportType,
-        date: new Date()
+        date: new Date(),
+        reportText: text
       }
   
       const collectionPath = 'resources/'  + props.resourceId + '/reports';
@@ -29,8 +33,15 @@ const ReportCard = (props) => {
       console.log("ADDED");
     }
 
+    handleReportButton = (type) => {
+      setReportType(type)
+      setModalVisible(true)
+    }
+
     return (
           <Block flex style={styles.contactReportCard}>
+
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -42,7 +53,48 @@ const ReportCard = (props) => {
               >
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Did <Text style={styles.resourceName}>{props.resourceName}</Text> permanently closed?</Text>
+                    {reportType === "closed" ? 
+                    <Text style={styles.modalText}>Did <Text style={styles.resourceName}>{props.resourceName}</Text> permanently close?</Text>
+                    :
+                    <View/>
+                    }
+                    {reportType === "incorrect" ? <View>
+                      <Text style={styles.modalText}>Is information about <Text style={styles.resourceName}>{props.resourceName}</Text> incorrect? </Text> 
+                        <TextInput
+                        style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
+                        onChangeText={onChangeText}
+                        multiline
+                        numberOfLines={4}
+                        value={text}
+                        placeholder="Please describe what is wrong.
+                        "
+                        />
+                    </View> : <View/>}
+                    {reportType === "missing" ? <View>
+                      <Text style={styles.modalText}>Is information about <Text style={styles.resourceName}>{props.resourceName}</Text> missing? </Text> 
+                        <TextInput
+                        style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
+                        onChangeText={onChangeText}
+                        multiline
+                        numberOfLines={4}
+                        value={text}
+                        placeholder="Please describe what should be added.
+                        "
+                        />
+                    </View> : <View/>}
+                    {reportType === "other" ? <View>
+                      <Text style={styles.modalText}>Report a problem with <Text style={styles.resourceName}>{props.resourceName}</Text>? </Text> 
+                        <TextInput
+                        style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
+                        onChangeText={onChangeText}
+                        multiline
+                        numberOfLines={4}
+                        value={text}
+                        placeholder="Please describe.
+                        "
+                        />
+                    </View> : <View/>}
+
                     <View style={{display: 'flex', flexDirection: 'row'}} >
                     <View style={{flex: 1}}/>
                       <Pressable
@@ -55,32 +107,34 @@ const ReportCard = (props) => {
                         <Pressable
                           style={[styles.button, styles.buttonReport]}
                           onPress={() => {
-                              submitReport("closed")
+                              submitReport(reportType)
                               setModalVisible(!modalVisible)
                           }}
                         >
-                          <Text style={styles.textStyle}>Yes, submit report.</Text>
+                          <Text style={styles.textStyle}>Submit Report</Text>
                         </Pressable>
                         <View style={{flex: 1}}/>
                     </View>
                   </View>
                 </View>
               </Modal>
+
+
               <Text style={styles.title}> Report </Text>
               <View style={styles.buttonHolder}>
                 <View style={{display: "flex", flexDirection:"row"}}>
-                    <Button style={styles.seeReviewsButton}  onPress={() => setModalVisible(true)}>
+                    <Button style={styles.seeReviewsButton}  onPress={() => handleReportButton("closed")}>
                     Not operating
                     </Button>
-                    <Button style={styles.seeReviewsButton}>
+                    <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("incorrect")}>
                     Incorrect info
                     </Button>
                 </View>
                 <View style={{display: "flex", flexDirection:"row"}}>
-                    <Button style={styles.seeReviewsButton}>
+                    <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("missing")}>
                     Missing info
                     </Button>
-                    <Button style={styles.seeReviewsButton}>
+                    <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("other")}>
                     Other
                     </Button>
                 </View>
