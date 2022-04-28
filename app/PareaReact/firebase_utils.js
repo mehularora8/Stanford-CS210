@@ -33,6 +33,19 @@ export async function getReviews(col, key) {
   return reviewsArray;
 }
 
+export async function getQuestions(col, key) {
+  /* 
+  Helper function for getting the questions for a given resource
+  pass a collection ('resources'), and the primary key of the object
+  Always the object if found, else null
+  */
+  const docRef = doc(db, col, key)
+  const reviewsRef = collection(db, col, key, 'questions')
+  const reviewsSnap = await getDocs(reviewsRef)
+  const reviewsArray = reviewsSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+  return reviewsArray;
+}
+
 
 
 export async function putObject(col, key, object) {

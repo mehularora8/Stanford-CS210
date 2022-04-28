@@ -13,8 +13,9 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
+import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
+import QuestionPreviewCard from '../components/QuestionPreviewCard';
 
 //TODO
 //Make reviews only show up under appropriate resource id
@@ -27,6 +28,8 @@ const ResourceFull = (props) => {
     const [reviewsArray, setReviewsArray] = React.useState(null);
     const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
     const [resourceData, setResourceData] = React.useState(null);
+    const [questionsArray, setQuestionsArray] = React.useState(null);
+    const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
 
 
     React.useEffect(() => {
@@ -37,6 +40,19 @@ const ResourceFull = (props) => {
             setReviewsArrayPrev(x.slice(0,3))
           } else {
             setReviewsArrayPrev(x)
+          }
+        })
+      }
+    })
+
+    React.useEffect(() => {
+      if (questionsArray == null) {
+        getQuestions('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+          setQuestionsArray(x)
+          if (x.length > 3) {
+            setQuestionsArrayPrev(x.slice(0,3))
+          } else {
+            setQuestionsArrayPrev(x)
           }
         })
       }
@@ -135,7 +151,18 @@ const ResourceFull = (props) => {
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
-            <QandA />
+            <QandA resourceId={"mxhbRimhbDk6nxbf6wxc"} />
+            { questionsArrayPrev === null ? <Text>"No questions yet. Help the community learn about " + name + " by asking a question." </Text>: 
+              <Block>
+                  {
+                    questionsArrayPrev.map((x, i) => (
+                      <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
+                        text= {x.question}
+                        navigation={props.navigation} />
+                    ))
+                  }
+              </Block>
+            }
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
