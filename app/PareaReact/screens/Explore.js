@@ -11,10 +11,7 @@ import { height } from 'dom-helpers';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getObjectsFromCollection } from '../firebase_utils';
 
-function allAreNull(arr) {
-  return arr.every(element => element !== null);
-}
-
+// TODO: pull types from firebase
 const types = ['Healthcare', 'Restaurants', 'Activities']
 
 var Map = require('../components/Map').default
@@ -25,8 +22,6 @@ const { width } = Dimensions.get('screen');
 
 const Home = (props) => {
 
-
-    
     const navigation = props.navigation
     const [resourceData, setResourceData] = React.useState(null);
  
@@ -45,6 +40,11 @@ const Home = (props) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.scrollView}>
+
+          {/* <Block flex style={styles.topBlock} /> */}
+            <Map navigation={navigation}/>
+            {/* <Input placeholder="Search for activities, care providers, restaurants" 
+                style={styles.input}/> */}
           {/* START:filter */}
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
@@ -54,11 +54,6 @@ const Home = (props) => {
             ))}
           </Block>
           {/* END:filter */}
-          {/* <Block flex style={styles.topBlock} /> */}
-            <Map navigation={navigation}/>
-            {/* <Input placeholder="Search for activities, care providers, restaurants" 
-                style={styles.input}/> */}
-
             <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
                 <Text style={styles.addResourceText}>
                   Add a
@@ -146,6 +141,7 @@ const styles = StyleSheet.create({
   },
   tagsHolder: {
     flexDirection: "row",
+    position: 'absolute',
     marginTop: 50,
     marginLeft: 10
   },
