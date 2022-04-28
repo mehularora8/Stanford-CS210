@@ -23,7 +23,13 @@ import { thisTypeAnnotation } from '@babel/types';
 //Make review summary metadata accurate 
 
 
-const Saved = (props) => {
+class Saved extends React.Component {
+
+  renderSavedResources = () => {
+    
+  }
+
+  render () {
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -36,12 +42,11 @@ const Saved = (props) => {
         </Block>
 
         <ScrollView>
-          <Block >
-      
-            </Block>
+          { this.renderSavedResources() }
           </ScrollView>
       </Block>
     );
+  }
   
 }
 

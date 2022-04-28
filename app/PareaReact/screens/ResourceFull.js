@@ -13,7 +13,9 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
+import {getObjectsFromCollection, getObject, 
+        getReviews, getQuestions, putObject,
+        getSavedIds} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
 
@@ -22,6 +24,49 @@ import QuestionPreviewCard from '../components/QuestionPreviewCard';
 //Sort reviews by Date 
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
+
+saveResource = async (resourceId) => {
+  // UserId will be pulled from the env once we merge
+  // auth stuff, this is temporary
+  let userId = 'EZXePEUqnVM0LVNOGkug'
+  getObject('users', userId).then(user => {
+
+    const savedIds = user.saved;
+    console.log("Saved IDs (from frontend):")
+    console.log(savedIds)
+    if (!savedIds) {
+      user.saved = [resourceId];
+    } else {
+      user.saved.push(resourceId);
+    }
+
+    putObject('users/', userId, user);
+  }).catch(err => {
+    console.log("Error while fetching saved resources", err);
+  })
+}
+
+unsaveResource = (resourceId) => {
+  let userId = 'EZXePEUqnVM0LVNOGkug'
+  getObject('users', userId).then(user => {
+
+    const savedIds = user.saved;
+    if (!savedIds) {
+      return;
+    }
+    let index = savedIds.indexOf(resourceId);
+
+    if (index > -1) {
+      user.saved.splice(index, 1)
+    }
+  
+    putObject('users/', userId, user);
+  }).catch(err => {
+    console.log("Error while fetching saved resources", err);
+  })
+
+  return;
+}
 
 const ResourceFull = (props) => {
 
@@ -45,7 +90,7 @@ const ResourceFull = (props) => {
         getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
           setReviewsArray(x)
           if (x.length > 3) {
-            setReviewsArrayPrev(x.slice(0,3))
+            setReviewsArrayPrev(x.slice(0, 3))
           } else {
             setReviewsArrayPrev(x)
           }
@@ -58,7 +103,7 @@ const ResourceFull = (props) => {
         getQuestions('resources', resourceId).then((x) => {
           setQuestionsArray(x)
           if (x.length > 3) {
-            setQuestionsArrayPrev(x.slice(0,3))
+            setQuestionsArrayPrev(x.slice(0, 3))
           } else {
             setQuestionsArrayPrev(x)
           }
@@ -73,7 +118,7 @@ const ResourceFull = (props) => {
         })
       }
     })
- 
+
 
     return (
       <Block flex style={styles.container}>
@@ -86,12 +131,18 @@ const ResourceFull = (props) => {
           </Text>
           <View style={{flex: 1}}/>
           { saved ? 
-          //ADD CODE TO SAVE / UNSAVE RESOURCES TO FIREBASE IN THESE onPRESS methods :) 
-            <Pressable onPress={() => setSaved(false)}>
+          // TODO: How do I update the value of the bool `saved` from another function?
+            <Pressable onPress={() => {
+              unsaveResource(resourceId);
+              setSaved(false);
+            }}>
               <Ionicons name="bookmark" size={24} color="white" /> 
               </Pressable>
           :
-            <Pressable onPress={() => setSaved(true)}>
+            <Pressable onPress={() => {
+              saveResource(resourceId);
+              setSaved(true);
+            }}>
               <Ionicons name="bookmark-outline" size={24} color="white" />
           </Pressable>
           } 
