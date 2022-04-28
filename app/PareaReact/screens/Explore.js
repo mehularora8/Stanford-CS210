@@ -42,7 +42,10 @@ const Home = (props) => {
           style={styles.scrollView}>
 
           {/* <Block flex style={styles.topBlock} /> */}
-            <Map navigation={navigation}/>
+          {
+            resourceData == null ? <View/> :
+            <Map navigation={navigation} resources={resourceData}/>
+          }
             {/* <Input placeholder="Search for activities, care providers, restaurants" 
                 style={styles.input}/> */}
           {/* START:filter */}

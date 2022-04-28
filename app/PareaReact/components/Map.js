@@ -17,7 +17,6 @@ const Map = (props) => {
 
     let resources = props.resources 
 
-    console.log(resources[0].data.Location.longitude)
     
     // getLat = (location) => {
     //     GeoPoint pt = location.getLocation().toString()
