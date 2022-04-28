@@ -163,6 +163,9 @@ const ResourceFull = (props) => {
                   }
               </Block>
             }
+            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
+                    See all questions
+            </Button>
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
