@@ -35,33 +35,35 @@ const Home = (props) => {
 
     return (
       <Block>
-      
-
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.scrollView}>
 
-          {/* <Block flex style={styles.topBlock} /> */}
-            <Map navigation={navigation}/>
-            {/* <Input placeholder="Search for activities, care providers, restaurants" 
-                style={styles.input}/> */}
+          <Map navigation={navigation}/>
+          {/* <Input placeholder="Search for activities, care providers, restaurants" 
+              style={styles.input}/> */}
+
           {/* START:filter */}
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
-              <Text size={10} key={x} style={styles.labels}>
-                {x}
-              </Text>
+              <Button style={styles.labels}>
+                <Text size={10} key={x}>
+                  {x}
+                </Text>
+              </Button>
             ))}
           </Block>
           {/* END:filter */}
-            <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+
+          <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+              <Text style={styles.addResourceText}>
+                Add a
+                </Text>
                 <Text style={styles.addResourceText}>
-                  Add a
-                  </Text>
-                  <Text style={styles.addResourceText}>
-                  Resource
-                  </Text>
-            </Button>
+                Resource
+                </Text>
+          </Button>
+
           <Block flex style={styles.articles}>
             <Block flex style={styles.resourcesText}>
               <Text style={styles.headerText}>Resources Near You</Text>
@@ -71,7 +73,6 @@ const Home = (props) => {
             {
               resourceData !== null ? 
                 resourceData.map((x, i) => (
-
                 <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
               ))
               :
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   tagsHolder: {
     flexDirection: "row",
     position: 'absolute',
-    marginTop: 50,
+    marginTop: 45,
     marginLeft: 10
   },
   labels: {
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     borderRadius: 12,
     margin: 5,
-    padding: 6,
+    padding: 5,
+    flex: 1,
     overflow: 'hidden',
     opacity: 0.8,
     height: "80%",
