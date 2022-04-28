@@ -16,6 +16,25 @@ import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+
+
+function addReviewClick(nav, paramname, resourceId) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user && !user.isAnonymous) {
+      console.log("detected logged in user: %s", user.email)
+      const uid = user.uid;
+      console.log(user)
+      nav.navigate('AddReview', { name: paramname, resourceId: resourceId});
+    } else {
+      console.log("Unknown user!")
+      // Popup login/register?
+      nav.navigate('RegisterPage')
+    }
+  })
+}
 
 //TODO
 //Make reviews only show up under appropriate resource id
@@ -130,7 +149,8 @@ const ResourceFull = (props) => {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      props.navigation.navigate('AddReview', { name: props.route.params.name });
+                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
+                      addReviewClick(props.navigation, props.route.params.name, resourceId);
                     }}>
                   ADD A REVIEW
                 </Button>

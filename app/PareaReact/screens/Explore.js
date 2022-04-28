@@ -1,4 +1,6 @@
 import React from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
@@ -20,24 +22,41 @@ var Map = require('../components/Map').default
 const { width } = Dimensions.get('screen');
 
 const Home = (props) => {
-    
-    const [pressed, setPressed] = React.useState({
-      "Healthcare": false,
-      "Restaurants": false,
-      "Activities": false,
-    })
 
-    const navigation = props.navigation
-    const [resourceData, setResourceData] = React.useState(null);
-    const [filteredResources, setFilteredResources] = React.useState(null);
- 
-    React.useEffect(() => {
-      if (resourceData == null) {
-        getObjectsFromCollection('resources').then((x) => {
-          setResourceData(x)
-        })
+
+  function addResourceClick(nav) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user && !user.isAnonymous) {
+        console.log("detected logged in user: %s", user.email)
+        const uid = user.uid;
+        console.log(user)
+        nav.navigate('AddResource')
+      } else {
+        console.log("Unknown user!")
+        // Popup login/register?
+        nav.navigate('RegisterPage')
       }
     })
+  }
+
+  const [pressed, setPressed] = React.useState({
+    "Healthcare": false,
+    "Restaurants": false,
+    "Activities": false,
+  })
+
+  const navigation = props.navigation
+  const [resourceData, setResourceData] = React.useState(null);
+  const [filteredResources, setFilteredResources] = React.useState(null);
+
+  React.useEffect(() => {
+    if (resourceData == null) {
+      getObjectsFromCollection('resources').then((x) => {
+        setResourceData(x)
+      })
+    }
+  })
 
     return (
       <Block>
@@ -75,7 +94,7 @@ const Home = (props) => {
           </Block>
           {/* END:filter */}
 
-          <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+          <Button  style={styles.addResource} onPress={()=> addResourceClick(navigation)}>
               <Text style={styles.addResourceText}>
                 Add a
                 </Text>

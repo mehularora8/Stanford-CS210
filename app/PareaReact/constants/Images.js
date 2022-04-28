@@ -16,6 +16,7 @@ const ComingSoonSaved = require("../assets/imgs/ComingSoonSaved.png")
 const ComingSoonGroups = require("../assets/imgs/ComingSoonGroups.png")
 const ProfGradient = require("../assets/imgs/ProfileBackgroundGradient.png")
 const Check = require("../assets/imgs/check.png");
+const Grad = require("../assets/imgs/ProfileBackgroundGradient.png");
 
 // internet imgs
 
@@ -54,5 +55,6 @@ export default {
   ComingSoonSaved,
   ComingSoonGroups,
   ProfGradient,
+  Grad,
   Check
 };
