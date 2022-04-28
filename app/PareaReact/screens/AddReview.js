@@ -11,8 +11,9 @@ const { width } = Dimensions.get("screen");
 
 class AddReview extends React.Component {
 
+	
 	state = {
-		resourceId: null, // TBD: Update actual resource ID here, probably going to be passed in.
+		resourceId: this.props.route.params.resourceId, // TBD: Update actual resource ID here, probably going to be passed in.
 		reviewText: '',
 		reviewDate: new Date(),
 	}

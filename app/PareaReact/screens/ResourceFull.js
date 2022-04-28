@@ -20,14 +20,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 
-function addReviewClick(nav, paramname) {
+function addReviewClick(nav, paramname, resourceId) {
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user && !user.isAnonymous) {
       console.log("detected logged in user: %s", user.email)
       const uid = user.uid;
       console.log(user)
-      nav.navigate('AddReview', { name: paramname });
+      nav.navigate('AddReview', { name: paramname, resourceId: resourceId});
     } else {
       console.log("Unknown user!")
       // Popup login/register?
@@ -150,7 +150,7 @@ const ResourceFull = (props) => {
               
                   <Button style={styles.addButton} onPress={() => {
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
-                      addReviewClick(props.navigation, props.route.params.name);
+                      addReviewClick(props.navigation, props.route.params.name, resourceId);
                     }}>
                   ADD A REVIEW
                 </Button>
