@@ -44,7 +44,8 @@ class AddReviewStars extends React.Component {
 			reviewId: uuid.v4(),
 			reviewText: this.state.review.reviewText,
 			reviewRatings: this.state.ratings,
-			date: this.state.review.reviewDate
+			date: this.state.review.reviewDate,
+			username: this.state.review.username
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';

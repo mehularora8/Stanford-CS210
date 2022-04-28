@@ -29,7 +29,7 @@ function addReviewClick(nav, paramname, resourceId) {
       console.log("detected logged in user: %s", user.email)
       const uid = user.uid;
       console.log(user)
-      nav.navigate('AddReview', { name: paramname, resourceId: resourceId});
+      nav.navigate('AddReview', { name: paramname, resourceId: resourceId, username: user.displayName});
     } else {
       console.log("Unknown user!")
       // Popup login/register?
@@ -111,6 +111,11 @@ const ResourceFull = (props) => {
     // const [saved, setSaved] = React.useState(user.saved.includes(resourceId));
     const [saved, setSaved] = React.useState(false);
 
+
+    let resourceId = props.route.params.resourceId
+    let name = props.route.params.name ? props.route.params.name : "Default";
+    //let id = this.props.route.params.id;
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     React.useEffect(() => {
       if (reviewsArray == null) {
