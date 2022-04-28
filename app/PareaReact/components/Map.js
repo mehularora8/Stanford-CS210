@@ -4,6 +4,8 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import {Images} from "../constants/Images";
 import articles from '../constants/articles';
 import { Rating } from 'react-native-ratings';
+import { GeoPoint } from '@firebase/firestore';
+
 
 
 const Map = (props) => {
@@ -13,7 +15,14 @@ const Map = (props) => {
     console.log(props.navigation)
     const navigation = props.navigation
 
+    let resources = props.resources 
+
+    console.log(resources[0].data.Location.longitude)
     
+    // getLat = (location) => {
+    //     GeoPoint pt = location.getLocation().toString()
+
+    // }
 
   
         // const mapRef = useRef(null);
@@ -43,31 +52,32 @@ const Map = (props) => {
                     > 
                     </Marker>
                 
-                {/* Resources temporarily mapped from articles js file, rather than firebase */}
+              
                 {
-                    articles.map((x, i) => (
+            
+                    resources.map((x, i) => (
                     <Marker
                     key={"result" + i}
                     coordinate={{
-                        latitude: x.latitude, 
-                        longitude: x.longitude,
+                        latitude: parseFloat(x.data.Location.latitude), 
+                        longitude: parseFloat(x.data.Location.longitude),
                     }}
-                    title={x.title}
+                    title={x.data.Name}
                     image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', {name: x.title, tags: x.labels, type: x.type, image: x.image})}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', {resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
                 > 
                     <Callout tooltip>
                         <View >
                             <View style={styles.locPreview}>
-                            <Text style={styles.resourceTitle}>{x.title} </Text>
+                            <Text style={styles.resourceTitle}>{x.data.Name} </Text>
                             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                                <Text style={styles.resourceType}>{x.type}</Text>
+                                <Text style={styles.resourceType}>{x.data.Type}</Text>
                                 <Rating 
                                     type="custom"
                                     ratingColor="#fc3901"
                                     ratingBackgroundColor="#999999"
                                     fractions={1}
-                                    startingValue={x.stars}
+                                    startingValue={x.data.Ratings.Overall}
                                     imageSize={15}
                                     readonly  
                                     />
