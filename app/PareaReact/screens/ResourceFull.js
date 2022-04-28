@@ -25,6 +25,10 @@ import QuestionPreviewCard from '../components/QuestionPreviewCard';
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
+// This function might be redundant when we pass the user 
+// object around. Note: to be removed eventually
+
+
 saveResource = async (resourceId) => {
   // UserId will be pulled from the env once we merge
   // auth stuff, this is temporary
@@ -70,22 +74,24 @@ unsaveResource = async (resourceId) => {
 
 const ResourceFull = (props) => {
 
+    // Relies on user being passed as a prop. 
+    // let user = props.user;
+    let resourceId = props.route.params.resourceId
+    let name = props.route.params.name ? props.route.params.name : "Default";
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
+
+    const [savedIds, setSavedIds] = React.useState(null);
     const [reviewsArray, setReviewsArray] = React.useState(null);
     const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
     const [resourceData, setResourceData] = React.useState(null);
     const [questionsArray, setQuestionsArray] = React.useState(null);
     const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
+
     // TODO: Initialize this based on whether user has stored this
     // instead of false
+    // const [saved, setSaved] = React.useState(user.saved.includes(resourceId));
     const [saved, setSaved] = React.useState(false);
 
-
-    let resourceId = props.route.params.resourceId
-    console.log(props)
-    console.log(resourceId)
-    let name = props.route.params.name ? props.route.params.name : "Default";
-    //let id = this.props.route.params.id;
-    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     React.useEffect(() => {
       if (reviewsArray == null) {
