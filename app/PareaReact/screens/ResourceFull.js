@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ImageBackground, Image, StyleSheet, StatusBar, View, Dimensions, Platform, Linking, ScrollView } from 'react-native';
+import { ImageBackground, Image, StyleSheet, StatusBar, View, Dimensions, Platform, Linking, ScrollView, Pressable } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
 import { Images, argonTheme } from '../constants';
@@ -30,6 +30,7 @@ const ResourceFull = (props) => {
     const [resourceData, setResourceData] = React.useState(null);
     const [questionsArray, setQuestionsArray] = React.useState(null);
     const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
+    const [saved, setSaved] = React.useState(false);
 
 
     React.useEffect(() => {
@@ -81,7 +82,15 @@ const ResourceFull = (props) => {
             {name}
           </Text>
           <View style={{flex: 1}}/>
-          <Ionicons name="bookmark-outline" size={24} color="white" />
+          { saved ? 
+            <Pressable onPress={() => setSaved(false)}>
+              <Ionicons name="bookmark" size={24} color="white" /> 
+              </Pressable>
+          :
+            <Pressable onPress={() => setSaved(true)}>
+              <Ionicons name="bookmark-outline" size={24} color="white" />
+          </Pressable>
+          } 
           <View style={{flex: 1}}/>
         </Block>
         <ScrollView>

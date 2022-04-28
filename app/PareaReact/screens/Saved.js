@@ -24,11 +24,6 @@ import { thisTypeAnnotation } from '@babel/types';
 
 
 const Saved = (props) => {
-
-
-
-    
-
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -41,7 +36,7 @@ const Saved = (props) => {
         </Block>
 
         <ScrollView>
-          <Block flex>
+          <Block >
       
             </Block>
           </ScrollView>
