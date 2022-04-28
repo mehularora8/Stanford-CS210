@@ -11,9 +11,11 @@ import ReviewPreviewCard from '../components/ReviewPreviewCard';
 import ContactCard from '../components/ContactCard';
 import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
+import Card from '../components/Card'
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
+import { doc, onSnapshot } from "firebase/firestore";
 import { thisTypeAnnotation } from '@babel/types';
 
 //TODO
@@ -25,8 +27,36 @@ import { thisTypeAnnotation } from '@babel/types';
 
 class Saved extends React.Component {
 
-  renderSavedResources = () => {
-    
+  state = {
+    resources: []
+  }
+
+  pullSavedResourceIds = async () => {
+    let userId = 'EZXePEUqnVM0LVNOGkug';
+    let user = await getObject('users', userId);
+
+    const savedIds = user.saved;
+    if (!savedIds) {
+      return [];
+    }
+
+    return savedIds;
+  }
+
+  renderSavedResources = async () => {
+    let savedIds = await this.pullSavedResourceIds();
+    let savedResources = await getObjectsFromCollection('resources');
+
+    let resources = [];
+    savedIds.forEach(id => {
+      resources.push(savedResources.find(obj => { return obj["id"] === id }));
+    })
+
+    this.setState({"resources": resources});
+  }
+
+  componentDidMount() {
+    this.renderSavedResources();
   }
 
   render () {
@@ -42,9 +72,20 @@ class Saved extends React.Component {
         </Block>
 
         <ScrollView>
-          { this.renderSavedResources() }
+          { 
+            this.state.resources.map((x, i) => (
+              <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
+            ))
+          }
           </ScrollView>
+
+          {/*Also temporary. TODO: Figure out a way to auto manage
+          this using notifications / subscribing to something. */}
+          <Text onPress = {() => {
+            this.renderSavedResources();
+          }}>Refresh</Text>
       </Block>
+
     );
   }
   

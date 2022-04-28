@@ -32,13 +32,13 @@ saveResource = async (resourceId) => {
   getObject('users', userId).then(user => {
 
     const savedIds = user.saved;
-    console.log("Saved IDs (from frontend):")
-    console.log(savedIds)
     if (!savedIds) {
-      user.saved = [resourceId];
-    } else {
-      user.saved.push(resourceId);
+      user.saved = [];
     }
+
+    if (user.saved.includes(resourceId)) return;
+    user.saved.push(resourceId);
+    
 
     putObject('users/', userId, user);
   }).catch(err => {
@@ -46,7 +46,7 @@ saveResource = async (resourceId) => {
   })
 }
 
-unsaveResource = (resourceId) => {
+unsaveResource = async (resourceId) => {
   let userId = 'EZXePEUqnVM0LVNOGkug'
   getObject('users', userId).then(user => {
 
@@ -75,6 +75,8 @@ const ResourceFull = (props) => {
     const [resourceData, setResourceData] = React.useState(null);
     const [questionsArray, setQuestionsArray] = React.useState(null);
     const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
+    // TODO: Initialize this based on whether user has stored this
+    // instead of false
     const [saved, setSaved] = React.useState(false);
 
 
@@ -131,7 +133,6 @@ const ResourceFull = (props) => {
           </Text>
           <View style={{flex: 1}}/>
           { saved ? 
-          // TODO: How do I update the value of the bool `saved` from another function?
             <Pressable onPress={() => {
               unsaveResource(resourceId);
               setSaved(false);
