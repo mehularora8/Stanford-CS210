@@ -22,7 +22,7 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels, type: item.type, image: item.image})}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.tags, type: item.type, image: item.image})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
               <Text size={14}>{item.key+1}. </Text>
@@ -48,7 +48,7 @@ class Card extends React.Component {
               </Block>
 
             <Block row={horizontal}>
-            {item.labels.map((x) => (
+            {item.tags.map((x) => (
               <Text size={10} key={x} style={styles.labels}>
                 {x}
               </Text>
@@ -62,7 +62,7 @@ class Card extends React.Component {
             <Image source={{url: item.image}} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
-      </Block>
+      </Block>        
     );
   }
 }

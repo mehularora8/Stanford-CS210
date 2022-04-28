@@ -9,6 +9,7 @@ import articles from '../constants/articles';
 import AddResource from './AddResource';
 import { height } from 'dom-helpers';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { getObjectsFromCollection } from '../firebase_utils';
 
 var Map = require('../components/Map').default
 
@@ -16,12 +17,21 @@ var Map = require('../components/Map').default
 const { width } = Dimensions.get('screen');
 
 
-class Home extends React.Component {
+const Home = (props) => {
 
-  renderArticles = () => {
+
     
-    const navigation = this.props.navigation
+    const navigation = props.navigation
+    const [resourceData, setResourceData] = React.useState(null);
  
+    React.useEffect(() => {
+      if (resourceData == null) {
+        getObjectsFromCollection('resources').then((x) => {
+          setResourceData(x)
+        })
+      }
+    })
+
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -45,24 +55,28 @@ class Home extends React.Component {
           </Block>
 
           {
-            articles.map((x, i) => (
-              <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
+            resourceData !== null ? 
+              resourceData.map((x, i) => (
+
+              <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
             ))
+            :
+            <View/>
           }
         </Block>
       </ScrollView>
     )
-  }
+  
 
-  render() {
-    return (
-      <>
-        <Block flex center style={styles.home}>
-          {this.renderArticles()}
-        </Block>
-      </>
-    );
-  }
+  // render() {
+  //   return (
+  //     <>
+  //       <Block flex center style={styles.home}>
+  //         {this.renderArticles()}
+  //       </Block>
+  //     </>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({
