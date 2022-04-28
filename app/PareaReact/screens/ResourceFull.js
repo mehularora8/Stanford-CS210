@@ -16,7 +16,6 @@ import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
-import {getObjectsFromCollection} from '../firebase_utils'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
@@ -151,7 +150,7 @@ const ResourceFull = (props) => {
               
                   <Button style={styles.addButton} onPress={() => {
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
-                      addReviewClick(navigation, this.props.route.params.name);
+                      addReviewClick(props.navigation, this.props.route.params.name);
                     }}>
                   ADD A REVIEW
                 </Button>

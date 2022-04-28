@@ -63,7 +63,7 @@ const Map = (props) => {
                     }}
                     title={x.data.Name}
                     image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', {resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
+                    onCalloutPress={e => navigation.navigate('ResourceFull', { resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
                 > 
                     <Callout tooltip>
                         <View >
