@@ -33,9 +33,16 @@ const ResourceFull = (props) => {
     const [saved, setSaved] = React.useState(false);
 
 
+    let resourceId = props.route.params.resourceId
+    console.log(props)
+    console.log(resourceId)
+    let name = props.route.params.name ? props.route.params.name : "Default";
+    //let id = this.props.route.params.id;
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
+
     React.useEffect(() => {
       if (reviewsArray == null) {
-        getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => { //need to pass resource id here 
+        getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
           setReviewsArray(x)
           if (x.length > 3) {
             setReviewsArrayPrev(x.slice(0,3))
@@ -48,7 +55,7 @@ const ResourceFull = (props) => {
 
     React.useEffect(() => {
       if (questionsArray == null) {
-        getQuestions('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+        getQuestions('resources', resourceId).then((x) => {
           setQuestionsArray(x)
           if (x.length > 3) {
             setQuestionsArrayPrev(x.slice(0,3))
@@ -61,16 +68,12 @@ const ResourceFull = (props) => {
 
     React.useEffect(() => {
       if (resourceData == null) {
-        getObject('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+        getObject('resources', resourceId).then((x) => {
           setResourceData(x)
         })
       }
     })
  
-
-    let name = props.route.params.name ? props.route.params.name : "Default";
-    //let id = this.props.route.params.id;
-    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     return (
       <Block flex style={styles.container}>
@@ -136,7 +139,7 @@ const ResourceFull = (props) => {
                 {/* end of topInfoText */}
             {/* end of topInfoCard */}
         
-            <ReviewSummaryCard resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
+            <ReviewSummaryCard resourceId={resourceId}/>
             {
               reviewsArrayPrev === null ? 
               <Block>
@@ -161,7 +164,7 @@ const ResourceFull = (props) => {
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
-            <QandA resourceId={"mxhbRimhbDk6nxbf6wxc"} />
+            <QandA resourceId={resourceId} />
             { questionsArrayPrev === null ? <Text>"No questions yet. Help the community learn about " + name + " by asking a question." </Text>: 
               <Block>
                   {
@@ -179,7 +182,7 @@ const ResourceFull = (props) => {
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
-            <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
+            <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={resourceId}/>
             </Block>
           </ScrollView>
       </Block>

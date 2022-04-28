@@ -41,7 +41,11 @@ const Home = (props) => {
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
         {/* <Block flex style={styles.topBlock} /> */}
-          <Map navigation={navigation}/>
+        { resourceData != null ? 
+          <Map navigation={navigation} resources={resourceData}/>
+          : 
+          <View/>
+        }
           <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
           <Button  style={styles.addResource} onPress={()=> {navigation.navigate('AddResource');console.log(allAreNull(resourceData))
