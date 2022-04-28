@@ -11,6 +11,10 @@ import { height } from 'dom-helpers';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getObjectsFromCollection } from '../firebase_utils';
 
+function allAreNull(arr) {
+  return arr.every(element => element !== null);
+}
+
 var Map = require('../components/Map').default
 
 
@@ -40,7 +44,8 @@ const Home = (props) => {
           <Map navigation={navigation}/>
           <Input placeholder="Search for activities, care providers, restaurants" 
               style={styles.input}/>
-          <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+          <Button  style={styles.addResource} onPress={()=> {navigation.navigate('AddResource');console.log(allAreNull(resourceData))
+}}>
               <Text style={styles.addResourceText}>
                 Add a
                 </Text>

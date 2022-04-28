@@ -20,13 +20,15 @@ class Card extends React.Component {
       styles.shadow
     ];
 
+    console.log(item.data.Tags)
     return (
+
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.tags, type: item.type, image: item.image})}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.data.Name, tags: item.data.Tags, type: item.data.type, image: item.data.image})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
-              <Text size={14}>{item.key+1}. </Text>
-            <Text size={14} style={styles.cardTitle}>{item.title}</Text>
+              <Text size={14}>{item.data.key+1}. </Text>
+            <Text size={14} style={styles.cardTitle}>{item.data.Name}</Text>
             </Block>
             <Block row={horizontal}>
               <Rating 
@@ -34,21 +36,22 @@ class Card extends React.Component {
                   ratingColor="#fc3901"
                   ratingBackgroundColor="#999999"
                   fractions={1}
-                  startingValue={item.stars}
+                  startingValue={item.data.stars}
                   imageSize={15}
                   readonly  
                   style={{alignSelf: 'flex-start', marginLeft: 4}}
                   />
                   <Text style={{marginLeft: 3, marginRight: 3}}>
-                    {item.stars}
+                    {item.data.stars}
                   </Text>
                   <Text style={{color: 'grey'}}>
-                    [{15 - item.key}]
+                    [{15 - item.data.key}]
                   </Text>
               </Block>
 
             <Block row={horizontal}>
-            {item.tags.map((x) => (
+            {
+            item.data.Tags.map((x) => (
               <Text size={10} key={x} style={styles.labels}>
                 {x}
               </Text>
@@ -57,7 +60,7 @@ class Card extends React.Component {
             {/* <Text size={12} muted={!ctaColor} color={ctaColor || argonTheme.COLORS.PRIMARY} bold>{item.cta}</Text> */}
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.title, tags: item.labels, type: item.type, image: item.image})}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.data.Name, tags: item.data.Tags, type: item.data.type, image: item.data.image})}>
           <Block  style={imgContainer}>
             <Image source={{url: item.image}} style={imageStyles} />
           </Block>
