@@ -83,6 +83,7 @@ const ResourceFull = (props) => {
           </Text>
           <View style={{flex: 1}}/>
           { saved ? 
+          //ADD CODE TO SAVE / UNSAVE RESOURCES TO FIREBASE IN THESE onPRESS methods :) 
             <Pressable onPress={() => setSaved(false)}>
               <Ionicons name="bookmark" size={24} color="white" /> 
               </Pressable>
