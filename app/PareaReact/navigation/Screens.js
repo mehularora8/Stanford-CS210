@@ -27,6 +27,8 @@ import ComingSoonGroups from "../components/ComingSoonGroups";
 import AllReviews from "../screens/AllReviews";
 import AllQuestions from "../screens/AllQuestions";
 import Saved from "../screens/Saved";
+import RegisterPage from "../screens/RegisterPage";
+import LoginPage from "../screens/LoginPage";
 
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -307,6 +309,24 @@ export default function OnboardingStack(props) {
           headerTransparent: true,
           presentation: "card",
           headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="RegisterPage"
+        component={RegisterPage} 
+        option={{
+          headerTransparent: true,
+          presentation: "card",
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen 
+        name="LoginPage"
+        component={LoginPage} 
+        option={{
+          headerTransparent: true,
+          presentation: "card",
+          headerShown: true,
         }}
       />
     </Stack.Navigator>

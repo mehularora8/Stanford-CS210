@@ -1,4 +1,5 @@
 import React from "react";
+import { getAuth, signInAnonymously } from "firebase/auth";
 import {
   ImageBackground,
   Image,
@@ -12,6 +13,17 @@ const { height, width } = Dimensions.get("screen");
 
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
+
+
+function anonLogin(nav) {
+  const auth = getAuth();
+  signInAnonymously(auth)
+  .then(() => {
+    console.log('User signed in anonymously');
+    nav.navigate("App");
+  })
+}
+
 
 class Onboarding extends React.Component {
   render() {
@@ -38,19 +50,29 @@ class Onboarding extends React.Component {
                 <Button
                   style={styles.button}
                   color={argonTheme.COLORS.PRIMARY}
-                  onPress={() => navigation.navigate("App")}
+                  onPress={() => anonLogin(navigation)}
                   textStyle={{ color: argonTheme.COLORS.WHITE, fontFamily: 'Open Sans' }}
                 >
-                  Get Started
+                  Continue as Guest
                 </Button>
                 <Button
                   style={styles.button}
                   color={argonTheme.COLORS.TERTIARY}
-                  onPress={() => navigation.navigate("App")}
+                  onPress={() => navigation.navigate("LoginPage")}
                   textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
                 >
-                  Already have an account?
+                  Login
                 </Button>
+                <Block>
+                  <Text 
+                    color={argonTheme.COLORS.PRIMARY}
+                    onPress={() => navigation.navigate("RegisterPage")}
+                    style={{padding: 8 }}
+                    textStyle={{ color: "#999999", fontFamily: 'Open Sans'}}
+                  >
+                    Create an account
+                  </Text>
+                </Block>
               </Block>
               <Block style={styles.subTitle}>
                   <Text color="rgba(252, 57, 1, 0.7)" size={13}>

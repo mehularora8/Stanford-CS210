@@ -17,6 +17,8 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
     "Elements",
     "Articles",
     "ResourceFull",
+    "RegisterPage",
+    "LoginPage",
   ];
   return (
     <Block

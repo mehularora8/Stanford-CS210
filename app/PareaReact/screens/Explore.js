@@ -1,4 +1,6 @@
 import React from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
@@ -20,6 +22,23 @@ var Map = require('../components/Map').default
 const { width } = Dimensions.get('screen');
 
 const Home = (props) => {
+
+function addResourceClick(nav) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user && !user.isAnonymous) {
+      console.log("detected logged in user: %s", user.email)
+      const uid = user.uid;
+      console.log(user)
+      nav.navigate('AddResource')
+    } else {
+      console.log("Unknown user!")
+      // Popup login/register?
+      nav.navigate('RegisterPage')
+    }
+  })
+}
+
     
     const [pressed, setPressed] = React.useState({
       "Healthcare": false,
