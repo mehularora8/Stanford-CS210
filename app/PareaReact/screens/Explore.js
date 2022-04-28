@@ -24,6 +24,7 @@ const Home = (props) => {
 
     const navigation = props.navigation
     const [resourceData, setResourceData] = React.useState(null);
+    const [filteredResources, setFilteredResources] = React.useState(null);
  
     React.useEffect(() => {
       if (resourceData == null) {
@@ -46,10 +47,14 @@ const Home = (props) => {
           }
             {/* <Input placeholder="Search for activities, care providers, restaurants" 
                 style={styles.input}/> */}
+
           {/* START:filter */}
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
-              <Button style={styles.labels}>
+              <Button style={styles.labels} onPress={() => {
+                setFilteredResources(resourceData.filter(resource => resource.data.Type === x))
+                // setResourceData(resourceData.filter(resource => resource.data.Type === x))
+              }}>
                 <Text size={10} key={x}>
                   {x}
                 </Text>
@@ -74,8 +79,17 @@ const Home = (props) => {
             </Block>
 
             {
-              resourceData !== null ? 
+              ((resourceData !== null) && (filteredResources === null)) ? 
                 resourceData.map((x, i) => (
+                <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
+              ))
+              :
+              <View/>
+            }
+
+            {
+              ((resourceData !== null) && (filteredResources !== null)) ? 
+                filteredResources.map((x, i) => (
                 <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
               ))
               :
