@@ -31,7 +31,8 @@ class AddReviewStars extends React.Component {
 			"Safety": 1, 
 			"Accessibility": 1, 
 			"Environment": 1, 
-			"Communication": 1
+			"Communication": 1,
+			"Overall": 0,
 		}
 	}
 
@@ -42,7 +43,8 @@ class AddReviewStars extends React.Component {
 		const finalReview = {
 			reviewId: uuid.v4(),
 			reviewText: this.state.review.reviewText,
-			reviewRatings: this.state.ratings
+			reviewRatings: this.state.ratings,
+			date: this.state.review.reviewDate
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
@@ -52,6 +54,7 @@ class AddReviewStars extends React.Component {
 
 		const { navigation } = this.props;
 		navigation.navigate("ExplorePage");
+		//Add toast to show review submitted 
 	}
 
 	onChangeValue = (header, value) => {
@@ -61,6 +64,7 @@ class AddReviewStars extends React.Component {
 			ratings: newRatings,
 		})
 	}
+
 
 	renderSliders = () => {
 		// TBD: Tapping a label on the slider should make the thumb come
@@ -133,12 +137,11 @@ class AddReviewStars extends React.Component {
 		                startingValue={0}
 		                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
 		                imageSize={45}
+						onFinishRating={(rating) => this.onChangeValue("Overall", rating)}
 	                />
 
 					{this.renderSliders()}
 					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
-					
-					
 				</Block>
 			</View>
 		);

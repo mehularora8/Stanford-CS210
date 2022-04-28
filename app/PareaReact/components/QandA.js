@@ -8,14 +8,33 @@ import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { TextInput } from 'react-native-gesture-handler';
 import UnansweredQ from './UnansweredQ';
+import uuid from 'react-native-uuid';
+import { putObject } from "../firebase_utils";
 
 
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
 const { width, height } = Dimensions.get("screen");
 
-const QandA = () => {
+const QandA = (props) => {
     const [text, onChangeText] = React.useState(null);
+
+    submitQuestion = async (test) => {
+      if (!props.resourceId) return;
+      const question = {
+        questionId: uuid.v4(),
+        date: new Date(),
+        question: text
+      }
+  
+      const collectionPath = 'resources/'  + props.resourceId + '/questions';
+      console.log("Attempting to add", question);
+      putObject(collectionPath, question.questionId, question);
+      console.log("ADDED");
+    }
+
+   
+
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Q & A</Text>
@@ -26,7 +45,9 @@ const QandA = () => {
                     value={text}
                     placeholder="what would you like to know?"
                     />
-                <Button style={styles.askButton}>
+                <Button style={styles.askButton} onPress={() => {
+                        submitQuestion()
+                  }}>
                     Ask
                 </Button>
                
@@ -37,7 +58,6 @@ const QandA = () => {
 
 const styles = StyleSheet.create({
   contactPreviewCard: {
-    minHeight: 150,
     borderRadius: 12,
     margin: "2%",
     padding: "2%"

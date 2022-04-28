@@ -13,26 +13,75 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import {getObjectsFromCollection} from '../firebase_utils'
+import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
+import { thisTypeAnnotation } from '@babel/types';
+import QuestionPreviewCard from '../components/QuestionPreviewCard';
+
+//TODO
+//Make reviews only show up under appropriate resource id
+//Sort reviews by Date 
+//Only show first 3 reviews 
+//Make review summary metadata accurate 
+
+const ResourceFull = (props) => {
+
+    const [reviewsArray, setReviewsArray] = React.useState(null);
+    const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
+    const [resourceData, setResourceData] = React.useState(null);
+    const [questionsArray, setQuestionsArray] = React.useState(null);
+    const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
 
 
-export default class ResourceFull extends React.Component {
-  
-  render() {
-    
-    const { navigation } = this.props;
-    let name = this.props.route.params.name ? this.props.route.params.name : "Default";
-    let tags = this.props.route.params.tags //note this must be taken out of route params and pulled from central data store
+    React.useEffect(() => {
+      if (reviewsArray == null) {
+        getReviews('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => { //need to pass resource id here 
+          setReviewsArray(x)
+          if (x.length > 3) {
+            setReviewsArrayPrev(x.slice(0,3))
+          } else {
+            setReviewsArrayPrev(x)
+          }
+        })
+      }
+    })
+
+    React.useEffect(() => {
+      if (questionsArray == null) {
+        getQuestions('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+          setQuestionsArray(x)
+          if (x.length > 3) {
+            setQuestionsArrayPrev(x.slice(0,3))
+          } else {
+            setQuestionsArrayPrev(x)
+          }
+        })
+      }
+    })
+
+    React.useEffect(() => {
+      if (resourceData == null) {
+        getObject('resources', 'mxhbRimhbDk6nxbf6wxc').then((x) => {
+          setResourceData(x)
+        })
+      }
+    })
  
+
+    let name = props.route.params.name ? props.route.params.name : "Default";
+    //let id = this.props.route.params.id;
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
-        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  navigation.goBack()}}/>
+        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  props.navigation.goBack()}}/>
+          <View style={{flex: 1}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
+          <View style={{flex: 1}}/>
+          <Ionicons name="bookmark-outline" size={24} color="white" />
           <View style={{flex: 1}}/>
         </Block>
         <ScrollView>
@@ -41,18 +90,18 @@ export default class ResourceFull extends React.Component {
             <Block flex style={styles.topInfoCard}>
                 <Block style={styles.topInfoImg}>
 
-                  <Image source={{url: this.props.route.params.image}} style={{width: 145, height: 145}} />
+                  <Image source={{url: props.route.params.image}} style={{width: 145, height: 145}} />
                 </Block>
                 <Block flex style={styles.topInfoText}>
                   <Block>
                     <Text>
-                      {this.props.route.params.type}
+                      {props.route.params.type}
                     </Text>
                   </Block>
                   <Block flex style={styles.locationInfo}>
                     <Ionicons name="location-outline" size={24} color="black" />
                     <Block flex style={{flexDirection: "row", alignItems: "center"}}>
-                      <Text style={styles.locationText}> Palo Alto </Text>
+                      <Text style={styles.locationText}> {resourceData !== null? resourceData.City : ""}</Text>
                       <Entypo name="dot-single" size={24} color="black" />  
                       <Text style={styles.locationText}>
                           3.9 mi
@@ -68,8 +117,7 @@ export default class ResourceFull extends React.Component {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      console.log(getObjectsFromCollection('users').then((x) => console.log(x)));
-                      navigation.navigate('AddReview', { name: this.props.route.params.name });
+                      props.navigation.navigate('AddReview', { name: props.route.params.name });
                     }}>
                   ADD A REVIEW
                 </Button>
@@ -78,24 +126,55 @@ export default class ResourceFull extends React.Component {
                 {/* end of topInfoText */}
             {/* end of topInfoCard */}
         
-            <ReviewSummaryCard/>
-            <ReviewPreviewCard/>
-            <ReviewPreviewCard/>
-            <Button style={styles.seeReviewsButton}>
+            <ReviewSummaryCard resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
+            {
+              reviewsArrayPrev === null ? 
+              <Block>
+                <Text>
+                "No reviews yet! Add a review to help the community learn."
+                </Text>
+              </Block>
+              :
+              <Block>
+                {
+                  reviewsArrayPrev.map((x, i) => (
+                    <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
+                      text = {x.reviewText}
+                      navigation={props.navigation} />
+                  ))
+                }
+                {/* <ReviewPreviewCard />
+                <ReviewPreviewCard/> */}
+              </Block>
+            }
+            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
-            <QandA />
+            <QandA resourceId={"mxhbRimhbDk6nxbf6wxc"} />
+            { questionsArrayPrev === null ? <Text>"No questions yet. Help the community learn about " + name + " by asking a question." </Text>: 
+              <Block>
+                  {
+                    questionsArrayPrev.map((x, i) => (
+                      <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
+                        text= {x.question}
+                        navigation={props.navigation} />
+                    ))
+                  }
+              </Block>
+            }
+            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
+                    See all questions
+            </Button>
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
-            <ReportCard />
-      
+            <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={'mxhbRimhbDk6nxbf6wxc'}/>
             </Block>
           </ScrollView>
       </Block>
     );
-  }
+  
 }
 
 const styles = StyleSheet.create({
@@ -205,3 +284,5 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(153, 153, 153, 0.6)"
   },
 });
+
+export default ResourceFull

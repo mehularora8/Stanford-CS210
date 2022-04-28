@@ -24,6 +24,8 @@ import AddReview from "../screens/AddReview";
 import AddReviewStars from "../screens/AddReviewStars";
 import ComingSoon from "../components/ComingSoon";
 import ComingSoonGroups from "../components/ComingSoonGroups";
+import AllReviews from "../screens/AllReviews";
+import AllQuestions from "../screens/AllQuestions";
 
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -194,6 +196,40 @@ function HomeStack(props) {
           headerTransparent: true
         }}
       />
+       <Stack.Screen
+        name="AllReviews"
+        component={AllReviews}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+        <Stack.Screen
+        name="AllQuestions"
+        component={AllQuestions}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title=""
+              back
+              white
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
       <Stack.Screen
         name="AddReview"
         component={AddReview}
@@ -343,7 +379,7 @@ function AppStack(props) {
           ),
           headerShown: false, // true to show 
         }}/>
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="Gro" 
         component={ComingSoonGroups}
         options={{
@@ -352,7 +388,7 @@ function AppStack(props) {
             <MaterialIcons name="group-work" size={size} color={color} />
           ),
           headerShown: false, // true to show 
-        }} />
+        }} /> */}
       <Tab.Screen 
         name="Prof" 
         component={ProfileStack} 

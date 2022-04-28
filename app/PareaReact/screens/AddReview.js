@@ -14,6 +14,7 @@ class AddReview extends React.Component {
 	state = {
 		resourceId: null, // TBD: Update actual resource ID here, probably going to be passed in.
 		reviewText: '',
+		reviewDate: new Date(),
 	}
 
 	renderInput = () => {
@@ -35,6 +36,7 @@ class AddReview extends React.Component {
 			// This is a hack to test
 			resourceId: this.state.resourceId ? this.state.resourceId : 'mxhbRimhbDk6nxbf6wxc',
 			reviewText: this.state.reviewText,
+			reviewDate: this.state.reviewDate
 		}
 		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
