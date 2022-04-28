@@ -31,6 +31,7 @@ class AddReview extends React.Component {
 	}
 
 	handleNextButton = ()  => {
+		console.log("handlenext", this.props)
 		const { navigation } = this.props;
 		const review = {
 			// This is a hack to test

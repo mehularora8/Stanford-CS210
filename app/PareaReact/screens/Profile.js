@@ -11,7 +11,7 @@ import { Block, Text, theme } from "galio-framework";
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
-import { HeaderHeight } from "../constants/utils";
+
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 
@@ -181,7 +181,7 @@ const Profile = ({navigation}) => {
 
 const styles = StyleSheet.create({
   profile: {
-    marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
+    marginTop: 0,
     // marginBottom: -HeaderHeight * 2,
     flex: 1
   },

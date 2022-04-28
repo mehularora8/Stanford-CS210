@@ -150,7 +150,7 @@ const ResourceFull = (props) => {
               
                   <Button style={styles.addButton} onPress={() => {
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
-                      addReviewClick(props.navigation, this.props.route.params.name);
+                      addReviewClick(props.navigation, props.route.params.name);
                     }}>
                   ADD A REVIEW
                 </Button>
