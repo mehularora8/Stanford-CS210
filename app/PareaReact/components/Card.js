@@ -8,7 +8,7 @@ import { argonTheme } from '../constants';
 
 class Card extends React.Component {
   render() {
-    const { navigation, item, horizontal, full, style, ctaColor, imageStyle } = this.props;
+    const { navigation, item, horizontal, full, style, ctaColor, imageStyle, num } = this.props;
     
     const imageStyles = [
       full ? styles.fullImage : styles.horizontalImage,
@@ -24,10 +24,10 @@ class Card extends React.Component {
     return (
 
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.data.Name, tags: item.data.Tags, type: item.data.type, image: item.data.image})}> 
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.data.Name, tags: item.data.Tags, type: item.data.Type, image: item.data.Images.url})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
-              <Text size={14}>{item.data.key+1}. </Text>
+              <Text size={14}>{item.key+1}. </Text>
             <Text size={14} style={styles.cardTitle}>{item.data.Name}</Text>
             </Block>
             <Block row={horizontal}>
@@ -36,16 +36,16 @@ class Card extends React.Component {
                   ratingColor="#fc3901"
                   ratingBackgroundColor="#999999"
                   fractions={1}
-                  startingValue={item.data.stars}
+                  startingValue={item.data.Ratings.Overall}
                   imageSize={15}
                   readonly  
                   style={{alignSelf: 'flex-start', marginLeft: 4}}
                   />
                   <Text style={{marginLeft: 3, marginRight: 3}}>
-                    {item.data.stars}
+                    {item.data.Ratings.Overall}
                   </Text>
                   <Text style={{color: 'grey'}}>
-                    [{15 - item.data.key}]
+                    [{item.data.Ratings.reviewCount}]
                   </Text>
               </Block>
 
@@ -62,7 +62,7 @@ class Card extends React.Component {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {name: item.data.Name, tags: item.data.Tags, type: item.data.type, image: item.data.image})}>
           <Block  style={imgContainer}>
-            <Image source={{url: item.image}} style={imageStyles} />
+            <Image source={{url: item.data.Images.url}} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
       </Block>        
