@@ -9,9 +9,9 @@ import {
   View,
   FlatList
 } from "react-native";
-import { Block, Checkbox, Text, theme } from "galio-framework";
+import { Block, Checkbox, Text, theme, Input } from "galio-framework";
 import { Feather } from '@expo/vector-icons';
-import { Button, Icon, Input } from "../components";
+import { Button, Icon } from "../components";
 import { Images, argonTheme } from "../constants";
 import AddResourceSuccess from "./AddResourceSuccess";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -38,12 +38,17 @@ class AddResource extends React.Component {
 
   state = {
     address: '',
-    predictions: []
+    name: '',
+    type: '',
+    predictions: [],
+    error: ''
   }
 
 
   submitForReview = () => {
-
+    let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
+    console.log(valid);
+    return valid;
   }
   
   render() {
@@ -74,11 +79,7 @@ class AddResource extends React.Component {
                   </Block>
 
                   <Block style = {styles.scroll} center>
-                    {/* <KeyboardAvoidingView
-                      style={{ flex: 1 }}
-                      behavior="padding"
-                      enabled
-                    > */}
+                      <Text> {this.state.error} </Text>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
@@ -92,6 +93,10 @@ class AddResource extends React.Component {
                               style={styles.inputIcons}
                             />
                           }
+                          onChangeText = {(value) => {
+                            this.setState({"name": value}); 
+                            console.log(value)
+                          }}
                         />
                       </Block>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
@@ -107,6 +112,10 @@ class AddResource extends React.Component {
                               style={styles.inputIcons}
                             />
                           }
+                          onChangeText = {(value) => {
+                            this.setState({"type": value});
+                            console.log(value)
+                          }}
                         />
                       </Block>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
@@ -142,7 +151,7 @@ class AddResource extends React.Component {
                       <Block width={width * 0.9} style={{ marginBottom: 8 }}>
                         <Input
                           borderless
-                          placeholder="Tags"
+                          placeholder="(Optional) Tags"
                           iconContent={
                             <Icon
                               size={16}
@@ -156,24 +165,34 @@ class AddResource extends React.Component {
                       </Block>
                       <Block height={250} width={width * 0.9}> 
                         <GooglePlacesAutocomplete
-                          placeholder='  Address'
+                          placeholder='Address'
                           height={150} 
                           width={width * 0.9}
                           onPress={(data, details = null) => {
                             // 'details' is provided when fetchDetails = true
                             console.log("DATA:", data);
+                            this.setState({"address": data.description})
                           }}
                           query={{
                             key: 'AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI',
                             language: 'en',
                           }}
+                          onChangeText = {(value) => {
+                            this.setState({"address": value}); 
+                            console.log(value)
+                          }}
                         />
                       </Block>
                       <Block middle style={{ marginTop: 0 }} >
                         <Button onPress={() => {
-                          navigation.goBack();
-                          this.submitForReview();
-                          navigation.navigate(AddResourceSuccess)
+                          let valid = this.submitForReview();
+                          if (valid) {
+                            navigation.goBack();
+                            navigation.navigate(AddResourceSuccess)
+                          }
+                          else {
+                            this.setState({"error": "Please fill all required fields!"})
+                          }
                           }} color="primary" style={styles.createButton}>
                           <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                             Submit
