@@ -13,7 +13,9 @@ import { Divider } from 'react-native-elements';
 import ReportCard from '../components/ReportCard';
 import QandA from '../components/QandA';
 import UnansweredQ from '../components/UnansweredQ';
-import {getObjectsFromCollection, getObject, getReviews, getQuestions} from '../firebase_utils'
+import {getObjectsFromCollection, getObject, 
+        getReviews, getQuestions, putObject,
+        getSavedIds} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -42,29 +44,80 @@ function addReviewClick(nav, paramname, resourceId) {
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
+// This function might be redundant when we pass the user 
+// object around. Note: to be removed eventually
+
+
+saveResource = async (resourceId) => {
+  // UserId will be pulled from the env once we merge
+  // auth stuff, this is temporary
+  let userId = 'EZXePEUqnVM0LVNOGkug'
+  getObject('users', userId).then(user => {
+
+    const savedIds = user.saved;
+    if (!savedIds) {
+      user.saved = [];
+    }
+
+    if (user.saved.includes(resourceId)) return;
+    user.saved.push(resourceId);
+    
+
+    putObject('users/', userId, user);
+  }).catch(err => {
+    console.log("Error while fetching saved resources", err);
+  })
+}
+
+unsaveResource = async (resourceId) => {
+  let userId = 'EZXePEUqnVM0LVNOGkug'
+  getObject('users', userId).then(user => {
+
+    const savedIds = user.saved;
+    if (!savedIds) {
+      return;
+    }
+    let index = savedIds.indexOf(resourceId);
+
+    if (index > -1) {
+      user.saved.splice(index, 1)
+    }
+  
+    putObject('users/', userId, user);
+  }).catch(err => {
+    console.log("Error while fetching saved resources", err);
+  })
+
+  return;
+}
+
 const ResourceFull = (props) => {
 
+    // Relies on user being passed as a prop. 
+    // let user = props.user;
+    let resourceId = props.route.params.resourceId
+    let name = props.route.params.name ? props.route.params.name : "Default";
+    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
+
+    const [savedIds, setSavedIds] = React.useState(null);
     const [reviewsArray, setReviewsArray] = React.useState(null);
     const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
     const [resourceData, setResourceData] = React.useState(null);
     const [questionsArray, setQuestionsArray] = React.useState(null);
     const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
+
+    // TODO: Initialize this based on whether user has stored this
+    // instead of false
+    // const [saved, setSaved] = React.useState(user.saved.includes(resourceId));
     const [saved, setSaved] = React.useState(false);
 
-
-    let resourceId = props.route.params.resourceId
-    console.log(props)
-    console.log(resourceId)
-    let name = props.route.params.name ? props.route.params.name : "Default";
-    //let id = this.props.route.params.id;
-    let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
     React.useEffect(() => {
       if (reviewsArray == null) {
         getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
           setReviewsArray(x)
           if (x.length > 3) {
-            setReviewsArrayPrev(x.slice(0,3))
+            setReviewsArrayPrev(x.slice(0, 3))
           } else {
             setReviewsArrayPrev(x)
           }
@@ -77,7 +130,7 @@ const ResourceFull = (props) => {
         getQuestions('resources', resourceId).then((x) => {
           setQuestionsArray(x)
           if (x.length > 3) {
-            setQuestionsArrayPrev(x.slice(0,3))
+            setQuestionsArrayPrev(x.slice(0, 3))
           } else {
             setQuestionsArrayPrev(x)
           }
@@ -92,7 +145,7 @@ const ResourceFull = (props) => {
         })
       }
     })
- 
+
 
     return (
       <Block flex style={styles.container}>
@@ -105,12 +158,17 @@ const ResourceFull = (props) => {
           </Text>
           <View style={{flex: 1}}/>
           { saved ? 
-          //ADD CODE TO SAVE / UNSAVE RESOURCES TO FIREBASE IN THESE onPRESS methods :) 
-            <Pressable onPress={() => setSaved(false)}>
+            <Pressable onPress={() => {
+              unsaveResource(resourceId);
+              setSaved(false);
+            }}>
               <Ionicons name="bookmark" size={24} color="white" /> 
               </Pressable>
           :
-            <Pressable onPress={() => setSaved(true)}>
+            <Pressable onPress={() => {
+              saveResource(resourceId);
+              setSaved(true);
+            }}>
               <Ionicons name="bookmark-outline" size={24} color="white" />
           </Pressable>
           } 
