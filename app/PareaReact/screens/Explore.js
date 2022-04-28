@@ -10,17 +10,22 @@ import AddResource from './AddResource';
 import { height } from 'dom-helpers';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getObjectsFromCollection } from '../firebase_utils';
+import { argonTheme } from '../constants';
 
 // TODO: pull types from firebase
 const types = ['Healthcare', 'Restaurants', 'Activities']
 
 var Map = require('../components/Map').default
 
-
 const { width } = Dimensions.get('screen');
 
-
 const Home = (props) => {
+    
+    const [pressed, setPressed] = React.useState({
+      "Healthcare": false,
+      "Restaurants": false,
+      "Activities": false,
+    })
 
     const navigation = props.navigation
     const [resourceData, setResourceData] = React.useState(null);
@@ -51,9 +56,16 @@ const Home = (props) => {
           {/* START:filter */}
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
-              <Button style={styles.labels} onPress={() => {
-                setFilteredResources(resourceData.filter(resource => resource.data.Type === x))
-                // setResourceData(resourceData.filter(resource => resource.data.Type === x))
+              // TODO: Change button style when pressed
+              <Button style={pressed[x] === true ? styles.pressed : styles.labels} onPress={() => {
+                let temp = pressed
+                temp[x] = !temp[x]
+                setPressed(temp)
+                if (pressed[x]) {
+                  setFilteredResources(resourceData.filter(resource => resource.data.Type === x))
+                } else {
+                  setFilteredResources(null)
+                }
               }}>
                 <Text size={10} key={x}>
                   {x}
@@ -166,6 +178,16 @@ const styles = StyleSheet.create({
   labels: {
     // backgroundColor: "rgba(196, 196, 196, 0.5)",
     backgroundColor: theme.COLORS.WHITE,
+    borderRadius: 12,
+    margin: 5,
+    padding: 5,
+    flex: 1,
+    overflow: 'hidden',
+    opacity: 0.8,
+    height: "80%",
+  },
+  pressed: {
+    backgroundColor: argonTheme.COLORS.PRIMARY,
     borderRadius: 12,
     margin: 5,
     padding: 5,
