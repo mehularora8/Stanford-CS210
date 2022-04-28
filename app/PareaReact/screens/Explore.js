@@ -11,9 +11,8 @@ import { height } from 'dom-helpers';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getObjectsFromCollection } from '../firebase_utils';
 
-function allAreNull(arr) {
-  return arr.every(element => element !== null);
-}
+// TODO: pull types from firebase
+const types = ['Healthcare', 'Restaurants', 'Activities']
 
 var Map = require('../components/Map').default
 
@@ -23,8 +22,6 @@ const { width } = Dimensions.get('screen');
 
 const Home = (props) => {
 
-
-    
     const navigation = props.navigation
     const [resourceData, setResourceData] = React.useState(null);
  
@@ -37,55 +34,53 @@ const Home = (props) => {
     })
 
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}>
-        {/* <Block flex style={styles.topBlock} /> */}
-        { resourceData != null ? 
-          <Map navigation={navigation} resources={resourceData}/>
-          : 
-          <View/>
-        }
-          <Input placeholder="Search for activities, care providers, restaurants" 
-              style={styles.input}/>
-          <Button  style={styles.addResource} onPress={()=> {navigation.navigate('AddResource');console.log(allAreNull(resourceData))
-}}>
-              <Text style={styles.addResourceText}>
-                Add a
-                </Text>
-                <Text style={styles.addResourceText}>
-                Resource
-                </Text>
-          </Button>
-        <Block flex style={styles.articles}>
-          <Block flex style={styles.resourcesText}>
-            <Text style={styles.headerText}>Resources Near You</Text>
-            <Text style={styles.resultsHeader}> {articles.length} results</Text>
+      <Block>
+      
+
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollView}>
+
+          {/* <Block flex style={styles.topBlock} /> */}
+            <Map navigation={navigation}/>
+            {/* <Input placeholder="Search for activities, care providers, restaurants" 
+                style={styles.input}/> */}
+          {/* START:filter */}
+          <Block flex style={styles.tagsHolder}>
+            {types.map((x) => (
+              <Text size={10} key={x} style={styles.labels}>
+                {x}
+              </Text>
+            ))}
           </Block>
+          {/* END:filter */}
+            <Button  style={styles.addResource} onPress={()=> navigation.navigate('AddResource')}>
+                <Text style={styles.addResourceText}>
+                  Add a
+                  </Text>
+                  <Text style={styles.addResourceText}>
+                  Resource
+                  </Text>
+            </Button>
+          <Block flex style={styles.articles}>
+            <Block flex style={styles.resourcesText}>
+              <Text style={styles.headerText}>Resources Near You</Text>
+              <Text style={styles.resultsHeader}> {articles.length} results</Text>
+            </Block>
 
-          {
-            resourceData !== null ? 
-              resourceData.map((x, i) => (
+            {
+              resourceData !== null ? 
+                resourceData.map((x, i) => (
 
-              <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
-            ))
-            :
-            <View/>
-          }
-        </Block>
-      </ScrollView>
+                <Card item={{...x, key: i}} key={"result"+i} navigation={props.navigation} horizontal />
+              ))
+              :
+              <View/>
+            }
+          </Block>
+        </ScrollView>
+      </Block>
     )
-  
-
-  // render() {
-  //   return (
-  //     <>
-  //       <Block flex center style={styles.home}>
-  //         {this.renderArticles()}
-  //       </Block>
-  //     </>
-  //   );
-  // }
 }
 
 const styles = StyleSheet.create({
@@ -143,6 +138,22 @@ const styles = StyleSheet.create({
   },
   addResourceText: {
     color: 'white'
+  },
+  tagsHolder: {
+    flexDirection: "row",
+    position: 'absolute',
+    marginTop: 50,
+    marginLeft: 10
+  },
+  labels: {
+    // backgroundColor: "rgba(196, 196, 196, 0.5)",
+    backgroundColor: theme.COLORS.WHITE,
+    borderRadius: 12,
+    margin: 5,
+    padding: 6,
+    overflow: 'hidden',
+    opacity: 0.8,
+    height: "80%",
   }
 });
 
