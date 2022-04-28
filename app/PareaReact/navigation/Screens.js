@@ -26,6 +26,7 @@ import ComingSoon from "../components/ComingSoon";
 import ComingSoonGroups from "../components/ComingSoonGroups";
 import AllReviews from "../screens/AllReviews";
 import AllQuestions from "../screens/AllQuestions";
+import Saved from "../screens/Saved";
 
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -371,7 +372,7 @@ function AppStack(props) {
         }}/>
       <Tab.Screen 
         name="Sav" 
-        component={ComingSoon} 
+        component={Saved} 
         options={{
           tabBarLabel: 'Saved',
           tabBarIcon: ({ color, size }) => (
