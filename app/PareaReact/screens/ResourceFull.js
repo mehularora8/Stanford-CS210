@@ -21,18 +21,25 @@ import QuestionPreviewCard from '../components/QuestionPreviewCard';
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 
-function addReviewClick(nav, user, paramname, resourceId) {
-  if (!user || user.isAnonymous) {
-    nav.navigate("RegisterPage");
-    return
-  }
+function addReviewClick(nav, user, setUser, paramname, resourceId) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (guser) => {
+    if (!guser || guser.isAnonymous) {
+      setUser(null);
+      nav.navigate("RegisterPage");
+      return
+    }
+  })
+
+  if (!user) return;
+
   const params = { 
     name: paramname, 
     resourceId: resourceId, 
     username: user.displayName,
     userId: user.uid
   };
-  // console.log("User: %s", globalUser.email, "--> Adding review with params:", params)
+  // console.log("User: %s", user.email, "--> Adding review with params:", params)
   nav.navigate('AddReview', params);
 }
 
@@ -42,11 +49,15 @@ function addReviewClick(nav, user, paramname, resourceId) {
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
-saveResource = async (user, resourceId, nav) => {
-  if (!user || user.isAnonymous) {
-    nav.navigate('RegisterPage')
-    return
-  }
+saveResource = async (user, setUser, resourceId, nav) => {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (guser) => {
+    if (!guser || guser.isAnonymous) {
+      setUser(null);
+      nav.navigate("RegisterPage");
+      return
+    }
+  });
 
   if (user.savedResources.includes(resourceId)) return user;
   user.savedResources.push(resourceId);
@@ -55,14 +66,18 @@ saveResource = async (user, resourceId, nav) => {
 
   /* REMOVE ME */
   console.log("Saved resource --> user:", user)
-  return user;
+  setUser(user);
 }
 
-unsaveResource = async (user, resourceId, nav) => {
-  if (!user || user.isAnonymous) {
-    nav.navigate('RegisterPage')
-    return
-  }
+unsaveResource = async (user, setUser, resourceId, nav) => {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (guser) => {
+    if (!guser || guser.isAnonymous) {
+      setUser(null);
+      nav.navigate("RegisterPage");
+      return
+    }
+  });
 
   if (user.savedResources.length == 0) {
     console.log("Unsaving a resource from a user with no saved, weird...")
@@ -75,7 +90,7 @@ unsaveResource = async (user, resourceId, nav) => {
 
   /* REMOVE ME */
   console.log("UNNsaved resource --> user:", user)
-  return user;
+  setUser(user);
 }
 
 const ResourceFull = (props) => {
@@ -93,6 +108,8 @@ const ResourceFull = (props) => {
     const [questionsArrayPrev, setQuestionsArrayPrev] = useState(null);
     const [saved, setSaved] = useState(false);
     const [user, setUser] = useState(null);
+
+    const auth = getAuth();
 
     useEffect(() => {
       if (reviewsArray == null) {
@@ -118,12 +135,14 @@ const ResourceFull = (props) => {
       }
 
       if (!user) {
-        const auth = getAuth();
+        setSaved(false);
         onAuthStateChanged(auth, (guser) => {
-          if (guser && !guser.isAnonymous) {
+          if (!user && guser && !guser.isAnonymous) {
             const uid = guser.uid
             getObject("users", uid).then(x => {
+              // console.log("just set the user from:", user, "to", x)
               setUser(x);
+              setSaved(x.savedResources.indexOf(resourceId) > -1)
             })
           }
         });
@@ -143,18 +162,14 @@ const ResourceFull = (props) => {
           <View style={{flex: 1}}/>
           { saved ? 
             <Pressable onPress={() => {
-              unsaveResource(user, resourceId, navigation).then(updatedUser => {
-                setUser(updatedUser);
-              });
+              unsaveResource(user, setUser, resourceId, navigation);
               setSaved(false);
             }}>
               <Ionicons name="bookmark" size={24} color="white" /> 
               </Pressable>
           :
             <Pressable onPress={() => {
-              saveResource(user, resourceId, navigation).then(updatedUser => {
-                setUser(updatedUser);
-              });
+              saveResource(user, setUser, resourceId, navigation);
               setSaved(true);
             }}>
               <Ionicons name="bookmark-outline" size={24} color="white" />
@@ -196,7 +211,7 @@ const ResourceFull = (props) => {
               
                   <Button style={styles.addButton} onPress={() => {
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
-                      addReviewClick(navigation, props.route.params.name, resourceId);
+                      addReviewClick(navigation, user, setUser, props.route.params.name, resourceId);
                     }}>
                   ADD A REVIEW
                 </Button>

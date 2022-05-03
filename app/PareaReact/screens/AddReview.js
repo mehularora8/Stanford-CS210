@@ -11,10 +11,9 @@ import { TextInput } from 'react-native-gesture-handler';
 const { width } = Dimensions.get("screen");
 
 class AddReview extends React.Component {
-
 	
 	state = {
-		resourceId: this.props.route.params.resourceId, // TBD: Update actual resource ID here, probably going to be passed in.
+		resourceId: this.props.route.params.resourceId,
 		reviewText: '',
 		reviewDate: new Date(),
 	}
@@ -40,10 +39,10 @@ class AddReview extends React.Component {
 		console.log("handlenext", this.props)
 		const { navigation } = this.props;
 		const review = {
-			// This is a hack to test
 			resourceId: this.state.resourceId ? this.state.resourceId : 'mxhbRimhbDk6nxbf6wxc',
 			reviewText: this.state.reviewText,
-			reviewDate: this.state.reviewDate
+			reviewDate: this.state.reviewDate,
+			username: this.props.route.params.username
 		}
 		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
