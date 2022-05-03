@@ -47,7 +47,7 @@ class Saved extends React.Component {
       resources.push(savedResources.find(obj => { return obj["id"] === id }));
     })
 
-    console.log(savedIds, resources)
+    // console.log(savedIds, resources)
 
     this.setState({"resources": resources});
   }

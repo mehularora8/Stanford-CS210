@@ -25,7 +25,6 @@ import QuestionPreviewCard from '../components/QuestionPreviewCard';
 
 const AllQuestions = (props) => {
 
-
     let name = props.route.params.name ? props.route.params.name : "Default";
     let questionsArray = props.route.params.questionsArray ? props.route.params.questionsArray : null; 
     
@@ -63,7 +62,8 @@ const AllQuestions = (props) => {
                   questionsArray.map((x, i) => (
                     <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
                       text= {x.question}
-                      navigation={props.navigation} />
+                      navigation={props.navigation} 
+                      />
                   ))
                 }
         

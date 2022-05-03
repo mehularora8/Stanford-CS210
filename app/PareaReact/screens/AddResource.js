@@ -17,13 +17,16 @@ import AddResourceSuccess from "./AddResourceSuccess";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { putObject } from "../firebase_utils";
 import uuid from 'react-native-uuid';
+import Geocoder from 'react-native-geocoding';
 
+import { GeoPoint } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
 
 const { width, height } = Dimensions.get("screen");
 
 const GOOGLE_PLACES_BASE_URL = 'https://maps.googleapis.com/maps/api/place';
+Geocoder.init('AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI');
 
 
 class AddResource extends React.Component {
@@ -40,25 +43,31 @@ class AddResource extends React.Component {
   submitForReview = () => {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
     if (!valid) return valid
+    
+    // GEOCODING
+    return (Geocoder.from(this.state.address)
+    .then(json => {
+			var location = json.results[0].geometry.location;
 
-    const newId = uuid.v4();
+      const newId = uuid.v4();
+      const resource = {
+        Address: this.state.address,
+        Name: this.state.name,
+        City: '',
+        Contact: "(650) 380-1557",
+        Images: {"url": "https://i.ibb.co/8973D7n/DSCF1502.jpg"},
+        Type: this.state.type,
+        Tags: [],
+        Ratings: [],
+        Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
+        resourceId: newId,
+        addedByUser: getAuth().currentUser.displayName,
+        adminCheck: false,
+      }
 
-    const resource = {
-      Address: this.state.address,
-      Name: this.state.name,
-      City: '',
-      Contact: "(650) 380-1557",
-      Type: this.state.type,
-      Tags: [],
-      Ratings: [],
-      Location: '', // geo
-      resourceId: newId,
-      addedByUser: getAuth().currentUser.displayName,
-      adminCheck: false,
-    }
-
-    putObject("resources/", newId, resource)
-    return true;
+      putObject("resources/", newId, resource)
+      return true;
+		}))
   }
   
   render() {
