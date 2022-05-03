@@ -37,7 +37,7 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
     name: paramname, 
     resourceId: resourceId, 
     username: user.displayName,
-    usertag: user.tag ? user.tag: null,  // defualt user tag?
+    usertag: user.tag ? user.tag: "User",  // defualt user tag?
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
   };

@@ -77,3 +77,45 @@ export async function getObjectsFromCollection(col, numObjects=10, index=0) {
     });
     return out;
 }
+
+export async function storeObject(db_name, local_name) {
+  /* stores non text data blobs like photos */
+
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', local_name, true);
+    xhr.send(null);
+  });
+
+  const pathname = db_name.slice(0, db_name.lastIndexOf("/")+1);
+  const filename = db_name.slice(db_name.lastIndexOf("/")+1)
+
+  db.storage().ref(pathname).child(filename)
+
+  return true;
+}
+
+
+// async function uploadImageAsync(uri) {
+//   const blob = await new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.onload = function () {
+//       resolve(xhr.response);
+//     };
+//     xhr.onerror = function (e) {
+//       console.log(e);
+//     reject(new TypeError(“Network request failed”));
+//     };
+//     xhr.responseType = “blob”;
+//     xhr.open(“GET”, uri, true);
+//     xhr.send(null);
+// });
+// }

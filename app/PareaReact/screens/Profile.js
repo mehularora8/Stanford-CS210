@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Dimensions,
@@ -14,6 +14,8 @@ import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
 import * as ImagePicker from 'expo-image-picker';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import uuid from 'react-native-uuid';
+import { getObject, putObject, storeObject } from "../firebase_utils";
 
 
 
@@ -35,12 +37,22 @@ function doSignOut(nav, setUser) {
 }
 
 
+function uploadNewProfilePic(uri, user) {
+  uri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+  const pname = "/profile-pics/" + user.first + "-" + user.last + "/" + uuid.v4() + ".jpg"
+  
+  // store the actual image
+  // storeObject(pname, uri);
+  
+  user.profileRef = pname;
+  putObject('users', user.uid, user)
+}
 
 
 const Profile = ({navigation}) => {
 
-    const [user, setUser] = React.useState(null);
-    const [newProfile, setNewProfile] = React.useState(null);
+    const [user, setUser] = useState(null);
+    const [newProfile, setNewProfile] = useState(null);
 
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library
@@ -50,25 +62,26 @@ const Profile = ({navigation}) => {
         aspect: [4, 3],
         quality: 1,
       });
-      console.log(result);
+      // console.log(result);
 
       if (!result.cancelled) {
-        setNewProfile(result.uri);
-        
+        uploadNewProfilePic(result.uri, user);
       }
     };
 
-    React.useEffect(() => {
-        if (user == null) {
-          const auth = getAuth();
-          onAuthStateChanged(auth, (user) => {
-            if (user && !user.isAnonymous) {
-              setUser(user)
-            } else {
+    useEffect(() => {
+      if (!user) {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (guser) => {
+          if (guser && !guser.isAnonymous) {
+            getObject("users", guser.uid).then(x => {
+              setUser(x);
+            })
+          } else {
 
-            }
-          })
-        }
+          }
+        })
+      }
     })
 
     return (
