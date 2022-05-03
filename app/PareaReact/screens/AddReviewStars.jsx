@@ -27,6 +27,7 @@ class AddReviewStars extends React.Component {
 	// inside the review object passed in the props.
 	state =  {
 		review: this.props.route.params.review,
+		username: this.props.route.params.username,
 		ratings: {
 			"Safety": 1, 
 			"Accessibility": 1, 
@@ -49,7 +50,7 @@ class AddReviewStars extends React.Component {
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
-		console.log("Attempting to add", finalReview);
+		console.log("Attempting to add", finalReview, collectionPath);
 		putObject(collectionPath, finalReview.reviewId, finalReview);
 		// console.log("ADDED");
 
