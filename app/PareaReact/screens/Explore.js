@@ -28,13 +28,9 @@ const Home = (props) => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user && !user.isAnonymous) {
-        console.log("detected logged in user: %s", user.email)
         const uid = user.uid;
-        console.log(user)
         nav.navigate('AddResource')
       } else {
-        console.log("Unknown user!")
-        // Popup login/register?
         nav.navigate('RegisterPage')
       }
     })

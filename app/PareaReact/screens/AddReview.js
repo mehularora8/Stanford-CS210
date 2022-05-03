@@ -6,6 +6,24 @@ import { Block, Text, theme } from "galio-framework";
 import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import { Ionicons } from '@expo/vector-icons';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
+
+// const [user, setUser] = React.useState(null);
+
+//     React.useEffect(() => {
+//         if (user == null) {
+//           const auth = getAuth();
+//           onAuthStateChanged(auth, (user) => {
+//             if (user && !user.isAnonymous) {
+//               setUser(user)
+//             } else {
+
+//             }
+//           })
+//         }
+//     })
+
 
 const { width } = Dimensions.get("screen");
 
@@ -32,13 +50,12 @@ class AddReview extends React.Component {
 	}
 
 	handleNextButton = ()  => {
-		console.log("handlenext", this.props)
 		const { navigation } = this.props;
 		const review = {
-			// This is a hack to test
 			resourceId: this.state.resourceId ? this.state.resourceId : 'mxhbRimhbDk6nxbf6wxc',
 			reviewText: this.state.reviewText,
-			reviewDate: this.state.reviewDate
+			reviewDate: this.state.reviewDate,
+			username: this.props.route.params.username,
 		}
 		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
@@ -93,7 +110,7 @@ const styles = StyleSheet.create({
 	},
 	inputContainer: {
 		height: '40%', 
-		marginTop: '10%',
+		marginTop: '20%',
 		marginBottom: '10%'
 	},
 	reviewContainer:{

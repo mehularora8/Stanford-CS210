@@ -21,21 +21,29 @@ import QuestionPreviewCard from '../components/QuestionPreviewCard';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
+let globalUser = null;
+
 
 function addReviewClick(nav, paramname, resourceId) {
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user && !user.isAnonymous) {
-      console.log("detected logged in user: %s", user.email)
-      const uid = user.uid;
-      console.log(user)
-      nav.navigate('AddReview', { name: paramname, resourceId: resourceId});
-    } else {
-      console.log("Unknown user!")
-      // Popup login/register?
-      nav.navigate('RegisterPage')
-    }
-  })
+  if (!globalUser || globalUser.isAnonymous) {
+    // double check 
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user && !user.isAnonymous) {
+        globalUser = user
+      } else {
+        nav.navigate('RegisterPage')
+      }
+    });
+  }
+  const params = { 
+    name: paramname, 
+    resourceId: resourceId, 
+    username: globalUser.displayName,
+    userId: globalUser.uid
+  };
+  console.log("User: %s", globalUser.email, "--> Adding review with params:", params)
+  nav.navigate('AddReview', params);
 }
 
 //TODO
@@ -111,38 +119,38 @@ const ResourceFull = (props) => {
     // const [saved, setSaved] = React.useState(user.saved.includes(resourceId));
     const [saved, setSaved] = React.useState(false);
 
-
     React.useEffect(() => {
       if (reviewsArray == null) {
         getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
           setReviewsArray(x)
-          if (x.length > 3) {
-            setReviewsArrayPrev(x.slice(0, 3))
-          } else {
-            setReviewsArrayPrev(x)
-          }
+          if (x.length > 3) setReviewsArrayPrev(x.slice(0, 3))
+          else setReviewsArrayPrev(x)
         })
       }
-    })
 
-    React.useEffect(() => {
       if (questionsArray == null) {
         getQuestions('resources', resourceId).then((x) => {
           setQuestionsArray(x)
-          if (x.length > 3) {
-            setQuestionsArrayPrev(x.slice(0, 3))
-          } else {
-            setQuestionsArrayPrev(x)
-          }
+          if (x.length > 3) setQuestionsArrayPrev(x.slice(0, 3))
+          else setQuestionsArrayPrev(x)
         })
       }
-    })
 
-    React.useEffect(() => {
       if (resourceData == null) {
         getObject('resources', resourceId).then((x) => {
           setResourceData(x)
         })
+      }
+
+      if (!globalUser) {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+          if (user && !user.isAnonymous) {
+            globalUser = user
+          } else {
+            globalUser = {isAnonymous: true}
+          }
+        });
       }
     })
 

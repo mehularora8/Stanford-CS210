@@ -20,7 +20,7 @@ class Card extends React.Component {
       styles.shadow
     ];
 
-    console.log(item.data.Tags)
+    // console.log(item.data.Tags)
     return (
 
       <Block row={horizontal} card flex style={cardContainer}>

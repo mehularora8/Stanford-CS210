@@ -17,7 +17,6 @@ import { format } from "date-fns";
 //Adjust size of card based on amount of text 
 
 const ReviewPreviewCard = (props) => {
-  console.log("IN REVIEW ")
 
   let ratingsObj = null
   let date = null

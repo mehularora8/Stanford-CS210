@@ -44,13 +44,14 @@ class AddReviewStars extends React.Component {
 			reviewId: uuid.v4(),
 			reviewText: this.state.review.reviewText,
 			reviewRatings: this.state.ratings,
-			date: this.state.review.reviewDate
+			date: this.state.review.reviewDate,
+			username: this.state.review.username
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
 		console.log("Attempting to add", finalReview);
 		putObject(collectionPath, finalReview.reviewId, finalReview);
-		console.log("ADDED");
+		// console.log("ADDED");
 
 		const { navigation } = this.props;
 		navigation.navigate("ExplorePage");

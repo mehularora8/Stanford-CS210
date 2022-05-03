@@ -62,7 +62,7 @@ function realLogin(nav, email, password, se) {
       // update state?
       // console.log("user logged in with info: ")
       // console.log(user)
-      console.log(nav.getState())
+      // console.log(nav.getState())
       nav.goBack()
       // nav.navigate("App");
     })
