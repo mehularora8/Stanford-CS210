@@ -22,7 +22,7 @@ import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 
 function addReviewClick(nav, user, paramname, resourceId) {
-  if (user || user.isAnonymous) {
+  if (!user || user.isAnonymous) {
     nav.navigate("RegisterPage");
     return
   }
@@ -32,7 +32,7 @@ function addReviewClick(nav, user, paramname, resourceId) {
     username: user.displayName,
     userId: user.uid
   };
-  console.log("User: %s", globalUser.email, "--> Adding review with params:", params)
+  // console.log("User: %s", globalUser.email, "--> Adding review with params:", params)
   nav.navigate('AddReview', params);
 }
 

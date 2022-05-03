@@ -6,6 +6,7 @@ import { Block, Text, theme } from "galio-framework";
 import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import { Ionicons } from '@expo/vector-icons';
+import { TextInput } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get("screen");
 
@@ -21,11 +22,15 @@ class AddReview extends React.Component {
 	renderInput = () => {
 		return (
 			<Block style={styles.inputContainer}>
-				<Input 
-					rounded 
-					style = {styles.reviewBox}
-					onChangeText = {(newText) => this.setState({reviewText: newText})}
-				/>
+				<TextInput
+                        style={{padding: 15}}
+						multiline
+                        numberOfLines={4}
+						onChangeText={(newText) => this.setState({reviewText: newText})}
+                        value={this.reviewText}
+                        placeholder="Please describe.
+                        "
+            	/>
 			</Block>
 		);
 		
@@ -94,7 +99,9 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		height: '40%', 
 		marginTop: '10%',
-		marginBottom: '10%'
+		marginBottom: '10%',
+		backgroundColor: 'white',
+		borderRadius: 12
 	},
 	reviewContainer:{
 		height: '100%',
