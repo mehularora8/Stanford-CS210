@@ -5,13 +5,14 @@ import {
   ScrollView,
   Image,
   ImageBackground,
-  Platform
+  Platform,
+  Pressable
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
-
+import * as ImagePicker from 'expo-image-picker';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 
@@ -34,9 +35,28 @@ function doSignOut(nav, setUser) {
 }
 
 
+
+
 const Profile = ({navigation}) => {
 
     const [user, setUser] = React.useState(null);
+    const [newProfile, setNewProfile] = React.useState(null);
+
+    const pickImage = async () => {
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      console.log(result);
+
+      if (!result.cancelled) {
+        setNewProfile(result.uri);
+        
+      }
+    };
 
     React.useEffect(() => {
         if (user == null) {
@@ -104,12 +124,14 @@ const Profile = ({navigation}) => {
               style={{ width, marginTop: '25%' }}
             >
               <Block flex style={styles.profileCard}>
-                <Block middle style={styles.avatarContainer}>
-                  <Image
-                    source={{ uri: Images.ProfilePicture }}
-                    style={styles.avatar}
-                  />
-                </Block>
+                <Pressable onPress={pickImage}>
+                  <Block middle style={styles.avatarContainer}>
+                    <Image
+                      source={{ uri: Images.ProfilePicture }}
+                      style={styles.avatar}
+                    />
+                  </Block>
+                </Pressable>
                 <Block style={styles.info}>
                 <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color={argonTheme.COLORS.PRIMARY}>
@@ -181,9 +203,9 @@ const Profile = ({navigation}) => {
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
                     <Block style={styles.divider} />
                     <Block style={{ marginTop: 30, marginBottom: 16 }}>
-                      <Text>
+                      {/* <Text>
                         Under construction!
-                      </Text>
+                      </Text> */}
                     </Block>
                   </Block>
                 </Block>
