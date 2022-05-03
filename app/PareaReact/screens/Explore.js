@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: 'bold',
     borderRadius: 9,
+    marginTop: 10
   },
   input: {
     // backgroundColor: "#FC3901",
@@ -177,6 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     fontSize: 12,
     paddingBottom: -5,
+    marginTop: 10
   }, 
   addResource: {
     marginTop: -100,
