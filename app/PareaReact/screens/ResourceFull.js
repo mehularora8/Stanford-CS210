@@ -52,16 +52,12 @@ function addReviewClick(nav, paramname, resourceId) {
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
-// This function might be redundant when we pass the user 
-// object around. Note: to be removed eventually
-
-
 saveResource = async (resourceId) => {
-  // UserId will be pulled from the env once we merge
-  // auth stuff, this is temporary
-  let userId = 'EZXePEUqnVM0LVNOGkug'
-  getObject('users', userId).then(user => {
-
+  getObject('users', globalUser.uid).then(user => {
+    if (!user) {
+      console.log("User lookup on save resource failed, userid used:", globalUser.uid)
+      return
+    }
     const savedIds = user.saved;
     if (!savedIds) {
       user.saved = [];
@@ -71,16 +67,18 @@ saveResource = async (resourceId) => {
     user.saved.push(resourceId);
     
 
-    putObject('users/', userId, user);
+    putObject('users/', globalUser.uid, user);
   }).catch(err => {
     console.log("Error while fetching saved resources", err);
   })
 }
 
 unsaveResource = async (resourceId) => {
-  let userId = 'EZXePEUqnVM0LVNOGkug'
-  getObject('users', userId).then(user => {
-
+  getObject('users', globalUser.uid).then(user => {
+    if (!user) {
+      console.log("User lookup on UNsave resource failed, userid used:", globalUser.uid)
+      return
+    }
     const savedIds = user.saved;
     if (!savedIds) {
       return;
@@ -91,7 +89,7 @@ unsaveResource = async (resourceId) => {
       user.saved.splice(index, 1)
     }
   
-    putObject('users/', userId, user);
+    putObject('users/', globalUser.uid, user);
   }).catch(err => {
     console.log("Error while fetching saved resources", err);
   })
