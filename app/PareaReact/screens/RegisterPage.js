@@ -5,12 +5,14 @@ import {
   ImageBackground,
   StyleSheet,
   StatusBar,
-  Dimensions
+  Dimensions,
+  Pressable
 } from "react-native";
 
 import { Input } from "../components";
 import argonTheme from "../constants/Theme";
 import { Block, Button, Text, theme } from "galio-framework";
+import { Ionicons } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get("screen");
 
@@ -87,12 +89,18 @@ const RegisterPage = (props) => {
     return (
       <Block center style={styles.container}>
         <Block flex top>
+        
+        <Pressable onPress={() => navigation.goBack()}>
+          <Ionicons name="close-outline" size={30} color="white" style={{marginLeft: 15, marginTop: 15}} />
+        </Pressable>
         <ImageBackground
             source={Images.Grad}
             style={{ height, width }}
           />
         </Block>
+        
         <Block flex style={styles.login}>
+   
           <Text center>
             Have an account? Login 
           </Text>
@@ -179,9 +187,9 @@ const RegisterPage = (props) => {
             }
               
               <Block style={styles.subTitle}>
-                  <Text color="rgba(252, 57, 1, 0.7)" size={13}>
+                  {/* <Text color="rgba(252, 57, 1, 0.7)" size={13}>
                     Designed for Caregivers of Individuals with ASD
-                  </Text>
+                  </Text> */}
                 </Block>
           </Block>
         </Block>
@@ -191,7 +199,9 @@ const RegisterPage = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK,
+    backgroundColor: argonTheme.COLORS.PRIMARY
+    
+
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,

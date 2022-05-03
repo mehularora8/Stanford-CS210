@@ -316,9 +316,9 @@ export default function OnboardingStack(props) {
         component={RegisterPage} 
         option={{
           headerTransparent: true,
-          presentation: "card",
           headerShown: true,
         }}
+        options= {{presentation: 'modal'}}
       />
       <Stack.Screen 
         name="LoginPage"
