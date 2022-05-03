@@ -52,6 +52,8 @@ saveResource = async (user, resourceId, nav) => {
   user.savedResources.push(resourceId);
   
   putObject('users', user.uid, user)
+
+  /* REMOVE ME */
   console.log("Saved resource --> user:", user)
   return user;
 }
@@ -70,6 +72,8 @@ unsaveResource = async (user, resourceId, nav) => {
   if (index > -1) user.savedResources.splice(index, 1)
 
   putObject('users', user.uid, user)
+
+  /* REMOVE ME */
   console.log("UNNsaved resource --> user:", user)
   return user;
 }
