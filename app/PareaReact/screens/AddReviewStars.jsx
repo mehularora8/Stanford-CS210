@@ -69,7 +69,7 @@ class AddReviewStars extends React.Component {
 	renderSliders = () => {
 		// TBD: Tapping a label on the slider should make the thumb come
 		// that location on the slider
-		const headers = ["Safety", "Accessibility", "Environment", "Communication"];
+		const headers = ["Safety", "Inclusion", "Noise Level", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
 
 		return (

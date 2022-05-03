@@ -68,7 +68,7 @@ const ReviewSummaryCard = (props) => {
 
               <Block style={styles.subReviewContainer}>
                 <Text style={styles.subReviewText}>
-                  Accessibility 
+                  Inclusion
                   </Text>
                   <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.88} width={200} color={argonTheme.COLORS.BLACK} height={3} />
@@ -80,7 +80,7 @@ const ReviewSummaryCard = (props) => {
 
                 <Block style={styles.subReviewContainer}>
                   <Text style={styles.subReviewText}>
-                  Environment
+                  Noise Level 
                   </Text>
                   <View style={styles.subReviewBarContainer}>
                   <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />

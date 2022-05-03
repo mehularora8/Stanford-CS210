@@ -77,9 +77,11 @@ const ReviewPreviewCard = (props) => {
            <Text style={styles.reviewText}>
              {/* review text data */}
              {props.text}
-             { longReview ? 
+
+             {/* NOTE: not shortening reviews for now */}
+             {/* { longReview ? 
                <Text style={styles.readMore}>...Read more</Text> : ""
-             }
+             } */}
            </Text>
           </Block>
         );
@@ -87,7 +89,6 @@ const ReviewPreviewCard = (props) => {
 
 const styles = StyleSheet.create({
   reviewPreviewCard: {
-    minHeight: 150,
     backgroundColor: "white",
     borderRadius: 12,
     marginLeft: "3%",
@@ -159,7 +160,8 @@ const styles = StyleSheet.create({
   reviewText: {
     fontFamily: "Open Sans",
     fontSize: 13,
-    marginTop: 5
+    marginTop: 5,
+    paddingLeft: 5,
   }, 
   readMore: {
     color: argonTheme.COLORS.PRIMARY
