@@ -63,7 +63,11 @@ const AllReviews = (props) => {
                   reviewsArray.map((x, i) => (
                     <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
                       text = {x.reviewText}
-                      navigation={props.navigation} />
+                      navigation={props.navigation} 
+                      profileImage={x.userProfileRef}
+                      tag={x.usertag}
+                      username={x.username}
+                      />
                   ))
                 }
         

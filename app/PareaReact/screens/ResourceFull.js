@@ -37,9 +37,10 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
     name: paramname, 
     resourceId: resourceId, 
     username: user.displayName,
+    usertag: user.tag ? user.tag: null,  // defualt user tag?
+    userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
   };
-  // console.log("User: %s", user.email, "--> Adding review with params:", params)
   nav.navigate('AddReview', params);
 }
 
@@ -233,8 +234,12 @@ const ResourceFull = (props) => {
                 {
                   reviewsArrayPrev.map((x, i) => (
                     <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
-                      text = {x.reviewText}
-                      navigation={navigation} />
+                      text={x.reviewText}
+                      username={x.username}
+                      usertag={x.usertag}
+                      profileImage={x.userProfileRef}
+                      navigation={navigation} 
+                      />
                   ))
                 }
                 {/* <ReviewPreviewCard />
