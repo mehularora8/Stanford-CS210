@@ -11,7 +11,7 @@ import {
 import { Icon, Input } from "../components";
 import argonTheme from "../constants/Theme";
 import { Block, Button, Text, theme } from "galio-framework";
-
+import { Ionicons } from '@expo/vector-icons';
 const { height, width } = Dimensions.get("screen");
 
 import Images from "../constants/Images";
@@ -47,15 +47,24 @@ const LoginPage = (props) => {
     return (
     <View flex style={styles.container}>
       <Block flex style={styles.container}>
+     
         <StatusBar hidden />
-        <Block flex center>
+        <Block flex >
+        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="black" onPress={() =>{  props.navigation.goBack()}}/>
         <ImageBackground
             source={Images.Grad}
             style={{ height, width, zIndex: 1 }}
           />
+          
         </Block>
-        <Block flex space="between" style={styles.padded}>
-            <Block flex space="around" style={{ zIndex: 2 }}>
+        <Block flex style={styles.padded}>
+        <Text center style={{color: "white", fontWeight: 'bold', marginTop: '-30%'}} size={45}>
+            PAREA
+          </Text>
+          <Text center style={{fontFamily: "Open Sans", marginTop: '10%', paddingBottom: '2%'}}>
+                  Log in with your account information!
+          </Text>
+            <Block style={{ zIndex: 2 }}>
                 {/* <Block style={styles.title}>
       
                 </Block> */}
@@ -89,11 +98,11 @@ const LoginPage = (props) => {
                 Login
             </Button>
             
-            <Block style={styles.subTitle}>
+            {/* <Block style={styles.subTitle}>
                 <Text color="rgba(252, 57, 1, 0.7)" size={13}>
                 Designed for Caregivers of Individuals with ASD
                 </Text>
-            </Block>
+            </Block> */}
           </Block>
         </Block>
       </Block>
@@ -103,13 +112,16 @@ const LoginPage = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: 'white',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   padded: {
-    paddingHorizontal: theme.SIZES.BASE * 2,
-    position: "relative",
-    bottom: theme.SIZES.BASE,
-    zIndex: 2,
+    // paddingHorizontal: theme.SIZES.BASE * 2,
+    // position: "relative",
+    // bottom: theme.SIZES.BASE,
+    // zIndex: 2,
   },
   button: {
     width: width - theme.SIZES.BASE * 6,
@@ -144,6 +156,11 @@ const styles = StyleSheet.create({
   inputIcons: {
     marginRight: 12
   },
+  backIcon: {
+    marginTop: '10%',
+    marginBottom: '2%',
+    marginLeft: '2%'
+  }
 });
 
 export default LoginPage;

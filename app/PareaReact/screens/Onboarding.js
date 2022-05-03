@@ -61,7 +61,7 @@ class Onboarding extends React.Component {
                   onPress={() => navigation.navigate("LoginPage")}
                   textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
                 >
-                  Login
+                  Log In
                 </Button>
                 <Block>
                   <Text 
