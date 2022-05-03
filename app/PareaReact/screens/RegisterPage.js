@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 const { height, width } = Dimensions.get("screen");
 
 import Images from "../constants/Images";
+import {putObject} from "../firebase_utils"
 
 
 function registerUser(nav, email, password, first, last, setError) {
@@ -25,7 +26,15 @@ function registerUser(nav, email, password, first, last, setError) {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-
+      putObject('users', user.uid, {
+        first: first,
+        last: last,
+        email: email,
+        displayName: first + " " + last,
+        savedResources: [],
+        uid: user.uid
+      })
+      
       updateProfile(auth.currentUser, {
         displayName: first + " " + last, 
         // photoURL: "https://example.com/jane-q-user/profile.jpg"
@@ -49,6 +58,7 @@ function registerUser(nav, email, password, first, last, setError) {
       } else if (errorMessage.includes("(auth/weak-password).")) {
         setError("Password should contain at least 6 characters.")
       } else {
+        console.log(errorMessage)
         setError(errorMessage)
       }
     });

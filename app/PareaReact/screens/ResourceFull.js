@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { ImageBackground, Image, StyleSheet, StatusBar, View, Dimensions, Platform, Linking, ScrollView, Pressable } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 const { height, width } = Dimensions.get('screen');
@@ -18,29 +18,19 @@ import {getObjectsFromCollection, getObject,
         getSavedIds} from '../firebase_utils'
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 
-let globalUser = null;
-
-
-function addReviewClick(nav, paramname, resourceId) {
-  if (!globalUser || globalUser.isAnonymous) {
-    // double check 
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user && !user.isAnonymous) {
-        globalUser = user
-      } else {
-        nav.navigate('RegisterPage')
-      }
-    });
+function addReviewClick(nav, user, paramname, resourceId) {
+  if (user || user.isAnonymous) {
+    nav.navigate("RegisterPage");
+    return
   }
   const params = { 
     name: paramname, 
     resourceId: resourceId, 
-    username: globalUser.displayName,
-    userId: globalUser.uid
+    username: user.displayName,
+    userId: user.uid
   };
   console.log("User: %s", globalUser.email, "--> Adding review with params:", params)
   nav.navigate('AddReview', params);
@@ -52,72 +42,55 @@ function addReviewClick(nav, paramname, resourceId) {
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
-saveResource = async (resourceId) => {
-  getObject('users', globalUser.uid).then(user => {
-    if (!user) {
-      console.log("User lookup on save resource failed, userid used:", globalUser.uid)
-      return
-    }
-    const savedIds = user.saved;
-    if (!savedIds) {
-      user.saved = [];
-    }
+saveResource = async (user, resourceId, nav) => {
+  if (!user || user.isAnonymous) {
+    nav.navigate('RegisterPage')
+    return
+  }
 
-    if (user.saved.includes(resourceId)) return;
-    user.saved.push(resourceId);
-    
-
-    putObject('users/', globalUser.uid, user);
-  }).catch(err => {
-    console.log("Error while fetching saved resources", err);
-  })
+  if (user.savedResources.includes(resourceId)) return user;
+  user.savedResources.push(resourceId);
+  
+  putObject('users', user.uid, user)
+  console.log("Saved resource --> user:", user)
+  return user;
 }
 
-unsaveResource = async (resourceId) => {
-  getObject('users', globalUser.uid).then(user => {
-    if (!user) {
-      console.log("User lookup on UNsave resource failed, userid used:", globalUser.uid)
-      return
-    }
-    const savedIds = user.saved;
-    if (!savedIds) {
-      return;
-    }
-    let index = savedIds.indexOf(resourceId);
+unsaveResource = async (user, resourceId, nav) => {
+  if (!user || user.isAnonymous) {
+    nav.navigate('RegisterPage')
+    return
+  }
 
-    if (index > -1) {
-      user.saved.splice(index, 1)
-    }
-  
-    putObject('users/', globalUser.uid, user);
-  }).catch(err => {
-    console.log("Error while fetching saved resources", err);
-  })
+  if (user.savedResources.length == 0) {
+    console.log("Unsaving a resource from a user with no saved, weird...")
+    return user;
+  }
+  let index = user.savedResources.indexOf(resourceId);
+  if (index > -1) user.savedResources.splice(index, 1)
 
-  return;
+  putObject('users', user.uid, user)
+  console.log("UNNsaved resource --> user:", user)
+  return user;
 }
 
 const ResourceFull = (props) => {
+    let navigation = props.navigation
 
-    // Relies on user being passed as a prop. 
-    // let user = props.user;
     let resourceId = props.route.params.resourceId
     let name = props.route.params.name ? props.route.params.name : "Default";
     let tags = props.route.params.tags //note this must be taken out of route params and pulled from central data store
 
-    const [savedIds, setSavedIds] = React.useState(null);
-    const [reviewsArray, setReviewsArray] = React.useState(null);
-    const [reviewsArrayPrev, setReviewsArrayPrev] = React.useState(null);
-    const [resourceData, setResourceData] = React.useState(null);
-    const [questionsArray, setQuestionsArray] = React.useState(null);
-    const [questionsArrayPrev, setQuestionsArrayPrev] = React.useState(null);
+    const [savedIds, setSavedIds] = useState(null);
+    const [reviewsArray, setReviewsArray] = useState(null);
+    const [reviewsArrayPrev, setReviewsArrayPrev] = useState(null);
+    const [resourceData, setResourceData] = useState(null);
+    const [questionsArray, setQuestionsArray] = useState(null);
+    const [questionsArrayPrev, setQuestionsArrayPrev] = useState(null);
+    const [saved, setSaved] = useState(false);
+    const [user, setUser] = useState(null);
 
-    // TODO: Initialize this based on whether user has stored this
-    // instead of false
-    // const [saved, setSaved] = React.useState(user.saved.includes(resourceId));
-    const [saved, setSaved] = React.useState(false);
-
-    React.useEffect(() => {
+    useEffect(() => {
       if (reviewsArray == null) {
         getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
           setReviewsArray(x)
@@ -140,13 +113,14 @@ const ResourceFull = (props) => {
         })
       }
 
-      if (!globalUser) {
+      if (!user) {
         const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-          if (user && !user.isAnonymous) {
-            globalUser = user
-          } else {
-            globalUser = {isAnonymous: true}
+        onAuthStateChanged(auth, (guser) => {
+          if (guser && !guser.isAnonymous) {
+            const uid = guser.uid
+            getObject("users", uid).then(x => {
+              setUser(x);
+            })
           }
         });
       }
@@ -157,7 +131,7 @@ const ResourceFull = (props) => {
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
         <Block style={styles.titleContainer}>
-        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  props.navigation.goBack()}}/>
+        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  navigation.goBack()}}/>
           <View style={{flex: 1}}/>
           <Text style={styles.titleText}>
             {name}
@@ -165,14 +139,18 @@ const ResourceFull = (props) => {
           <View style={{flex: 1}}/>
           { saved ? 
             <Pressable onPress={() => {
-              unsaveResource(resourceId);
+              unsaveResource(user, resourceId, navigation).then(updatedUser => {
+                setUser(updatedUser);
+              });
               setSaved(false);
             }}>
               <Ionicons name="bookmark" size={24} color="white" /> 
               </Pressable>
           :
             <Pressable onPress={() => {
-              saveResource(resourceId);
+              saveResource(user, resourceId, navigation).then(updatedUser => {
+                setUser(updatedUser);
+              });
               setSaved(true);
             }}>
               <Ionicons name="bookmark-outline" size={24} color="white" />
@@ -214,7 +192,7 @@ const ResourceFull = (props) => {
               
                   <Button style={styles.addButton} onPress={() => {
                       // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
-                      addReviewClick(props.navigation, props.route.params.name, resourceId);
+                      addReviewClick(navigation, props.route.params.name, resourceId);
                     }}>
                   ADD A REVIEW
                 </Button>
@@ -237,14 +215,14 @@ const ResourceFull = (props) => {
                   reviewsArrayPrev.map((x, i) => (
                     <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
                       text = {x.reviewText}
-                      navigation={props.navigation} />
+                      navigation={navigation} />
                   ))
                 }
                 {/* <ReviewPreviewCard />
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
@@ -255,12 +233,12 @@ const ResourceFull = (props) => {
                     questionsArrayPrev.map((x, i) => (
                       <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
                         text= {x.question}
-                        navigation={props.navigation} />
+                        navigation={navigation} />
                     ))
                   }
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => props.navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
                     See all questions
             </Button>
             <Divider style={styles.divider} />

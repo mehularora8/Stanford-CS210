@@ -54,9 +54,8 @@ export async function putObject(col, key, object) {
     pass a collection, primary key and the object to store
     Always returns true
     */
-    const colRef = collection(db, col);
-
-    await setDoc(doc(colRef, key), object)
+    const docRef = doc(db, col, key);
+    await setDoc(docRef, object);
     
     return true;
 }
