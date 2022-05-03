@@ -183,7 +183,7 @@ class AddResource extends React.Component {
                             listView:{
                               position: 'absolute',
                               backgroundColor: '#FFF',
-                              zIndex: 10,//can't figure out how to force to front 
+                              zIndex: 10, 
                           }
                         }}
                           onPress={(data, details = null) => {

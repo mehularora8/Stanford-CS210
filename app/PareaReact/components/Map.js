@@ -56,38 +56,38 @@ const Map = (props) => {
             
                     resources.map((x, i) => (
                     <Marker
-                    key={"result" + i}
-                    coordinate={{
-                        latitude: parseFloat(x.data.Location.latitude), 
-                        longitude: parseFloat(x.data.Location.longitude),
-                    }}
-                    title={x.data.Name}
-                    image={require("../assets/imgs/locationIcon2.png")}
-                    onCalloutPress={e => navigation.navigate('ResourceFull', { resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
-                > 
-                    <Callout tooltip>
-                        <View >
-                            <View style={styles.locPreview}>
-                            <Text style={styles.resourceTitle}>{x.data.Name} </Text>
-                            <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                                <Text style={styles.resourceType}>{x.data.Type}</Text>
-                                <Rating 
-                                    type="custom"
-                                    ratingColor="#fc3901"
-                                    ratingBackgroundColor="#999999"
-                                    fractions={1}
-                                    startingValue={x.data.Ratings.Overall}
-                                    imageSize={15}
-                                    readonly  
-                                    />
+                        key={"result" + i}
+                        coordinate={{
+                            latitude: parseFloat(x.data.Location.latitude), 
+                            longitude: parseFloat(x.data.Location.longitude),
+                        }}
+                        title={x.data.Name}
+                        image={require("../assets/imgs/locationIcon2.png")}
+                        onCalloutPress={e => navigation.navigate('ResourceFull', { resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
+                    > 
+                        <Callout tooltip>
+                            <View >
+                                <View style={styles.locPreview}>
+                                <Text style={styles.resourceTitle}>{x.data.Name} </Text>
+                                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+                                    <Text style={styles.resourceType}>{x.data.Type}</Text>
+                                    <Rating 
+                                        type="custom"
+                                        ratingColor="#fc3901"
+                                        ratingBackgroundColor="#999999"
+                                        fractions={1}
+                                        startingValue={x.data.Ratings.Overall}
+                                        imageSize={15}
+                                        readonly  
+                                        />
 
+                                </View>
+                                </View>
+                                {/* <View style={styles.arrowBorder}/>
+                                <View style={styles.arrow}/> */}
                             </View>
-                            </View>
-                            {/* <View style={styles.arrowBorder}/>
-                            <View style={styles.arrow}/> */}
-                        </View>
-                    </Callout>
-                </Marker>
+                        </Callout>
+                    </Marker>
         
                     ))
                 }
