@@ -40,6 +40,7 @@ function registerUser(nav, email, password, first, last, setError) {
       });
 
       nav.goBack()
+      nav.navigate("App")
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -64,7 +65,7 @@ function realLogin(nav, email, password, se) {
       // console.log(user)
       // console.log(nav.getState())
       nav.goBack()
-      // nav.navigate("App");
+      nav.navigate("App");
     })
     .catch((error) => {
       const errorMessage = error.message;
