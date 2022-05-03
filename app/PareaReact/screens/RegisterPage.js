@@ -85,13 +85,14 @@ const RegisterPage = (props) => {
   const [firstname, changeFirst] = React.useState("");
   const [lastname, changeLast] = React.useState("");
   const [err, setError] = React.useState(null);
+  const [registerMode, setRegisterMode] = React.useState(true);
 
     return (
       <Block center style={styles.container}>
         <Block flex top>
         
         <Pressable onPress={() => navigation.goBack()}>
-          <Ionicons name="close-outline" size={30} color="white" style={{marginLeft: 15, marginTop: 15}} />
+          <Ionicons name="close-outline" size={30} color="black" style={{marginLeft: 15, marginTop: 15}} />
         </Pressable>
         <ImageBackground
             source={Images.Grad}
@@ -99,11 +100,17 @@ const RegisterPage = (props) => {
           />
         </Block>
         
+        {/* START LOGIN BLOCK */}
+        {/* CONDITIONALLY RENDER LOGIN OR ACCT CREATION */}
+        { !registerMode ? 
         <Block flex style={styles.login}>
-   
-          <Text center>
-            Have an account? Login 
+          <Text center style={{color: "white", fontWeight: 'bold', marginTop: '-20%'}} size={45}>
+            PAREA
           </Text>
+          <Text center style={{fontFamily: "Open Sans", marginTop: '10%', paddingBottom: '2%'}}>
+                  Log in with your account information!
+          </Text>
+
           <Block width={width * 0.8}>
               <Input 
                   borderless
@@ -127,14 +134,24 @@ const RegisterPage = (props) => {
                 onPress={() => {realLogin(navigation, emailLogin, passLogin, setError)}}
                 textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
             >
-                Login
+                Log In
             </Button>
+            <Pressable onPress={() => setRegisterMode(true)}>
+              <Text center style={{fontFamily: "Open Sans", paddingTop: "3%"}}>
+                New to PAREA? Create an account.
+              </Text>
+            </Pressable>
         </Block>
-        <Block space="between" style={styles.padded}>
+          :
+        <Block style={styles.padded}>
             <Block>
               <Block style={styles.title}>
-                <Text size={23}>
-                  Don't have an account? Create one here!
+                <Text center style={{color: "white"}} size={45}>
+                  Join <Text style={{fontWeight: 'bold', color: 'white'}}>PAREA</Text>!
+                  
+                  </Text>
+                <Text center style={{fontFamily: "Open Sans", marginTop: '10%'}}>
+                  Create an account
                 </Text>
               </Block>
 
@@ -181,31 +198,37 @@ const RegisterPage = (props) => {
             >
               Register
             </Button>
+            <Pressable onPress={() => setRegisterMode(false)}>
+              <Text center style={{fontFamily: "Open Sans", paddingTop: "3%"}}>
+                Already have an account? Log in. 
+              </Text>
+            </Pressable>
 
             {err != null ? 
                  <Text center color="rgba(252, 57, 1, 0.7)" size={17}>{err}</Text>: <></>
             }
               
-              <Block style={styles.subTitle}>
-                  {/* <Text color="rgba(252, 57, 1, 0.7)" size={13}>
+              {/* <Block style={styles.subTitle}>
+                  <Text color="rgba(252, 57, 1, 0.7)" size={13}>
                     Designed for Caregivers of Individuals with ASD
-                  </Text> */}
-                </Block>
+                  </Text>
+                </Block> */}
           </Block>
         </Block>
+          }
       </Block>
     );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: argonTheme.COLORS.PRIMARY
-    
-
+    backgroundColor: argonTheme.COLORS.PRIMARY,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
-    position: "relative",
     bottom: theme.SIZES.BASE + 190,
   },
   login: {
@@ -228,7 +251,8 @@ const styles = StyleSheet.create({
     marginTop: '-50%'
   },
   title: {
-    marginTop:'-5%'
+    marginTop:'-5%',
+    paddingBottom: '5%'
   },
   subTitle: {
 
