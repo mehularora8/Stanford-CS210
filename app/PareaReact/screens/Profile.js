@@ -57,15 +57,38 @@ const Profile = ({navigation}) => {
           <ImageBackground
             source={Images.ProfGradient}
             style={styles.profileContainer}
-            imageStyle={styles.profileBackground}
+            imageStyle={styles.createAcctBackground}
           >
-          <Block center style={styles.drop}>
-            <Text bold size={24} color={argonTheme.COLORS.TERTIARY}>
+          <Block  style={styles.drop}>
+            <Text  style={{color: "white"}} size={45}>
+            Join <Text style={{fontWeight: 'bold', color: 'white'}}>PAREA</Text>!
+            
+            </Text>
+            <Text size={18} color={"white"}>
               Create an account to view your profile
             </Text>
-            <Button onPress={() => navigation.navigate('RegisterPage')}>
-              Register / Login
+            <Block style={{marginTop: '10%'}}>
+              <Text style={styles.keyUse}>
+                Save <Text style={styles.emphasize}>RESOURCES</Text>
+              </Text >
+              <Text style={styles.keyUse}>
+                Write <Text style={styles.emphasize}>REVIEWS</Text>
+              </Text>
+              <Text style={styles.keyUse}>
+                Ask <Text style={styles.emphasize}>QUESTIONS</Text>
+            </Text>
+          </Block>
+
+
+            <Button
+            style={styles.button}
+            color={argonTheme.COLORS.TERTIARY}
+            onPress={() => navigation.navigate('RegisterPage')}
+            textStyle={{ color: "white", fontFamily: 'Open Sans' }}
+            >
+            Log In / Register 
             </Button>
+
           </Block>
           </ImageBackground>
         </Block> : 
@@ -165,15 +188,19 @@ const Profile = ({navigation}) => {
                   </Block>
                 </Block>
               </Block>
-            </ScrollView>
-            
-          </ImageBackground>
-        </Block>
-        <Block center>
-            <Button onPress={() => doSignOut(navigation, setUser)}>
-              Sign out
+              <Block center>
+              <Button
+                style={styles.secondaryButton}
+                onPress={() => doSignOut(navigation, setUser)}
+                textStyle={{ color: "#99999", fontFamily: 'Open Sans' }}
+                >
+                Log Out
             </Button>
-          </Block>
+            </Block>
+            </ScrollView>
+          </ImageBackground>
+
+        </Block>
       </Block>
       }
     );
@@ -193,7 +220,19 @@ const styles = StyleSheet.create({
   },
   profileBackground: {
     width: width,
-    height: height / 2
+    height: height 
+  },
+  createAcctBackground: {
+    width: width,
+    height: height 
+  },
+  keyUse: {
+    color: 'white',
+    fontSize: 17,
+    paddingTop: '2%'
+  },
+  emphasize: {
+    fontWeight: '800',
   },
   profileCard: {
     // position: "relative",
@@ -241,6 +280,26 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: thumbMeasure,
     height: thumbMeasure
+  },
+  button: {
+    width: width - theme.SIZES.BASE * 6,
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 12,
+    backgroundColor: argonTheme.COLORS.PRIMARY,
+    marginTop: '15%',
+    marginLeft: '7%'
+  },
+  secondaryButton: {
+    width: width - theme.SIZES.BASE * 6,
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 12,
+    backgroundColor: argonTheme.COLORS.TERTIARY,
+    marginTop: '15%',
+    marginLeft: '7%'
   }
 });
 
