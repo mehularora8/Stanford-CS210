@@ -90,9 +90,9 @@ const LoginPage = (props) => {
             </Button>
             
             <Block style={styles.subTitle}>
-                <Text color="rgba(252, 57, 1, 0.7)" size={13}>
+                {/* <Text color="rgba(252, 57, 1, 0.7)" size={13}>
                 Designed for Caregivers of Individuals with ASD
-                </Text>
+                </Text> */}
             </Block>
           </Block>
         </Block>

@@ -58,7 +58,7 @@ const ReportCard = (props) => {
                     :
                     <View/>
                     }
-                    {reportType === "incorrect" ? <View>
+                    {/* {reportType === "incorrect" ? <View>
                       <Text style={styles.modalText}>Is information about <Text style={styles.resourceName}>{props.resourceName}</Text> incorrect? </Text> 
                         <TextInput
                         style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
@@ -69,8 +69,8 @@ const ReportCard = (props) => {
                         placeholder="Please describe what is wrong.
                         "
                         />
-                    </View> : <View/>}
-                    {reportType === "missing" ? <View>
+                    </View> : <View/>} */}
+                    {/* {reportType === "missing" ? <View>
                       <Text style={styles.modalText}>Is information about <Text style={styles.resourceName}>{props.resourceName}</Text> missing? </Text> 
                         <TextInput
                         style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
@@ -81,9 +81,9 @@ const ReportCard = (props) => {
                         placeholder="Please describe what should be added.
                         "
                         />
-                    </View> : <View/>}
+                    </View> : <View/>} */}
                     {reportType === "other" ? <View>
-                      <Text style={styles.modalText}>Report a problem with <Text style={styles.resourceName}>{props.resourceName}</Text>? </Text> 
+                      <Text style={styles.modalText}>Report a problem with the information on <Text style={styles.resourceName}>{props.resourceName}</Text>? </Text> 
                         <TextInput
                         style={{marginBottom: '3%', borderColor: 'gray', borderStyle: 'solid', borderWidth: '2', borderRadius: '12', padding: '5%'}}
                         onChangeText={onChangeText}
@@ -119,20 +119,16 @@ const ReportCard = (props) => {
                 </View>
               </Modal>
 
-
-              <Text style={styles.title}> Report </Text>
+              <View style={{display: 'flex', flexDirection: 'column',justifyContent: 'flex-start'}}>
+                <Text style={styles.title}> Report </Text>
+                <Text style={styles.body}>
+                      Help the community keep information up to date!
+                </Text>
+              </View>
               <View style={styles.buttonHolder}>
                 <View style={{display: "flex", flexDirection:"row"}}>
                     <Button style={styles.seeReviewsButton}  onPress={() => handleReportButton("closed")}>
                     Not operating
-                    </Button>
-                    <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("incorrect")}>
-                    Incorrect info
-                    </Button>
-                </View>
-                <View style={{display: "flex", flexDirection:"row"}}>
-                    <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("missing")}>
-                    Missing info
                     </Button>
                     <Button style={styles.seeReviewsButton} onPress={() => handleReportButton("other")}>
                     Other
@@ -252,6 +248,10 @@ const styles = StyleSheet.create({
   },
   resourceName: {
     fontWeight: "600"
+  },
+  body: {
+    fontFamily: "Open Sans",
+    marginLeft: 4
   }
 });
 
