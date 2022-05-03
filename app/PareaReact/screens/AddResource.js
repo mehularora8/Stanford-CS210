@@ -15,9 +15,11 @@ import { Button, Icon } from "../components";
 import { Images, argonTheme } from "../constants";
 import AddResourceSuccess from "./AddResourceSuccess";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { putObject } from "../firebase_utils";
+import uuid from 'react-native-uuid';
 
+import { getAuth } from "firebase/auth";
 
-// import auth from '@react-native-firebase/auth';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -37,8 +39,26 @@ class AddResource extends React.Component {
 
   submitForReview = () => {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
-    console.log(valid);
-    return valid;
+    if (!valid) return valid
+
+    const newId = uuid.v4();
+
+    const resource = {
+      Address: this.state.address,
+      Name: this.state.name,
+      City: '',
+      Contact: "(650) 380-1557",
+      Type: this.state.type,
+      Tags: [],
+      Ratings: [],
+      Location: '', // geo
+      resourceId: newId,
+      addedByUser: getAuth().currentUser.displayName,
+      adminCheck: false,
+    }
+
+    putObject("resources/", newId, resource)
+    return true;
   }
   
   render() {
@@ -85,7 +105,6 @@ class AddResource extends React.Component {
                           }
                           onChangeText = {(value) => {
                             this.setState({"name": value}); 
-                            console.log(value)
                           }}
                         />
                       </Block>
@@ -104,7 +123,6 @@ class AddResource extends React.Component {
                           }
                           onChangeText = {(value) => {
                             this.setState({"type": value});
-                            console.log(value)
                           }}
                         />
                       </Block>
@@ -170,7 +188,6 @@ class AddResource extends React.Component {
                         }}
                           onPress={(data, details = null) => {
                             // 'details' is provided when fetchDetails = true
-                            console.log("DATA:", data);
                             this.setState({"address": data.description})
                           }}
                           query={{
@@ -179,7 +196,6 @@ class AddResource extends React.Component {
                           }}
                           onChangeText = {(value) => {
                             this.setState({"address": value}); 
-                            console.log(value)
                           }}
                         />
                       </Block>

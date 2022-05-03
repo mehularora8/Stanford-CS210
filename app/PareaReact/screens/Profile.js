@@ -27,11 +27,9 @@ const thumbMeasure = (width - 48 - 32) / 3;
 function doSignOut(nav, setUser) {
   const auth = getAuth();
   signOut(auth).then(() => {
-    // Sign-out successful.
     setUser(null)
     nav.navigate("Explore")
   }).catch((error) => {
-    // An error happened.
     console.log(error)
   });
 }

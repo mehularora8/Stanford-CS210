@@ -75,9 +75,6 @@ class Saved extends React.Component {
             ))
           }
           </ScrollView>
-
-          {/*Also temporary. TODO: Figure out a way to auto manage
-          this using notifications / subscribing to something. */}
           <Block center padded>
             <Button onPress = {() => {
               this.renderSavedResources();
