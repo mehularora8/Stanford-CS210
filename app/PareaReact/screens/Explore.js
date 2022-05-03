@@ -45,11 +45,13 @@ const Home = (props) => {
   const navigation = props.navigation
   const [resourceData, setResourceData] = React.useState(null);
   const [filteredResources, setFilteredResources] = React.useState(null);
+  const [results, setResults] = React.useState(0);
 
   React.useEffect(() => {
     if (resourceData == null) {
       getObjectsFromCollection('resources').then((x) => {
         setResourceData(x)
+        setResults(x.length)
       })
     }
   })
@@ -77,9 +79,12 @@ const Home = (props) => {
                 temp[x] = !temp[x]
                 setPressed(temp)
                 if (pressed[x]) {
-                  setFilteredResources(resourceData.filter(resource => resource.data.Type === x))
+                  var toShow = resourceData.filter(resource => resource.data.Type === x)
+                  setFilteredResources(toShow)
+                  setResults(toShow.length)
                 } else {
                   setFilteredResources(null)
+                  setResults(resourceData.length)
                 }
               }}>
                 <Text size={10} key={x}>
@@ -102,7 +107,7 @@ const Home = (props) => {
           <Block flex style={styles.articles}>
             <Block flex style={styles.resourcesText}>
               <Text style={styles.headerText}>Resources Near You</Text>
-              <Text style={styles.resultsHeader}> {articles.length} results</Text>
+              <Text style={styles.resultsHeader}> {results} results</Text>
             </Block>
 
             {
