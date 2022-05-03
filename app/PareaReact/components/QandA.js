@@ -30,7 +30,7 @@ const QandA = (props) => {
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
       console.log("Attempting to add", question);
       putObject(collectionPath, question.questionId, question);
-      console.log("ADDED");
+      // console.log("ADDED");
     }
 
    
