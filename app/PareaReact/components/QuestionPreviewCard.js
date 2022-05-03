@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, Pressable, Vie
 import { Block, Text, theme} from 'galio-framework';
 import { AirbnbRating, Rating } from 'react-native-ratings';
 import { argonTheme, Images } from '../constants';
-import { LinearProgress } from 'react-native-elements';
+import { LinearProgress, Divider } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { format } from "date-fns";
@@ -40,6 +40,7 @@ const QuestionPreviewCard = (props) => {
     }
     const [upvotes, setUpvotes] = React.useState(tempUpvotes)
     const [alreadyVoted, setAlreadyVoted] = React.useState(false)
+    const [replies, setReplies] = React.useState(null)
 
   
       return (
@@ -93,6 +94,36 @@ const QuestionPreviewCard = (props) => {
                 <Text style={{color: argonTheme.COLORS.PRIMARY, fontSize: 13, fontWeight: '700'}}>Reply</Text>
             </Pressable>
              </Block>
+             { replies !== null ? 
+             <Block>
+               <Divider />
+                <Block style={{padding: '4%'}}>
+                  <Block style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <Text style={{fontSize: 13, fontWeight: '500'}}> 
+                        {/* username data */}
+                            Parea User
+                        </Text>
+                        <Text style={{fontSize: 13, fontWeight: '200'}}>
+                          {/* rating date */}
+                          {formattedDate !== null ? formattedDate : ""}
+                        </Text>
+                      </Block>
+                  <Text style={{fontFamily: "Open Sans"}}>
+                    This is a reply to your question 
+                  </Text>
+                  <Block style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '5%'}}>
+                    <View/>
+                    <Pressable>
+                      <Text style={{color: "#9999", fontSize: 13, fontWeight: '700'}}>See All Replies</Text>
+                  </Pressable>
+                  </Block>
+                </Block>
+             </Block>
+             :
+             <Block>
+               {/* there are no replies */}
+             </Block>
+              }
      
             </Block>
           );
@@ -109,6 +140,7 @@ const QuestionPreviewCard = (props) => {
     },
     username: {
       fontSize: 15,
+      
       // fontWeight: "300",
     }, 
     identityTag: {
