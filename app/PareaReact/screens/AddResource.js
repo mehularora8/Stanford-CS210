@@ -62,12 +62,12 @@ class AddResource extends React.Component {
                   <Block middle>
                     <Text style={styles.text}
                       color={argonTheme.COLORS.BLACK}
-                      size={12}
+                      size={13}
                     >
                       Don’t see what you’re looking for? To suggest a new resource listing, fill out the information below!
                     </Text>
                   </Block>
-
+                  <ScrollView>
                   <Block style = {styles.scroll} center>
                       <Text> {this.state.error} </Text>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
@@ -158,6 +158,16 @@ class AddResource extends React.Component {
                           placeholder='Address'
                           height={150} 
                           width={width * 0.9}
+                          minLength={4}
+                          autoFocus={true}
+                          listViewDisplayed="auto"
+                          style={{
+                            listView:{
+                              position: 'absolute',
+                              backgroundColor: '#FFF',
+                              zIndex: 10,//can't figure out how to force to front 
+                          }
+                        }}
                           onPress={(data, details = null) => {
                             // 'details' is provided when fetchDetails = true
                             console.log("DATA:", data);
@@ -173,7 +183,7 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
-                      <Block middle style={{ marginTop: 0 }} >
+                      <Block middle style={{ marginTop: -150, zIndex: 0 }} >
                         <Button onPress={() => {
                           let valid = this.submitForReview();
                           if (valid) {
@@ -191,11 +201,13 @@ class AddResource extends React.Component {
                       </Block>
                     {/* </KeyboardAvoidingView> */}
                   </Block>
+                  </ScrollView>
                 </Block>
               </Block>
             </Block>
           </Block>
       </Block>
+    
     );
   }
 }
@@ -239,18 +251,18 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25,
     borderRadius: 12,
   },
   boldText: {
     fontWeight: 'bold'
   },
   scroll: {
-    marginVertical: 100,
+    marginVertical: 10,
   },
   text: {
     textAlign: 'center',
-    width: width*0.9
+    width: width*0.9,
+    fontFamily: "Open Sans"
   },
   cancel: {
 		backgroundColor: 'transparent',
@@ -260,7 +272,10 @@ const styles = StyleSheet.create({
 		width: 28,
 		marginLeft: 10,
     marginBottom: -40,
-	}
+	},
+  goog: {
+    zIndex: 999
+  }
 });
 
 export default AddResource;
