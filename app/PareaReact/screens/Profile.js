@@ -222,7 +222,7 @@ const Profile = ({navigation}) => {
                     >
                       <View style={styles.modalView}>
                       <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                        <Ionicons name="close-outline" size={30} color="black" style={{marginLeft: '75%'}} />
+                        <Ionicons name="close-outline" size={30} color="black" style={{marginRight: '75%'}} />
                       </Pressable>
                         <Text style={{fontWeight: 'bold'}}>Edit Community Status</Text>
                           <RadioButtonRN
