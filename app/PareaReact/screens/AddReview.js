@@ -43,7 +43,8 @@ class AddReview extends React.Component {
 			reviewDate: this.state.reviewDate,
 			username: this.props.route.params.username,
 			userProfileRef: this.props.route.params.userProfileRef,
-			usertag: this.props.route.params.usertag
+			usertag: this.props.route.params.usertag,
+			userId: this.props.route.params.userId
 		}
 		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});

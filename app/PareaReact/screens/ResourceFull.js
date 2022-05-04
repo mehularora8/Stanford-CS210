@@ -37,7 +37,7 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
     name: paramname, 
     resourceId: resourceId, 
     username: user.displayName,
-    usertag: user.tag ? user.tag: "User",  // defualt user tag?
+    usertag: user.type != null ? user.type: "Parea User",  // defualt user tag?
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
   };
@@ -236,10 +236,10 @@ const ResourceFull = (props) => {
                     <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
                       text={x.reviewText}
                       username={x.username}
-                      usertag={x.usertag}
+                      tag={x.usertag}
                       profileImage={x.userProfileRef}
                       navigation={navigation} 
-                      
+
                       />
                   ))
                 }
