@@ -98,7 +98,6 @@ class AddResource extends React.Component {
                   </Block>
                   <ScrollView>
                   <Block style = {styles.scroll} center>
-                      <Text> {this.state.error} </Text>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
@@ -209,6 +208,7 @@ class AddResource extends React.Component {
                         />
                       </Block>
                       <Block middle style={{ marginTop: -150, zIndex: 0 }} >
+                      <Text style={{color: "red"}}> {this.state.error} </Text>
                         <Button onPress={() => {
                           let valid = this.submitForReview();
                           if (valid) {
@@ -216,7 +216,7 @@ class AddResource extends React.Component {
                             navigation.navigate(AddResourceSuccess)
                           }
                           else {
-                            this.setState({"error": "Please fill all required fields!"})
+                            this.setState({"error": "Please fill all required fields (name, type, & address)!"})
                           }
                           }} color="primary" style={styles.createButton}>
                           <Text bold size={14} color={argonTheme.COLORS.WHITE}>
