@@ -71,6 +71,10 @@ function uploadNewProfilePic(uri, user) {
   putObject('users', user.uid, user)
 }
 
+function handleChangeUserType(user, typeUpdate) {
+  user.type = typeUpdate
+  putObject('users', user.uid, user)
+}
 
 
 const Profile = ({navigation}) => {
@@ -110,6 +114,9 @@ const Profile = ({navigation}) => {
           if (guser && !guser.isAnonymous) {
             getObject("users", guser.uid).then(x => {
               setUser(x);
+              if (x.type != undefined && x.type != null) {
+                setUserType(x.type)
+              }
             })
           } else {
 
@@ -223,7 +230,7 @@ const Profile = ({navigation}) => {
                               initial={userTypeData.findIndex(isType) + 1}
                               selectedBtn={(e) => {
                                 setUserType(e.label)
-                                handleChangeUserType()
+                                handleChangeUserType(user, userType)
                               }}
                               style={{width: 250}}
                               activeColor={argonTheme.COLORS.PRIMARY}
