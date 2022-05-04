@@ -6,7 +6,9 @@ import {
   Image,
   ImageBackground,
   Platform,
-  Pressable
+  Pressable,
+  View,
+  Modal
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Ionicons } from '@expo/vector-icons';
@@ -14,12 +16,32 @@ import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
 import * as ImagePicker from 'expo-image-picker';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import RadioButtonRN from 'radio-buttons-react-native';
 
 
 
 const { width, height } = Dimensions.get("screen");
 
 const thumbMeasure = (width - 48 - 32) / 3;
+
+const userTypeData = [
+  {
+    label: 'Parea User'
+   },
+   {
+    label: 'Caregiver'
+   },
+   {
+    label: 'Parent'
+   },
+   {
+    label: 'Sibling'
+   },
+   {
+    label: 'Resource Provider'
+   },
+  ];
+
 
 
 function doSignOut(nav, setUser) {
@@ -34,13 +56,27 @@ function doSignOut(nav, setUser) {
   });
 }
 
+function getProfURI() { //get this from firebase
+  return Images.ProfilePicture
+}
 
+function handleChangeUserType() { //send to firebase 
 
+}
 
 const Profile = ({navigation}) => {
 
     const [user, setUser] = React.useState(null);
-    const [newProfile, setNewProfile] = React.useState(null);
+    const [newProfile, setNewProfile] = React.useState(getProfURI());
+    const [userType, setUserType] = React.useState("Parea User")
+    const [modalVisible, setModalVisible] = React.useState(false);
+    
+    const isType = (element) =>  {
+      console.log(element.label)
+      console.log(userType)
+      return element.label == userType;
+    }
+
 
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library
@@ -53,8 +89,7 @@ const Profile = ({navigation}) => {
       console.log(result);
 
       if (!result.cancelled) {
-        setNewProfile(result.uri);
-        
+        setNewProfile(result.uri); 
       }
     };
 
@@ -114,20 +149,23 @@ const Profile = ({navigation}) => {
         </Block> : 
       <Block flex style={styles.profile}>
         <Block flex>
+          
           <ImageBackground
             source={Images.ProfGradient}
             style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
+      
+               
             <ScrollView
               showsVerticalScrollIndicator={false}
-              style={{ width, marginTop: '25%' }}
+              style={{ width, marginTop: '20%' }}
             >
               <Block flex style={styles.profileCard}>
                 <Pressable onPress={pickImage}>
                   <Block middle style={styles.avatarContainer}>
                     <Image
-                      source={{ uri: Images.ProfilePicture }}
+                      source={{ uri: newProfile}}
                       style={styles.avatar}
                     />
                   </Block>
@@ -137,66 +175,50 @@ const Profile = ({navigation}) => {
                     <Text bold size={28} color={argonTheme.COLORS.PRIMARY}>
                       {user.displayName}
                     </Text>
-                    <Block row style={{alignItems: 'center'}}>
+                    <Block row style={{alignItems: 'center', marginTop: '5%'}}>
                     <Ionicons name="location-outline" size={28} color="black" />
                     <Text size={16} style={{ marginTop: 10 }} >
-                      San Francisco, USA
+                      Bay Area, CA
                     </Text>
                     </Block>
-                  </Block>
-                  {/* <Block
-                    middle
-                    row
-                    space="evenly"
-                    style={{ marginTop: 20, paddingBottom: 24 }}
-                  >
-                    {/* <Button
-                      small
-                      style={{ backgroundColor: argonTheme.COLORS.INFO }}
+                    <Block row style={{alignItems: 'center', marginTop: '5%'}}>
+                    <Text size={16} style={{ marginTop: 10, fontWeight: 'bold' }} >
+                      Community Status: 
+                    </Text>
+                    <View style={{marginLeft: 5}}/>
+                    <Text size={16} style={{ marginTop: 10 }} >
+                      {userType}
+                    </Text>
+                    <View style={{marginLeft: 5}}/>
+                    <Ionicons name="pencil" size={24} color={argonTheme.COLORS.PRIMARY} style={{ marginTop: 3}} onPress={() => setModalVisible(!modalVisible)}/>
+                    </Block>
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                      }}
                     >
-                      CONNECT
-                    </Button>
-                    <Button
-                      small
-                      style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
-                    >
-                      MESSAGE
-                    </Button> */}
-                  {/* </Block>  */}
-                  <Block row space="between">
-                    <Block middle>
-                      <Text
-                        bold
-                        size={18}
-                        color="black"
-                        style={{ marginBottom: 4 }}
-                      >
-                        4
-                      </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Groups</Text>
-                    </Block>
-                    <Block middle>
-                      <Text
-                        bold
-                        color="black"
-                        size={18}
-                        style={{ marginBottom: 4 }}
-                      >
-                        10
-                      </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Events</Text>
-                    </Block>
-                    <Block middle>
-                      <Text
-                        bold
-                        color="black"
-                        size={18}
-                        style={{ marginBottom: 4 }}
-                      >
-                        89
-                      </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Comments</Text>
-                    </Block>
+                      <View style={styles.modalView}>
+                      <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                        <Ionicons name="close-outline" size={30} color="black" style={{marginLeft: '75%'}} />
+                      </Pressable>
+                        <Text style={{fontWeight: 'bold'}}>Edit Community Status</Text>
+                          <RadioButtonRN
+                              data={userTypeData}
+                              initial={userTypeData.findIndex(isType) + 1}
+                              selectedBtn={(e) => {
+                                setUserType(e.label)
+                                handleChangeUserType()
+                              }}
+                              style={{width: 250}}
+                              activeColor={argonTheme.COLORS.PRIMARY}
+                              textStyle={{fontFamily: 'Open Sans'}}
+                            />
+                      </View>
+                    </Modal>
                   </Block>
                 </Block>
                 <Block flex>
@@ -322,7 +344,24 @@ const styles = StyleSheet.create({
     backgroundColor: argonTheme.COLORS.TERTIARY,
     marginTop: '15%',
     marginLeft: '7%'
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    paddingTop: '1%',
+    paddingBottom: '5%',
+    alignItems: "center",
+    marginTop: '50%',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
 });
 
 export default Profile;
