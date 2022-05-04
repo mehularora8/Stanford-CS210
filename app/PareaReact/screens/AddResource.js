@@ -35,8 +35,12 @@ class AddResource extends React.Component {
     address: '',
     name: '',
     type: '',
+    website: '',
+    phone: '',
+    tags: '',
     predictions: [],
-    error: ''
+    error: '',
+    next: false,
   }
 
 
@@ -98,10 +102,14 @@ class AddResource extends React.Component {
                   </Block>
                   <ScrollView>
                   <Block style = {styles.scroll} center>
+                    { !this.state.next ?
+                    <Block>
                       <Block width={width * 0.9} style={{ marginBottom: 0 }}>
                         <Input
                           borderless
-                          placeholder="Name of establishment/organization/person"
+                          placeholder={this.state.name != '' ? this.state.name : "Name of establishment/organization/person"}
+                          placeholderTextColor={this.state.name != '' ? "black": "#999"}
+                          color="black"
                           iconContent={
                             <Icon
                               size={16}
@@ -116,10 +124,12 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
+                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
                         <Input
                           borderless
-                          placeholder="Resource Type"
+                          placeholder={this.state.type != '' ? this.state.type : "Resource Type"}
+                          placeholderTextColor={this.state.type != '' ? "black": "#999"}
+                          color="black"
                           iconContent={
                             <Icon
                               size={16}
@@ -134,55 +144,11 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
-                        <Input
-                          borderless
-                          placeholder="(Optional) Link to Website"
-                          iconContent={
-                            <Icon
-                              size={16}
-                              color={argonTheme.COLORS.ICON}
-                              // name="world-2"
-                              family="ArgonExtra"
-                              style={styles.inputIcons}
-                            />
-                          }
-                        />
-                      </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
-                        <Input
-                          borderless
-                          placeholder="(Optional) Phone Number"
-                          iconContent={
-                            <Icon
-                              size={16}
-                              color={argonTheme.COLORS.ICON}
-                              // name="map-big"
-                              family="ArgonExtra"
-                              style={styles.inputIcons}
-                            />
-                          }
-                        />
-                      </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 8 }}>
-                        <Input
-                          borderless
-                          placeholder="(Optional) Tags"
-                          iconContent={
-                            <Icon
-                              size={16}
-                              color={argonTheme.COLORS.ICON}
-                              // name="map-big"
-                              family="ArgonExtra"
-                              style={styles.inputIcons}
-                            />
-                          }
-                        />
-                      </Block>
-                      <Block height={250} width={width * 0.9}> 
+                      <Block height={180} width={width * 0.9}> 
                         <GooglePlacesAutocomplete
-                          placeholder='Address'
-                          height={150} 
+                          placeholder={this.state.address != '' ? this.state.address : "Address"}
+                          color={this.state.address != '' ? "black": "#999"}
+                          height={100} 
                           width={width * 0.9}
                           minLength={4}
                           autoFocus={true}
@@ -207,7 +173,77 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
-                      <Block middle style={{ marginTop: -150, zIndex: 0 }} >
+                      </Block>
+                      :
+                      <Block/>
+                      }
+                      {!this.state.next? <Button onPress={() => this.setState({next: true})} color="primary" style={styles.createButton}>
+                          <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                            Next
+                          </Text>
+                        </Button> : <Block><Block width={width * 0.9} style={{ marginBottom: 0 }}>
+                        <Input
+                          borderless
+                          placeholder={this.state.website != '' ? this.state.website : "(Optional) Link to Website"}
+                          placeholderTextColor={this.state.website != '' ? "black": "#999"}
+                          color="black"
+                          onChangeText = {(value) => {
+                            this.setState({"website": value});
+                          }}
+                          iconContent={
+                            <Icon
+                              size={16}
+                              color={argonTheme.COLORS.ICON}
+                              // name="world-2"
+                              family="ArgonExtra"
+                              style={styles.inputIcons}
+                            />
+                          }
+                        />
+                      </Block>
+                      <Block width={width * 0.9} style={{ marginBottom: 0 }}>
+                        <Input
+                          borderless
+                          placeholder={this.state.phone != '' ? this.state.phone : "(Optional) Phone Number"}
+                          placeholderTextColor={this.state.phone != '' ? "black": "#999"}
+                          color="black"
+                          onChangeText = {(value) => {
+                            this.setState({"phone": value});
+                          }}
+                          iconContent={
+                            <Icon
+                              size={16}
+                              color={argonTheme.COLORS.ICON}
+                              // name="map-big"
+                              family="ArgonExtra"
+                              style={styles.inputIcons}
+                            />
+                            
+                          }
+                        />
+                      </Block>
+                      <Block width={width * 0.9} style={{ marginBottom: 8 }}>
+                        <Input
+                          borderless
+                          placeholder={this.state.tags != '' ? this.state.tags: "(Optional) Tags"}
+                          placeholderTextColor={this.state.tags != '' ? "black": "#999"}
+                          onChangeText = {(value) => {
+                            this.setState({"tags": value});
+                          }}
+                          color="black"
+                          iconContent={
+                            <Icon
+                              size={16}
+                              color={argonTheme.COLORS.ICON}
+                              // name="map-big"
+                              family="ArgonExtra"
+                              style={styles.inputIcons}
+                            />
+                          }
+                        />
+                      </Block>
+                  
+                      <Block middle style={{ marginTop: 0, zIndex: 0 }} >
                       <Text style={{color: "red"}}> {this.state.error} </Text>
                         <Button onPress={() => {
                           let valid = this.submitForReview();
@@ -223,7 +259,15 @@ class AddResource extends React.Component {
                             Submit
                           </Text>
                         </Button>
+                        <Button onPress={() => this.setState({next: false})} color="tertiary" style={styles.createButton}>
+                          <Text bold size={14} color={"#999"}>
+                            Back
+                          </Text>
+                        </Button>
                       </Block>
+                      </Block>
+                      }
+                      
                     {/* </KeyboardAvoidingView> */}
                   </Block>
                   </ScrollView>
