@@ -21,7 +21,7 @@ const Grad = require("../assets/imgs/ProfileBackgroundGradient.png");
 // internet imgs
 
 
-const ProfilePicture = "https://i.ibb.co/dkddrRh/parea-Prof.png";
+const ProfilePicture = "https://i.ibb.co/5LTBLBD/profile-Parea.png";
 
 const Viewed = [
   'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80',
