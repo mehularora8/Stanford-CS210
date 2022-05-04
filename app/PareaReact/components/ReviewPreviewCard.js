@@ -64,7 +64,7 @@ const ReviewPreviewCard = (props) => {
                   <View style={styles.reviewSubHeadlineContainer}>
                     <Text style={styles.identityTag}>
                       {/* user identity tag data */}
-                      {props.tag ? props.tag: null}
+                      {props.tag ? props.tag : null}
                     </Text>
                     <Text style={styles.identityTag}>
                       {/* rating date */}

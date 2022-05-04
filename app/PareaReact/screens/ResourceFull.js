@@ -239,6 +239,7 @@ const ResourceFull = (props) => {
                       usertag={x.usertag}
                       profileImage={x.userProfileRef}
                       navigation={navigation} 
+                      
                       />
                   ))
                 }
