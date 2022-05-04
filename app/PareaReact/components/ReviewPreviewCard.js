@@ -41,14 +41,14 @@ const ReviewPreviewCard = (props) => {
           <Block flex style={styles.reviewPreviewCard}>
             <Block style={{display: "inline-block"}}>
                 <Image
-                      source={{ uri: Images.ProfilePicture }} //profile picture data
+                      source={{ uri: props.userProfileRef ? props.userProfileRef : Images.ProfilePicture }}
                       style={styles.avatar}
                 />
                 <View >
                   <Block style={styles.reviewHeadlineContainer}>
                     <Text style={styles.username}> 
                     {/* username data */}
-                        Rosie
+                        {props.username}
                     </Text>
                     {/* user rating data value */}
                       <Rating 
@@ -64,7 +64,7 @@ const ReviewPreviewCard = (props) => {
                   <View style={styles.reviewSubHeadlineContainer}>
                     <Text style={styles.identityTag}>
                       {/* user identity tag data */}
-                        Mother
+                      {props.tag ? props.tag: null}
                     </Text>
                     <Text style={styles.identityTag}>
                       {/* rating date */}

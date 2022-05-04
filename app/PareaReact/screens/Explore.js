@@ -50,8 +50,11 @@ const Home = (props) => {
   React.useEffect(() => {
     if (resourceData == null) {
       getObjectsFromCollection('resources').then((x) => {
-        setResourceData(x)
-        setResults(x.length)
+        const cleaned = x.filter(function(obj) {
+          return obj.data.Location != "";
+        })
+        setResourceData(cleaned)
+        setResults(cleaned.length)
       })
     }
   })

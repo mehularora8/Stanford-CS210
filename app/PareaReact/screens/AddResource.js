@@ -15,13 +15,18 @@ import { Button, Icon } from "../components";
 import { Images, argonTheme } from "../constants";
 import AddResourceSuccess from "./AddResourceSuccess";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { putObject } from "../firebase_utils";
+import uuid from 'react-native-uuid';
+import Geocoder from 'react-native-geocoding';
 
+import { GeoPoint } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 
-// import auth from '@react-native-firebase/auth';
 
 const { width, height } = Dimensions.get("screen");
 
 const GOOGLE_PLACES_BASE_URL = 'https://maps.googleapis.com/maps/api/place';
+Geocoder.init('AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI');
 
 
 class AddResource extends React.Component {
@@ -37,8 +42,32 @@ class AddResource extends React.Component {
 
   submitForReview = () => {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
-    console.log(valid);
-    return valid;
+    if (!valid) return valid
+    
+    // GEOCODING
+    return (Geocoder.from(this.state.address)
+    .then(json => {
+			var location = json.results[0].geometry.location;
+
+      const newId = uuid.v4();
+      const resource = {
+        Address: this.state.address,
+        Name: this.state.name,
+        City: '',
+        Contact: "(650) 380-1557",
+        Images: {"url": "https://i.ibb.co/8973D7n/DSCF1502.jpg"},
+        Type: this.state.type,
+        Tags: [],
+        Ratings: [],
+        Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
+        resourceId: newId,
+        addedByUser: getAuth().currentUser.displayName,
+        adminCheck: false,
+      }
+
+      putObject("resources/", newId, resource)
+      return true;
+		}))
   }
   
   render() {
@@ -85,7 +114,6 @@ class AddResource extends React.Component {
                           }
                           onChangeText = {(value) => {
                             this.setState({"name": value}); 
-                            console.log(value)
                           }}
                         />
                       </Block>
@@ -104,7 +132,6 @@ class AddResource extends React.Component {
                           }
                           onChangeText = {(value) => {
                             this.setState({"type": value});
-                            console.log(value)
                           }}
                         />
                       </Block>
@@ -165,12 +192,11 @@ class AddResource extends React.Component {
                             listView:{
                               position: 'absolute',
                               backgroundColor: '#FFF',
-                              zIndex: 10,//can't figure out how to force to front 
+                              zIndex: 10, 
                           }
                         }}
                           onPress={(data, details = null) => {
                             // 'details' is provided when fetchDetails = true
-                            console.log("DATA:", data);
                             this.setState({"address": data.description})
                           }}
                           query={{
@@ -179,7 +205,6 @@ class AddResource extends React.Component {
                           }}
                           onChangeText = {(value) => {
                             this.setState({"address": value}); 
-                            console.log(value)
                           }}
                         />
                       </Block>

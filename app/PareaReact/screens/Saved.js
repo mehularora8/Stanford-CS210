@@ -17,6 +17,7 @@ import UnansweredQ from '../components/UnansweredQ';
 import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils'
 import { doc, onSnapshot } from "firebase/firestore";
 import { thisTypeAnnotation } from '@babel/types';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 //TODO
 //Make reviews only show up under appropriate resource id
@@ -32,15 +33,9 @@ class Saved extends React.Component {
   }
 
   pullSavedResourceIds = async () => {
-    let userId = 'EZXePEUqnVM0LVNOGkug';
-    let user = await getObject('users', userId);
-
-    const savedIds = user.saved;
-    if (!savedIds) {
-      return [];
-    }
-
-    return savedIds;
+    const auth = getAuth();
+    let user = await getObject("users", auth.currentUser.uid)
+    return user.savedResources || [];
   }
 
   renderSavedResources = async () => {
@@ -51,6 +46,8 @@ class Saved extends React.Component {
     savedIds.forEach(id => {
       resources.push(savedResources.find(obj => { return obj["id"] === id }));
     })
+
+    // console.log(savedIds, resources)
 
     this.setState({"resources": resources});
   }
@@ -78,12 +75,13 @@ class Saved extends React.Component {
             ))
           }
           </ScrollView>
-
-          {/*Also temporary. TODO: Figure out a way to auto manage
-          this using notifications / subscribing to something. */}
-          <Text onPress = {() => {
-            this.renderSavedResources();
-          }}>Refresh</Text>
+          <Block center padded>
+            <Button onPress = {() => {
+              this.renderSavedResources();
+            }}>
+              Refresh
+            </Button>
+          </Block>
       </Block>
 
     );

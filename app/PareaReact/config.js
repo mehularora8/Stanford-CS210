@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { initializeFirestore, setDoc, doc } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 
 
 // /* Firebase Setup */

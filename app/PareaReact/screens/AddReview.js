@@ -36,13 +36,14 @@ class AddReview extends React.Component {
 	}
 
 	handleNextButton = ()  => {
-		console.log("handlenext", this.props)
 		const { navigation } = this.props;
 		const review = {
 			resourceId: this.state.resourceId ? this.state.resourceId : 'mxhbRimhbDk6nxbf6wxc',
 			reviewText: this.state.reviewText,
 			reviewDate: this.state.reviewDate,
-			username: this.props.route.params.username
+			username: this.props.route.params.username,
+			userProfileRef: this.props.route.params.userProfileRef,
+			usertag: this.props.route.params.usertag
 		}
 		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
