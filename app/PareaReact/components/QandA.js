@@ -72,9 +72,11 @@ const QandA = (props) => {
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Q & A</Text>
-              <View style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+              <View style={{display: "flex", width: '80%', flexDirection: "row", alignItems: "center"}}>
                 <TextInput
                   style={styles.input}
+                  multiline
+                  numberOfLines={4}
                   onChangeText={onChangeText}
                   value={text}
                   placeholder="What would you like to know?"
