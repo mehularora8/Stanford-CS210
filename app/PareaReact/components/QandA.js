@@ -74,11 +74,11 @@ const QandA = (props) => {
               <Text style={styles.title}> Q & A</Text>
               <View style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
-                    placeholder="what would you like to know?"
-                    />
+                  style={styles.input}
+                  onChangeText={onChangeText}
+                  value={text}
+                  placeholder="What would you like to know?"
+                />
                 <Button style={styles.askButton} onPress={() => {
                         submitQuestion()
                   }}>

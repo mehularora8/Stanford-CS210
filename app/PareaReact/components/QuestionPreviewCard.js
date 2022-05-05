@@ -162,8 +162,8 @@ const QuestionPreviewCard = (props) => {
                   <View >
                     <Block style={styles.reviewHeadlineContainer}>
                       <Text style={styles.username}> 
-                      {/* username data */}
-                          {props.questionData.username}
+                      {/* username data -- Anonymous if there's no username */}
+                          {props.questionData.username ? props.questionData.username : "Anonymous"}
                       </Text>
                       <Text style={styles.identityTag}>
                         {/* rating date */}
