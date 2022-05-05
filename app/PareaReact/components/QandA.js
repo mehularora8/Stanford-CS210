@@ -50,6 +50,7 @@ const QandA = (props) => {
       if (!user) return;
       
       if (!props.resourceId) return;
+
       const question = {
         questionId: uuid.v4(),
         date: new Date(),
@@ -64,10 +65,10 @@ const QandA = (props) => {
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
       console.log("Attempting to add", question);
       putObject(collectionPath, question.questionId, question);
+      onChangeText('');
+      // this.textInput.clear();
       // console.log("ADDED");
     }
-
-   
 
     return (
           <Block flex style={styles.contactPreviewCard}>
@@ -80,10 +81,9 @@ const QandA = (props) => {
                   onChangeText={onChangeText}
                   value={text}
                   placeholder="What would you like to know?"
+                  clearButtonMode="always"
                 />
-                <Button style={styles.askButton} onPress={() => {
-                        submitQuestion()
-                  }}>
+                <Button style={styles.askButton} ref={input => { this.textInput = input }}  onPress={submitQuestion}>
                     Ask
                 </Button>
                
