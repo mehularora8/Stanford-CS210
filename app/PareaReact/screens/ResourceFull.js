@@ -37,7 +37,7 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
     name: paramname, 
     resourceId: resourceId, 
     username: user.first,
-    usertag: user.type != null ? user.type: "Parea User",  // defualt user tag?
+    usertag: user.type != null ? user.type: "Parea User",  // defualt user tag
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
   };
@@ -258,14 +258,19 @@ const ResourceFull = (props) => {
                     questionsArrayPrev.map((x, i) => (
                       <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
                         text= {x.question}
+                        questionData={x}
                         navigation={navigation} />
                     ))
                   }
               </Block>
             }
+            { questionsArrayPrev !== null ?
             <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
                     See all questions
             </Button>
+            :
+            <Block/>
+              }
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>

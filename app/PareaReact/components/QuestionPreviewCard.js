@@ -12,9 +12,15 @@ import { format } from "date-fns";
 //Person: userid, profile picture, name, persona tag, 
 //Review: date, rating value, upvotes, text, comments
 
-//TODO 
-//Make read more functional
-//Adjust size of card based on amount of text 
+
+//edits the question in firebase to inc/dec upvotes by one
+function handleUpvote (increment) {
+  //path to question 
+
+  //new question object 
+
+  //putObject 
+}
 
 const QuestionPreviewCard = (props) => {
     // console.log("IN REVIEW ")
@@ -35,7 +41,7 @@ const QuestionPreviewCard = (props) => {
         formattedDate = format(date, "MMM yyyy");
       }
       if (props.item.upvotes != undefined) {
-          tempUpvotes = props.item.upvotes
+          tempUpvotes = props.questionData.upvotes
       }
     }
     const [upvotes, setUpvotes] = React.useState(tempUpvotes)
@@ -54,7 +60,7 @@ const QuestionPreviewCard = (props) => {
                     <Block style={styles.reviewHeadlineContainer}>
                       <Text style={styles.username}> 
                       {/* username data */}
-                          Rosie
+                          {props.questionData.username}
                       </Text>
                       <Text style={styles.identityTag}>
                         {/* rating date */}
@@ -64,14 +70,14 @@ const QuestionPreviewCard = (props) => {
                     <View style={styles.reviewSubHeadlineContainer}>
                       <Text style={styles.identityTag}>
                         {/* user identity tag data */}
-                          Mother
+                          {props.questionData.userType}
                       </Text>
                     </View>
                   </View>
                 </Block>
              <Text style={styles.reviewText}>
                {/* review text data */}
-               {props.text}
+               {props.questionData.question}
                {/* { longReview ? 
                  <Text style={styles.readMore}>...Read more</Text> : ""
                } */}
@@ -81,10 +87,11 @@ const QuestionPreviewCard = (props) => {
                 if (!alreadyVoted) {
                     setUpvotes(upvotes + 1)
                     setAlreadyVoted(true)
-                    //need to send these to firebase 
+                    handleUpvote(true)
                 } else {
                     setUpvotes(upvotes - 1)
                     setAlreadyVoted(false)
+                    handleUpvote(false)
                 }}}>
                  <Text style={{color: argonTheme.COLORS.PRIMARY, fontSize: 17, fontWeight: '700'}}>
                      + {upvotes > 0 ? upvotes : ""}

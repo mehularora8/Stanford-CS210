@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
@@ -9,23 +9,57 @@ import { style } from 'dom-helpers';
 import { TextInput } from 'react-native-gesture-handler';
 import UnansweredQ from './UnansweredQ';
 import uuid from 'react-native-uuid';
-import { putObject } from "../firebase_utils";
-
+import { putObject, getObject } from "../firebase_utils";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
 const { width, height } = Dimensions.get("screen");
 
 const QandA = (props) => {
-    const [text, onChangeText] = React.useState(null);
+    const auth = getAuth();
+    const [text, onChangeText] = useState(null);
+    const [user, setUser] = useState(props.user)
+
+    useEffect(() => {
+      if (!user) {
+        onAuthStateChanged(auth,(guser) => {
+          if (!user && guser && !guser.isAnonymous) {
+            const uid = guser.uid
+            getObject("users", uid).then(x => {
+              // console.log("just set the user from:", user, "to", x)
+              setUser(x);
+            })
+          }
+        });
+      }
+    })
+
+    console.log(user)
+    const nav = props.nav
 
     submitQuestion = async (test) => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (guser) => {
+        if (!guser || guser.isAnonymous) {
+          setUser(null);
+          nav.navigate("RegisterPage");
+          return
+        }
+      })
+      if (!user) return;
+      
       if (!props.resourceId) return;
       const question = {
         questionId: uuid.v4(),
         date: new Date(),
-        question: text
+        question: text,
+        userId: user.uid,
+        username: user.first,
+        userType: user.type,
+        upvotes: 0
       }
+      console.log(question)
   
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
       console.log("Attempting to add", question);
