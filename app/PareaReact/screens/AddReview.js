@@ -7,6 +7,8 @@ import { argonTheme, tabs } from "../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
+import { getObjectsFromCollection, getObject, getReviews } from '../firebase_utils'
+
 
 const { width } = Dimensions.get("screen");
 
@@ -27,8 +29,7 @@ class AddReview extends React.Component {
                         numberOfLines={4}
 						onChangeText={(newText) => this.setState({reviewText: newText})}
                         value={this.reviewText}
-                        placeholder="Please describe.
-                        "
+                        placeholder="Please describe."
             	/>
 			</Block>
 		);
@@ -46,7 +47,6 @@ class AddReview extends React.Component {
 			usertag: this.props.route.params.usertag,
 			userId: this.props.route.params.userId
 		}
-		console.log("Review from Add Review:", review);
 		navigation.navigate('AddReviewStars', {review, name: this.props.route.params.name});
 	}
 
