@@ -28,7 +28,7 @@ const ReportCard = (props) => {
       }
   
       const collectionPath = 'resources/'  + props.resourceId + '/reports';
-      console.log("Attempting to add", report);
+      // console.log("Attempting to add", report);
       putObject(collectionPath, report.reportId, report);
       // console.log("ADDED");
     }

@@ -35,7 +35,7 @@ const QandA = (props) => {
       }
     })
 
-    console.log(user)
+    // console.log(user)
     const nav = props.nav
 
     submitQuestion = async (test) => {
@@ -59,10 +59,10 @@ const QandA = (props) => {
         userType: user.type,
         upvotes: 0
       }
-      console.log(question)
+      // console.log(question)
   
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
-      console.log("Attempting to add", question);
+      // console.log("Attempting to add", question);
       putObject(collectionPath, question.questionId, question);
       // console.log("ADDED");
     }

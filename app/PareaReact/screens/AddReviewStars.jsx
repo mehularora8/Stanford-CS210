@@ -34,7 +34,7 @@ class AddReviewStars extends React.Component {
 			"Environment": 1, 
 			"Communication": 1,
 			"Overall": 0,
-		}
+		},
 	}
 
 	storeReview = async () => {
@@ -48,12 +48,12 @@ class AddReviewStars extends React.Component {
 			date: this.state.review.reviewDate,
 			username: this.state.review.username,
 			userProfileRef: this.state.review.userProfileRef,
-			usertag: this.state.review.usertag
+			usertag: this.state.review.usertag,
+			userId: this.state.review.userId
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
 		putObject(collectionPath, finalReview.reviewId, finalReview);
-		// console.log("ADDED");
 
 		const { navigation } = this.props;
 		navigation.navigate("ExplorePage");
@@ -74,7 +74,6 @@ class AddReviewStars extends React.Component {
 		// that location on the slider
 		const headers = ["Safety", "Inclusion", "Noise Level", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
-
 		return (
 		
 

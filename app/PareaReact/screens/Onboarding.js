@@ -19,7 +19,7 @@ function anonLogin(nav) {
   const auth = getAuth();
   signInAnonymously(auth)
   .then(() => {
-    console.log('User signed in anonymously');
+    // console.log('User signed in anonymously');
     nav.navigate("App");
   })
 }
