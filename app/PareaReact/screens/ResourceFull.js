@@ -179,8 +179,8 @@ const ResourceFull = (props) => {
         </Block>
         <ScrollView>
 
-          <Block flex>
-            <Block flex style={styles.topInfoCard}>
+          <Block>
+            <Block style={styles.topInfoCard}>
                 <Block style={styles.topInfoImg}>
 
                   <Image source={{url: props.route.params.image}} style={{width: 145, height: 145}} />
@@ -191,16 +191,18 @@ const ResourceFull = (props) => {
                       {props.route.params.type}
                     </Text>
                   </Block>
-                  <Block flex style={styles.locationInfo}>
-                    <Ionicons name="location-outline" size={12} color="black" />
-                    
-                    <View style = {{flex: 0}}>
-                      <Text numberOfLines={2} style={styles.locationText}> {resourceData !== null ? resourceData.Address : ""}</Text>
+                  <Block style={styles.locationInfo}>
+                    <Ionicons name="location-outline" size={12} color="black" style={{marginTop: "1.3%"}}/>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.locationText}> 
+                        {resourceData !== null ? resourceData.Address : ""}
+                      </Text>
                     </View>
-                      {/*<Entypo name="dot-single" size={24} color="black" />*/}  
-                      {/*<Text style={styles.locationText}>
-                          3.9 mi
-                      </Text>*/}
+                    
+                    {/*<Entypo name="dot-single" size={24} color="black" />*/}  
+                    {/*<Text style={styles.locationText}>
+                        3.9 mi
+                    </Text>*/}
                   </Block>
                   <Block flex style={styles.tagsHolder}>
                     {tags.map((x) => (
@@ -211,7 +213,6 @@ const ResourceFull = (props) => {
                   </Block>
               
                   <Button style={styles.addButton} onPress={() => {
-                      // console.log(getObjectsFromCollection('users').then((x) => console.log(x)))
                       addReviewClick(navigation, user, setUser, props.route.params.name, resourceId);
                     }}>
                   ADD A REVIEW
@@ -343,9 +344,11 @@ const styles = StyleSheet.create({
   locationInfo: {
     marginTop: "5%",
     flexDirection: "row",
-    alignItems: "baseline",
+    alignItems: "flex-start",
   },
   locationText: {
+    flex: 1,
+    flexWrap: "wrap",
     fontSize: 13,
     fontFamily: "Open Sans",
   },
