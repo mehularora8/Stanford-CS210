@@ -48,7 +48,7 @@ const ReviewPreviewCard = (props) => {
                   <Block style={styles.reviewHeadlineContainer}>
                     <Text style={styles.username}> 
                     {/* username data */}
-                        {props.username}
+                        {props.username ? props.username : "Anonymous"}
                     </Text>
                     {/* user rating data value */}
                       <Rating 
