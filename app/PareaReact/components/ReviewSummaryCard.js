@@ -59,9 +59,14 @@ const ReviewSummaryCard = (props) => {
                     Safety
                 </Text>
                 <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.97} width={200} color={argonTheme.COLORS.BLACK} height={3} />
+                  <ProgressBar 
+                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Safety / 5 : 0} 
+                    width={200} 
+                    color={argonTheme.COLORS.BLACK} 
+                    height={3}
+                  />
                   <Text style={styles.subReviewNumVal}>
-                      {reviewsSummaryArray !== null? reviewsSummaryArray.Safety: "" }
+                      {reviewsSummaryArray !== null ? reviewsSummaryArray.Safety.toFixed(1) : ""}
                   </Text>
                 </View>
               </Block>
@@ -69,39 +74,54 @@ const ReviewSummaryCard = (props) => {
               <Block style={styles.subReviewContainer}>
                 <Text style={styles.subReviewText}>
                   Inclusion
-                  </Text>
-                  <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.88} width={200} color={argonTheme.COLORS.BLACK} height={3} />
+                </Text>
+                <View style={styles.subReviewBarContainer}>
+                  <ProgressBar 
+                    progress={reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility / 5 : 0} 
+                    width={200} 
+                    color={argonTheme.COLORS.BLACK} 
+                    height={3} 
+                  />
                   <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility : "" }
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility.toFixed(1) : ""}
                   </Text>
                 </View>
-                </Block>
-
-                <Block style={styles.subReviewContainer}>
-                  <Text style={styles.subReviewText}>
-                  Noise Level 
-                  </Text>
-                  <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
-                  <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment : "" }
-                  </Text>
-                </View>
-                </Block>
-
-                <Block style={styles.subReviewContainer}>
-                  <Text style={styles.subReviewText}>
-                  Communication
-                  </Text>
-                  <View style={styles.subReviewBarContainer}>
-                  <ProgressBar progress={0.93} width={200} color={argonTheme.COLORS.BLACK} height={3} />
-                  <Text style={styles.subReviewNumVal}>
-                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication : "" }
-                  </Text>
-                </View>
-                </Block>
               </Block>
+
+              <Block style={styles.subReviewContainer}>
+                <Text style={styles.subReviewText}>
+                Noise Level 
+                </Text>
+                <View style={styles.subReviewBarContainer}>
+                  <ProgressBar 
+                    progress={  reviewsSummaryArray !== null? reviewsSummaryArray.Environment / 5 : 0} 
+                    width={200} 
+                    color={argonTheme.COLORS.BLACK} 
+                    height={3} 
+                  />
+                  <Text style={styles.subReviewNumVal}>
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment.toFixed(1) : ""}
+                  </Text>
+                </View>
+              </Block>
+
+              <Block style={styles.subReviewContainer}>
+                <Text style={styles.subReviewText}>
+                Communication
+                </Text>
+                <View style={styles.subReviewBarContainer}>
+                  <ProgressBar 
+                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Communication / 5 : ""} 
+                    width={200} 
+                    color={argonTheme.COLORS.BLACK} 
+                    height={3} 
+                  />
+                  <Text style={styles.subReviewNumVal}>
+                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication.toFixed(1) : ""}
+                  </Text>
+                </View>
+              </Block>
+            </Block>
           </Block>
         );
       

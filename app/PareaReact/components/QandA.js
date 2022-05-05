@@ -65,9 +65,6 @@ const QandA = (props) => {
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
       console.log("Attempting to add", question);
       putObject(collectionPath, question.questionId, question);
-      onChangeText('');
-      // this.textInput.clear();
-      // console.log("ADDED");
     }
 
     return (
