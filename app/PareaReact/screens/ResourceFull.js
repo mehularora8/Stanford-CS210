@@ -141,7 +141,6 @@ const ResourceFull = (props) => {
           if (!user && guser && !guser.isAnonymous) {
             const uid = guser.uid
             getObject("users", uid).then(x => {
-              // console.log("just set the user from:", user, "to", x)
               setUser(x);
               setSaved(x.savedResources.indexOf(resourceId) > -1)
             })
@@ -193,14 +192,15 @@ const ResourceFull = (props) => {
                     </Text>
                   </Block>
                   <Block flex style={styles.locationInfo}>
-                    <Ionicons name="location-outline" size={24} color="black" />
-                    <Block flex style={{flexDirection: "row", alignItems: "center"}}>
-                      <Text style={styles.locationText}> {resourceData !== null? resourceData.City : ""}</Text>
-                      <Entypo name="dot-single" size={24} color="black" />  
-                      <Text style={styles.locationText}>
+                    <Ionicons name="location-outline" size={12} color="black" />
+                    
+                    <View style = {{flex: 0}}>
+                      <Text numberOfLines={2} style={styles.locationText}> {resourceData !== null ? resourceData.Address : ""}</Text>
+                    </View>
+                      {/*<Entypo name="dot-single" size={24} color="black" />*/}  
+                      {/*<Text style={styles.locationText}>
                           3.9 mi
-                      </Text>
-                    </Block>
+                      </Text>*/}
                   </Block>
                   <Block flex style={styles.tagsHolder}>
                     {tags.map((x) => (
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(196, 196, 196, 0.5)",
     borderRadius: 12,
     margin: 3,
-    padding: 5,
+    padding: 6,
     overflow: 'hidden',
     opacity: 0.6,
     height: "80%",
