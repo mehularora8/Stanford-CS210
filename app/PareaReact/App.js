@@ -12,11 +12,12 @@ enableScreens();
 
 import Screens from "./navigation/Screens";
 import { Images, articles, argonTheme } from "./constants";
-
+import Toast from 'react-native-toast-message'
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(["[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
+//make toast prettier with this : https://github.com/calintamas/react-native-toast-message/blob/8a0db54ba273349f03e44c914090976af2c19cb3/docs/custom-layouts.md
 
 // cache app images
 const assetImages = [
@@ -76,6 +77,7 @@ export default props => {
       <NavigationContainer>
         <GalioProvider theme={argonTheme}>
           <Block flex>
+            <Toast position="top" topOffset={100} style={{ borderLeftColor: 'pink' }}/>
             <Screens />
           </Block>
         </GalioProvider>
