@@ -148,7 +148,9 @@ const ResourceFull = (props) => {
         });
       }
     })
-
+    if (resourceData != null ) {
+    console.log(resourceData.Address)
+    }
 
     return (
       <Block flex style={styles.container}>
@@ -192,10 +194,13 @@ const ResourceFull = (props) => {
                     </Text>
                   </Block>
                   <Block style={styles.locationInfo}>
-                    <Ionicons name="location-outline" size={12} color="black" style={{marginTop: "1.3%"}}/>
-                    <View style={{flexDirection: 'row'}}>
+                    <Ionicons name="location-outline" size={24} color="black" style={{marginTop: "1.3%"}}/>
+                    <View style={{flexDirection: 'column'}}>
                       <Text style={styles.locationText}> 
-                        {resourceData !== null ? resourceData.Address : ""}
+                        {resourceData !== null ? resourceData.Address.substring(0, resourceData.Address.indexOf(',') + 1) : ""}
+                      </Text>
+                      <Text style={styles.locationText}> 
+                        {resourceData !== null ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
                       </Text>
                     </View>
                     
@@ -342,9 +347,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   locationInfo: {
-    marginTop: "5%",
+    marginTop: "3%",
     flexDirection: "row",
     alignItems: "flex-start",
+    marginBottom: '2%'
   },
   locationText: {
     flex: 1,
