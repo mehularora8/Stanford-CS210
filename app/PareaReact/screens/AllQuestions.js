@@ -62,6 +62,8 @@ const AllQuestions = (props) => {
                   questionsArray.map((x, i) => (
                     <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
                       text= {x.question}
+                      resourceId={props.route.params.resourceId}
+                      questionData={x}
                       navigation={props.navigation} 
                       />
                   ))

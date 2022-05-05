@@ -258,6 +258,7 @@ const ResourceFull = (props) => {
                     questionsArrayPrev.map((x, i) => (
                       <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
                         text= {x.question}
+                        resourceId={resourceId}
                         questionData={x}
                         navigation={navigation} />
                     ))
@@ -265,7 +266,7 @@ const ResourceFull = (props) => {
               </Block>
             }
             { questionsArrayPrev !== null ?
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
                     See all questions
             </Button>
             :

@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View, Modal} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
