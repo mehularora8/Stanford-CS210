@@ -8,12 +8,9 @@ import { Button, Select, Icon, Input, Header, Switch } from "../components";
 import RatingSlider  from '../components/RatingSlider';
 import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-ratings';
+import { putObject, getObjectsFromCollection, getObject, getReviews } from '../firebase_utils'
 
-// import firestoreDb from "../firebaseConfig";
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
-
-
-import { putObject } from "../firebase_utils";
 
 import uuid from 'react-native-uuid';
 
@@ -25,6 +22,11 @@ class AddReviewStars extends React.Component {
 
 	// The state assumes that the resourceId is pre-packaged
 	// inside the review object passed in the props.
+
+	weightedAverage = (avg, total, newRating) => {
+		return (avg * total + newRating) / (total + 1)
+	}
+
 	state =  {
 		review: this.props.route.params.review,
 		username: this.props.route.params.username,
@@ -34,7 +36,17 @@ class AddReviewStars extends React.Component {
 			"Environment": 1, 
 			"Communication": 1,
 			"Overall": 0,
-		}
+		},
+		reviewSummary: []
+	}
+
+	componentDidMount = () => {
+		if (!this.state.review.resourceId) {
+			console.log("Resource ID not found. Aborting.")
+		};
+		getObject('resources', this.state.review.resourceId).then((x) => { //need to pass resource id here 
+			this.setState({ reviewSummary: x.Ratings })
+		})
 	}
 
 	storeReview = async () => {
@@ -53,11 +65,36 @@ class AddReviewStars extends React.Component {
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
 		putObject(collectionPath, finalReview.reviewId, finalReview);
-		// console.log("ADDED");
 
 		const { navigation } = this.props;
 		navigation.navigate("ExplorePage");
-		//Add toast to show review submitted 
+		// TBD: Add toast to show review submitted
+
+		// Update review metadata -- weighted averages
+		let accessibility = this.state.reviewSummary.Accessibility ? this.state.reviewSummary.Accessibility : 0;
+		let communication = this.state.reviewSummary.Communication ? this.state.reviewSummary.Communication : 0;
+		let environment = this.state.reviewSummary.Environment ? this.state.reviewSummary.Environment : 0;
+		let safety = this.state.reviewSummary.Safety ? this.state.reviewSummary.Safety : 0;
+		let overall = this.state.reviewSummary.Overall ? this.state.reviewSummary.Overall : 0;
+		let count = this.state.reviewSummary.reviewCount ? this.state.reviewSummary.reviewCount : 0;
+
+		let updatedRatingsSummary = {
+			"Accessibility" : this.weightedAverage(accessibility, count, this.state.ratings["Accessibility"]),
+			"Communication" : this.weightedAverage(communication, count, this.state.ratings["Communication"]),
+			"Environment" : this.weightedAverage(environment, count, this.state.ratings["Environment"]),
+			"Safety" : this.weightedAverage(safety, count, this.state.ratings["Safety"]),
+			"Overall" : this.weightedAverage(overall, count, this.state.ratings["Overall"]),
+			"reviewCount" : count + 1
+		}
+
+		console.log(updatedRatingsSummary);
+
+		getObject('resources', this.state.review.resourceId).then((x) => { //need to pass resource id here 
+			x.Ratings = updatedRatingsSummary;
+			putObject('resources', this.state.review.resourceId, x);
+		})
+
+		
 	}
 
 	onChangeValue = (header, value) => {
@@ -133,15 +170,15 @@ class AddReviewStars extends React.Component {
 					</Text>
 
 					<Rating 
-		                type="custom"
-		                ratingColor="#fc3901"
-		                ratingBackgroundColor="#999999"
-		                tintColor="#f2f2f2"
-		                startingValue={0}
-		                style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
-		                imageSize={45}
+						type="custom"
+						ratingColor="#fc3901"
+						ratingBackgroundColor="#999999"
+						tintColor="#f2f2f2"
+						startingValue={0}
+						style={{marginTop: 20, alignSelf: 'flex-start', marginBottom: -10}}
+						imageSize={45}
 						onFinishRating={(rating) => this.onChangeValue("Overall", rating)}
-	                />
+					/>
 
 					{this.renderSliders()}
 					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>

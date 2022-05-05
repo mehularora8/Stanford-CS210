@@ -28,15 +28,6 @@ const ReviewSummaryCard = (props) => {
               Reviews
             </Text>
             <Block flex style={styles.overallRatingContainer}>
-              {/* <AirbnbRating 
-                showRating={false}
-                isDisabled={true}
-                selectedColor={argonTheme.COLORS.PRIMARY}
-                size={20}
-                defaultRating={4.6}
-                fractions={2}
-                starContainerStyle={styles.starContainer}
-              /> */}
               <Rating 
                 type="custom"
                 ratingColor="#fc3901"
@@ -49,7 +40,7 @@ const ReviewSummaryCard = (props) => {
                 readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall : "" } 
+                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall.toFixed(1) : "" } 
                 &nbsp;&bull; [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
               </Text>
     
