@@ -43,13 +43,14 @@ const ReviewSummaryCard = (props) => {
                 ratingBackgroundColor="#999999"
                 tintColor="#f2f2f2"
                 fractions={1}
-                startingValue={4.5}
+                startingValue={ reviewsSummaryArray !== null? reviewsSummaryArray.Overall : 0 }
                 style={styles.rating}
                 imageSize={25}
                 readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall : "" }  [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
+                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall : "" } 
+                &nbsp;&bull; [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
               </Text>
     
             </Block>
