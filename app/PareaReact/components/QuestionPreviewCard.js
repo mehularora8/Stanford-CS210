@@ -7,7 +7,7 @@ import { LinearProgress, Divider } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import { format } from "date-fns";
-import { putObject, getObject } from "../firebase_utils";
+import { putObject, getObject, getObjectsFromCollection } from "../firebase_utils";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { TextInput } from 'react-native-gesture-handler';
 import uuid from 'react-native-uuid';
@@ -45,19 +45,6 @@ const QuestionPreviewCard = (props) => {
     // console.log("IN REVIEW ")
     const [user, setUser] = useState(props.user)
     const auth = getAuth()
-    useEffect(() => {
-      if (!user) {
-        onAuthStateChanged(auth,(guser) => {
-          if (!user && guser && !guser.isAnonymous) {
-            const uid = guser.uid
-            getObject("users", uid).then(x => {
-              // console.log("just set the user from:", user, "to", x)
-              setUser(x);
-            })
-          }
-        });
-      }
-    })
   
     let ratingsObj = null
     let date = null
@@ -83,6 +70,28 @@ const QuestionPreviewCard = (props) => {
     const [replies, setReplies] = React.useState(null)
     const [modalVisible, setModalVisible] = React.useState(false);
     const [text, onChangeText] = React.useState(null);
+
+    useEffect(() => {
+      if (!user) {
+        onAuthStateChanged(auth,(guser) => {
+          if (!user && guser && !guser.isAnonymous) {
+            const uid = guser.uid
+            getObject("users", uid).then(x => {
+              // console.log("just set the user from:", user, "to", x)
+              setUser(x);
+            })
+          }
+        });
+      }
+      if (replies == null) {
+        const collectionPath = 'resources/' + props.resourceId + '/questions/' + props.questionData.questionId + '/replies';
+        getObjectsFromCollection(collectionPath).then((x) => {
+          setReplies(x)
+        })
+      }
+    })
+
+
 
     // submitReply = async () => {
     //   if (!props.resourceId) return;
@@ -208,12 +217,14 @@ const QuestionPreviewCard = (props) => {
              </Block>
              { replies !== null ? 
              <Block>
+               {replies.map((x, i) => (
+                <Block>
                <Divider />
                 <Block style={{padding: '4%'}}>
                   <Block style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                         <Text style={{fontSize: 13, fontWeight: '500'}}> 
                         {/* username data */}
-                            Parea User
+                            {x.data.username}
                         </Text>
                         <Text style={{fontSize: 13, fontWeight: '200'}}>
                           {/* rating date */}
@@ -221,15 +232,11 @@ const QuestionPreviewCard = (props) => {
                         </Text>
                       </Block>
                   <Text style={{fontFamily: "Open Sans"}}>
-                    This is a reply to your question 
+                    {x.data.replyText}
                   </Text>
-                  <Block style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '5%'}}>
-                    <View/>
-                    <Pressable>
-                      <Text style={{color: "#9999", fontSize: 13, fontWeight: '700'}}>See All Replies</Text>
-                  </Pressable>
                   </Block>
                 </Block>
+                ))}
              </Block>
              :
              <Block>

@@ -39,7 +39,7 @@ const AllQuestions = (props) => {
             {name}
           </Text>
           <View style={{flex: 1}}/>
-          <Ionicons name="bookmark-outline" size={24} color="white" />
+          {/* <Ionicons name="bookmark-outline" size={24} color="white" /> */}
           <View style={{flex: 1}}/>
         </Block>
         <Block>
