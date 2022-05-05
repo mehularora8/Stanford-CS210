@@ -36,7 +36,7 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
   const params = { 
     name: paramname, 
     resourceId: resourceId, 
-    username: user.displayName,
+    username: user.first,
     usertag: user.type != null ? user.type: "Parea User",  // defualt user tag?
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
@@ -251,7 +251,7 @@ const ResourceFull = (props) => {
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
-            <QandA resourceId={resourceId} />
+            <QandA resourceId={resourceId} auth={getAuth()} nav={navigation} user={user}/>
             { questionsArrayPrev === null ? <Text>"No questions yet. Help the community learn about " + name + " by asking a question." </Text>: 
               <Block>
                   {
