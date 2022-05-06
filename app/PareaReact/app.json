@@ -2,6 +2,7 @@
   "expo": {
     "name": "PareaReact",
     "slug": "PareaReact",
+    "privacy": "unlisted",
     "version": "1.0.0",
     "platforms": [
       "ios",
@@ -22,7 +23,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.stanford.parea"
     }, 
     "web": {
       "build": {
