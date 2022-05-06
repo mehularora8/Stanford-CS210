@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View, Modal} from 'react-native';
+import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View, Modal, Pressable} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import { AirbnbRating } from 'react-native-ratings';
 import { argonTheme } from '../constants';
@@ -11,7 +11,7 @@ import UnansweredQ from './UnansweredQ';
 import uuid from 'react-native-uuid';
 import { putObject, getObject } from "../firebase_utils";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-
+import Toast from 'react-native-toast-message'
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
 const { width, height } = Dimensions.get("screen");
@@ -20,6 +20,7 @@ const QandA = (props) => {
     const auth = getAuth();
     const [text, onChangeText] = useState(null);
     const [user, setUser] = useState(props.user)
+    const [modalVisible, setModalVisible] = React.useState(false);
 
     useEffect(() => {
       if (!user) {
@@ -35,10 +36,11 @@ const QandA = (props) => {
       }
     })
 
-    console.log(user)
+    // console.log(user)
     const nav = props.nav
 
     submitQuestion = async (test) => {
+      
       const auth = getAuth();
       onAuthStateChanged(auth, (guser) => {
         if (!guser || guser.isAnonymous) {
@@ -60,11 +62,21 @@ const QandA = (props) => {
         userType: user.type,
         upvotes: 0
       }
-      console.log(question)
+      // console.log(question)
   
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
-      console.log("Attempting to add", question);
+      // console.log("Attempting to add", question);
       putObject(collectionPath, question.questionId, question);
+      onChangeText('');
+
+      Toast.show({
+        type: 'info',
+        text1: 'Question submitted!',
+        text2: 'Check back later for a response from the community.',
+        visibilityTime: 4000
+      });
+      // this.textInput.clear();
+      // console.log("ADDED");
     }
 
     return (
@@ -83,7 +95,32 @@ const QandA = (props) => {
                 <Button style={styles.askButton} ref={input => { this.textInput = input }}  onPress={submitQuestion}>
                     Ask
                 </Button>
-               
+                {/* <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Question submitted. Check back later for a response from the community!</Text>
+                    <View style={{display: 'flex', flexDirection: 'row'}} >
+                        <View style={{flex: 1}}/>
+                          <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}
+                              >
+                                <Text style={styles.textStyle}>Close</Text>
+                              </Pressable>
+      
+                            <View style={{flex: 1}}/>
+                        </View>
+                      </View>
+                    </View>
+              </Modal> */}
             </View>
           </Block>
         );   
@@ -154,6 +191,52 @@ const styles = StyleSheet.create({
     width: width*1/6,
     paddingLeft: 15,
     paddingRight: 15,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  button: {
+    borderRadius: 12,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "rgba(153, 153, 153, 0.6)",
+    paddingLeft: '8%',
+    paddingRight: '8%'
+  },
+  buttonReport: {
+    backgroundColor: argonTheme.COLORS.PRIMARY,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
   },
 });
 

@@ -19,6 +19,7 @@ import {getObjectsFromCollection, getObject,
 import { thisTypeAnnotation } from '@babel/types';
 import QuestionPreviewCard from '../components/QuestionPreviewCard';
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import Toast from 'react-native-toast-message'
 
 
 function addReviewClick(nav, user, setUser, paramname, resourceId) {
@@ -41,6 +42,11 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
     userId: user.uid
   };
+  Toast.show({
+    type: 'info',
+    text1: 'Review submitted!',
+    visibilityTime: 2000
+  });
   nav.navigate('AddReview', params);
 }
 
@@ -49,6 +55,25 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
 //Sort reviews by Date 
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
+
+refreshData = async (setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId) => {
+  getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
+    setReviewsArray(x)
+    if (x.length > 3) setReviewsArrayPrev(x.slice(0, 3))
+    else setReviewsArrayPrev(x)
+  })
+  getQuestions('resources', resourceId).then((x) => {
+    setQuestionsArray(x)
+    if (x.length > 3) setQuestionsArrayPrev(x.slice(0, 3))
+    else setQuestionsArrayPrev(x)
+  })
+
+  Toast.show({
+    type: 'info',
+    text1: 'Refreshing!',
+    visibilityTime: 2000
+  });
+}
 
 saveResource = async (user, setUser, resourceId, nav) => {
   const auth = getAuth();
@@ -59,6 +84,7 @@ saveResource = async (user, setUser, resourceId, nav) => {
       return
     }
   });
+  
 
   if (user.savedResources.includes(resourceId)) return user;
   user.savedResources.push(resourceId);
@@ -66,7 +92,7 @@ saveResource = async (user, setUser, resourceId, nav) => {
   putObject('users', user.uid, user)
 
   /* REMOVE ME */
-  console.log("Saved resource --> user:", user)
+  // console.log("Saved resource --> user:", user)
   setUser(user);
 }
 
@@ -81,7 +107,7 @@ unsaveResource = async (user, setUser, resourceId, nav) => {
   });
 
   if (user.savedResources.length == 0) {
-    console.log("Unsaving a resource from a user with no saved, weird...")
+    // console.log("Unsaving a resource from a user with no saved, weird...")
     return user;
   }
   let index = user.savedResources.indexOf(resourceId);
@@ -90,7 +116,7 @@ unsaveResource = async (user, setUser, resourceId, nav) => {
   putObject('users', user.uid, user)
 
   /* REMOVE ME */
-  console.log("UNNsaved resource --> user:", user)
+  // console.log("UNNsaved resource --> user:", user)
   setUser(user);
 }
 
@@ -152,6 +178,8 @@ const ResourceFull = (props) => {
     console.log(resourceData.Address)
     }
 
+
+
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -177,7 +205,10 @@ const ResourceFull = (props) => {
               <Ionicons name="bookmark-outline" size={24} color="white" />
           </Pressable>
           } 
-          <View style={{flex: 1}}/>
+        
+          <View style={{flex: .25}}/>
+          <Ionicons name="refresh" size={24} color="white" onPress={() => refreshData(setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId)}/>
+          <View style={{flex: .25}}/>
         </Block>
         <ScrollView>
 
@@ -245,7 +276,8 @@ const ResourceFull = (props) => {
                       tag={x.usertag}
                       profileImage={x.userProfileRef}
                       navigation={navigation} 
-
+                      currUserId={user ? user.uid : null}
+                      resourceId={resourceId}
                       />
                   ))
                 }
@@ -253,7 +285,7 @@ const ResourceFull = (props) => {
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
@@ -284,6 +316,10 @@ const ResourceFull = (props) => {
             <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={resourceId}/>
             </Block>
           </ScrollView>
+              <Toast
+            position='top'
+            topOffset={75}
+          />
       </Block>
     );
   

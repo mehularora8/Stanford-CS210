@@ -85,8 +85,8 @@ const Profile = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     
     const isType = (element) =>  {
-      console.log(element.label)
-      console.log(userType)
+      // console.log(element.label)
+      // console.log(userType)
       return element.label == userType;
     }
 

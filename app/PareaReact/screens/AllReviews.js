@@ -28,7 +28,7 @@ const AllReviews = (props) => {
 
     let name = props.route.params.name ? props.route.params.name : "Default";
     let reviewsArray = props.route.params.reviewsArray ? props.route.params.reviewsArray : null; 
-    
+    let currUserId = props.route.params.currUserId;
 
     return (
       <Block flex style={styles.container}>
@@ -67,6 +67,8 @@ const AllReviews = (props) => {
                       profileImage={x.userProfileRef}
                       tag={x.usertag}
                       username={x.username}
+                      currUserId={currUserId ? currUserId : null}
+                      resourceId={props.route.params.resourceId}
                       />
                   ))
                 }

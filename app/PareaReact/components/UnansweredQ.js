@@ -14,7 +14,7 @@ import { TextInput } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get("screen");
 
 const UnansweredQ = (props) => {
-    console.log(props.questionText)
+    // console.log(props.questionText)
     const text = props.questionText
     return (
             <View>
