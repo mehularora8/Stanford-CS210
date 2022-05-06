@@ -77,7 +77,7 @@ const Home = (props) => {
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
               // TODO: Change button style when pressed
-              <Button style={pressed[x] === true ? styles.pressed : styles.labels} onPress={() => {
+              <Button key = {"button" + x} style={pressed[x] === true ? styles.pressed : styles.labels} onPress={() => {
                 let temp = pressed
                 temp[x] = !temp[x]
                 setPressed(temp)
@@ -116,16 +116,16 @@ const Home = (props) => {
             {
               ((resourceData !== null) && (filteredResources === null)) ? 
                 resourceData.map((x, i) => (
-                <Card item={{...x, key: i}} key={i} navigation={props.navigation} horizontal />
+                <Card item={{...x, key: i}} key={"result2" + i} navigation={props.navigation} horizontal />
               ))
               :
               <View/>
             }
 
             {
-              ((resourceData !== null) && (filteredResources !== null)) ? 
-                filteredResources.map((x, i) => (
-                <Card item={{...x, key: i}} key={+i} navigation={props.navigation} horizontal />
+              (resourceData !== null && filteredResources !== null) ? 
+              filteredResources.map((x, i) => (
+                <Card item={{...x, key: "filt" + i}} key={"result" + i} navigation={props.navigation} horizontal />
               ))
               :
               <View/>
