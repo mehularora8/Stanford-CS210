@@ -60,7 +60,8 @@ class AddReviewStars extends React.Component {
 			date: this.state.review.reviewDate,
 			username: this.state.review.username,
 			userProfileRef: this.state.review.userProfileRef,
-			usertag: this.state.review.usertag
+			usertag: this.state.review.usertag,
+			userId: this.state.review.userId
 		}
 
 		const collectionPath = 'resources/'  + this.state.review.resourceId + '/reviews';
@@ -111,7 +112,6 @@ class AddReviewStars extends React.Component {
 		// that location on the slider
 		const headers = ["Safety", "Inclusion", "Noise Level", "Communication"];
 		const labels = ["Awful", "Poor", "Average", "Good", "Great"];
-
 		return (
 		
 

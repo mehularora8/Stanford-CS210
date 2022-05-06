@@ -92,7 +92,7 @@ saveResource = async (user, setUser, resourceId, nav) => {
   putObject('users', user.uid, user)
 
   /* REMOVE ME */
-  console.log("Saved resource --> user:", user)
+  // console.log("Saved resource --> user:", user)
   setUser(user);
 }
 
@@ -107,7 +107,7 @@ unsaveResource = async (user, setUser, resourceId, nav) => {
   });
 
   if (user.savedResources.length == 0) {
-    console.log("Unsaving a resource from a user with no saved, weird...")
+    // console.log("Unsaving a resource from a user with no saved, weird...")
     return user;
   }
   let index = user.savedResources.indexOf(resourceId);
@@ -116,7 +116,7 @@ unsaveResource = async (user, setUser, resourceId, nav) => {
   putObject('users', user.uid, user)
 
   /* REMOVE ME */
-  console.log("UNNsaved resource --> user:", user)
+  // console.log("UNNsaved resource --> user:", user)
   setUser(user);
 }
 
@@ -276,7 +276,8 @@ const ResourceFull = (props) => {
                       tag={x.usertag}
                       profileImage={x.userProfileRef}
                       navigation={navigation} 
-
+                      currUserId={user ? user.uid : null}
+                      resourceId={resourceId}
                       />
                   ))
                 }
@@ -284,7 +285,7 @@ const ResourceFull = (props) => {
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
