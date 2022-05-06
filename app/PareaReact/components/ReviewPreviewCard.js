@@ -20,6 +20,10 @@ import { doc, deleteDoc } from "firebase/firestore";
 //Make read more functional
 //Adjust size of card based on amount of text 
 
+deleteReview = (reviewId) => {
+  console.log(reviewId)
+}
+
 const ReviewPreviewCard = (props) => {
 
   let ratingsObj = null
@@ -38,6 +42,7 @@ const ReviewPreviewCard = (props) => {
       formattedDate = format(date, "MMM yyyy");
     }
   }
+
 
   // const [currUser, setCurrUser] = useState(null);
   // const auth = getAuth();
@@ -75,8 +80,9 @@ const ReviewPreviewCard = (props) => {
                       onPress={() => {
                         // console.log(props.item.userId)
                         // console.log(props.currUserId)
-                        // console.log(props.id)
-                        await deleteDoc(doc(db, "reviews", props.id));
+                        console.log(props.id)
+                        deleteReview(props.id)
+                        // await deleteDoc(doc(db, "reviews", props.id));
                         }
                       }
                     >
@@ -97,7 +103,7 @@ const ReviewPreviewCard = (props) => {
                   <View style={styles.reviewSubHeadlineContainer}>
                     <Text style={styles.identityTag}>
                       {/* user identity tag data */}
-                      {props.tag ? props.tag : null}
+                      {props.tag ? props.tag : ""}
                     </Text>
                     <Text style={styles.identityTag}>
                       {/* rating date */}

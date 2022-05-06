@@ -248,7 +248,7 @@ const ResourceFull = (props) => {
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, currUserId: user ? user.uid : null})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>
