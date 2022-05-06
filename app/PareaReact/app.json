@@ -3,7 +3,7 @@
     "name": "PareaReact",
     "slug": "PareaReact",
     "privacy": "unlisted",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "platforms": [
       "ios",
       "android",
@@ -24,7 +24,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "edu.stanford.parea"
+      "bundleIdentifier": "edu.stanford.parea",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription":"Let us use your location to help you find resources"
+      }
     }, 
     "web": {
       "build": {
