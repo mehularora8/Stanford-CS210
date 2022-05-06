@@ -7,8 +7,14 @@ import { argonTheme } from '../constants';
 
 
 class Card extends React.Component {
+
+  state = {
+
+  }
   render() {
     const { navigation, item, horizontal, full, style, ctaColor, imageStyle, num } = this.props;
+    let overallRating = item.data.Ratings.Overall ? 
+                        item.data.Ratings.Overall.toFixed(1) : 0;
     
     const imageStyles = [
       full ? styles.fullImage : styles.horizontalImage,
@@ -32,22 +38,22 @@ class Card extends React.Component {
             </Block>
             <Block row={horizontal}>
               <Rating 
-                  type="custom"
-                  ratingColor="#fc3901"
-                  ratingBackgroundColor="#999999"
-                  fractions={1}
-                  startingValue={item.data.Ratings.Overall}
-                  imageSize={15}
-                  readonly  
-                  style={{alignSelf: 'flex-start', marginLeft: 4}}
-                  />
-                  <Text style={{marginLeft: 3, marginRight: 3}}>
-                    {item.data.Ratings.Overall}
-                  </Text>
-                  <Text style={{color: 'grey'}}>
-                    [{item.data.Ratings.reviewCount}]
-                  </Text>
-              </Block>
+                type="custom"
+                ratingColor="#fc3901"
+                ratingBackgroundColor="#999999"
+                fractions={1}
+                startingValue={item.data.Ratings.Overall}
+                imageSize={15}
+                readonly  
+                style={{alignSelf: 'flex-start', marginLeft: 4}}
+              />
+              <Text style={{marginLeft: 3, marginRight: 3}}>
+                {overallRating} {/*WHY DOESN'T THIS WORK*/}
+              </Text>
+              <Text style={{color: 'grey'}}>
+                [{item.data.Ratings.reviewCount}]
+              </Text>
+            </Block>
 
             <Block row={horizontal}>
             {
