@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { initializeFirestore } from 'firebase/firestore';
+// import { getAnalytics } from "firebase/analytics";
 
 
 // /* Firebase Setup */
@@ -14,6 +15,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
 const db = initializeFirestore(app, {useFetchStreams: false})
 
 export default db;

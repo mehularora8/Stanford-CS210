@@ -56,7 +56,7 @@ export async function putObject(col, key, object) {
     */
     const docRef = doc(db, col, key);
     await setDoc(docRef, object);
-    
+    console.log(docRef)
     return true;
 }
 
