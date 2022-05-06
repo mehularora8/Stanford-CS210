@@ -59,13 +59,15 @@ const QandA = (props) => {
         question: text,
         userId: user.uid,
         username: user.first,
-        userType: user.type,
+        userType: user.type ? user.type : "Parea User",
         upvotes: 0
       }
       // console.log(question)
-  
+    
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
+      console.log(collectionPath)
       // console.log("Attempting to add", question);
+      console.log(question)
       putObject(collectionPath, question.questionId, question);
       onChangeText('');
 

@@ -290,7 +290,7 @@ const ResourceFull = (props) => {
             </Button>
             <Divider style={styles.divider}/>
             <QandA resourceId={resourceId} auth={getAuth()} nav={navigation} user={user}/>
-            { questionsArrayPrev === null ? <Text>"No questions yet. Help the community learn about " + name + " by asking a question." </Text>: 
+            { questionsArrayPrev === null ? <Text>"Help the community learn by asking a question." </Text>: 
               <Block>
                   {
                     questionsArrayPrev.map((x, i) => (
