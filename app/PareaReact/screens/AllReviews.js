@@ -68,6 +68,7 @@ const AllReviews = (props) => {
                       tag={x.usertag}
                       username={x.username}
                       currUserId={currUserId ? currUserId : null}
+                      resourceId={props.route.params.resourceId}
                       />
                   ))
                 }

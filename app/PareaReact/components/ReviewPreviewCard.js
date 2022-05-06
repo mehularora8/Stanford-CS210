@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { Ionicons } from '@expo/vector-icons';
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
-
+import {getObjectsFromCollection, getObject, getReviews, deleteReview} from '../firebase_utils'
 
 //Data pieces needed: 
 //Person: userid, profile picture, name, persona tag, 
@@ -20,8 +20,8 @@ import { doc, deleteDoc } from "firebase/firestore";
 //Make read more functional
 //Adjust size of card based on amount of text 
 
-deleteReview = (reviewId) => {
-  console.log(reviewId)
+deleteRev = (reviewId, resourceId) => {
+  deleteReview(resourceId, reviewId)
 }
 
 const ReviewPreviewCard = (props) => {
@@ -78,11 +78,7 @@ const ReviewPreviewCard = (props) => {
                     <Button 
                       style = {styles.backIcon}
                       onPress={() => {
-                        // console.log(props.item.userId)
-                        // console.log(props.currUserId)
-                        console.log(props.id)
-                        deleteReview(props.id)
-                        // await deleteDoc(doc(db, "reviews", props.id));
+                        deleteRev(props.item.reviewId, props.resourceId, props)
                         }
                       }
                     >

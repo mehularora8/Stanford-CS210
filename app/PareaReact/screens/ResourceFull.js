@@ -241,6 +241,7 @@ const ResourceFull = (props) => {
                       profileImage={x.userProfileRef}
                       navigation={navigation} 
                       currUserId={user ? user.uid : null}
+                      resourceId={resourceId}
                       />
                   ))
                 }
@@ -248,7 +249,7 @@ const ResourceFull = (props) => {
                 <ReviewPreviewCard/> */}
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, currUserId: user ? user.uid : null})}>
+            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
                     See all reviews
             </Button>
             <Divider style={styles.divider}/>

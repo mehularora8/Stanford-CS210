@@ -1,5 +1,5 @@
 import uuid from 'react-native-uuid';
-import { collection, setDoc, getDoc, getDocs, doc, listCollections } from 'firebase/firestore';
+import { collection, setDoc, getDoc, getDocs, deleteDoc, doc, listCollections } from 'firebase/firestore';
 
 import db from './config.js';
 
@@ -58,6 +58,19 @@ export async function putObject(col, key, object) {
     await setDoc(docRef, object);
     
     return true;
+}
+
+
+export async function deleteReview(resourceId, reviewId) {
+  /* 
+  Helper function for putting an object in a given collection
+  pass a collection, primary key and the object to store
+  Always returns true
+  */
+  const pathname = 'resources/' + resourceId + '/reviews/' ;
+  const docRef = doc(db, pathname, reviewId)
+  await deleteDoc(docRef);
+  return true;
 }
 
 
