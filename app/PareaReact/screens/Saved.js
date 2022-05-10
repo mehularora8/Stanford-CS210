@@ -35,7 +35,7 @@ class Saved extends React.Component {
   pullSavedResourceIds = async () => {
     const auth = getAuth();
     let user = await getObject("users", auth.currentUser.uid)
-    return user.savedResources || [];
+    return (user && user.savedResources) ? user.savedResources : [];
   }
 
   renderSavedResources = async () => {

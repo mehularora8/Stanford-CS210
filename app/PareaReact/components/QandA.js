@@ -94,7 +94,8 @@ const QandA = (props) => {
                   placeholder="What would you like to know?"
                   clearButtonMode="always"
                 />
-                <Button style={styles.askButton} ref={input => { this.textInput = input }}  onPress={submitQuestion}>
+                {/* ref={input => { this.textInput = input }} */}
+                <Button style={styles.askButton}  onPress={submitQuestion}>
                     Ask
                 </Button>
                 {/* <Modal

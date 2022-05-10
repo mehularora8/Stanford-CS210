@@ -220,7 +220,7 @@ const QuestionPreviewCard = (props) => {
                {replies.map((x, i) => (
                 <Block>
                <Divider />
-                <Block style={{padding: '4%'}}>
+                <Block style={{padding: '4%'}} key={i}>
                   <Block style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                         <Text style={{fontSize: 13, fontWeight: '500'}}> 
                         {/* username data */}

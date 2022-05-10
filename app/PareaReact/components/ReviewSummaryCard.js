@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -14,7 +14,7 @@ const ReviewSummaryCard = (props) => {
 
   const [reviewsSummaryArray, setReviewsSummaryArray] = React.useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (reviewsSummaryArray == null) {
       getObject('resources', props.resourceId).then((x) => { //need to pass resource id here 
         setReviewsSummaryArray(x.Ratings)
@@ -23,6 +23,8 @@ const ReviewSummaryCard = (props) => {
   })
 
     return (
+        { 
+          ...reviewsSummaryArray && reviewsSummaryArray.length > 0 ? (
           <Block flex style={styles.reviewSummaryCard}>
             <Text style={styles.title}>
               Reviews
@@ -40,7 +42,7 @@ const ReviewSummaryCard = (props) => {
                 readonly  />
               <Text style={styles.overallRatingText}>
                 {/* overall rating */}
-                {reviewsSummaryArray !== null? reviewsSummaryArray.Overall.toFixed(1) : "" } 
+                {reviewsSummaryArray !== null ? reviewsSummaryArray.Overall && reviewsSummaryArray.Overall.toFixed(1) : "" } 
                 &nbsp;&bull; [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
               </Text>
     
@@ -58,7 +60,7 @@ const ReviewSummaryCard = (props) => {
                     height={3}
                   />
                   <Text style={styles.subReviewNumVal}>
-                      {reviewsSummaryArray !== null ? reviewsSummaryArray.Safety.toFixed(1) : ""}
+                      {reviewsSummaryArray !== null ? reviewsSummaryArray.Safety && reviewsSummaryArray.Safety.toFixed(1) : ""}
                   </Text>
                 </View>
               </Block>
@@ -75,7 +77,7 @@ const ReviewSummaryCard = (props) => {
                     height={3} 
                   />
                   <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility.toFixed(1) : ""}
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility && reviewsSummaryArray.Accessibility.toFixed(1) : ""}
                   </Text>
                 </View>
               </Block>
@@ -92,7 +94,7 @@ const ReviewSummaryCard = (props) => {
                     height={3} 
                   />
                   <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment.toFixed(1) : ""}
+                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment && reviewsSummaryArray.Environment.toFixed(1) : ""}
                   </Text>
                 </View>
               </Block>
@@ -103,20 +105,20 @@ const ReviewSummaryCard = (props) => {
                 </Text>
                 <View style={styles.subReviewBarContainer}>
                   <ProgressBar 
-                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Communication / 5 : ""} 
+                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Communication / 5 : 0} 
                     width={200} 
                     color={argonTheme.COLORS.BLACK} 
                     height={3} 
                   />
                   <Text style={styles.subReviewNumVal}>
-                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication.toFixed(1) : ""}
+                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication && reviewsSummaryArray.Communication.toFixed(1) : ""}
                   </Text>
                 </View>
               </Block>
             </Block>
           </Block>
-        );
-      
+        ) : (<></>)
+      });
 }
 
 const styles = StyleSheet.create({

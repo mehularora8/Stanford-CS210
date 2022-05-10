@@ -135,10 +135,11 @@ const Profile = ({navigation}) => {
           >
           <Block  style={styles.drop}>
             <Text  style={{color: "white"}} size={45}>
-            Join <Text style={{fontWeight: 'bold', color: 'white'}}>PAREA</Text>!
-            
+              Join 
+              <Text style={{fontWeight: 'bold', color: 'white'}}>PAREA</Text>
+              !
             </Text>
-            <Text size={18} color={"white"}>
+            <Text size={18} style={{color: "white"}} >
               Create an account to view your profile
             </Text>
             <Block style={{marginTop: '10%'}}>
@@ -155,10 +156,9 @@ const Profile = ({navigation}) => {
 
 
             <Button
-            style={styles.button}
-            color={argonTheme.COLORS.TERTIARY}
-            onPress={() => navigation.navigate('RegisterPage')}
-            textStyle={{ color: "white", fontFamily: 'Open Sans' }}
+              style={styles.button}
+              onPress={() => navigation.navigate('RegisterPage')}
+              textStyle={{ color: "white", fontFamily: 'Open Sans' }}
             >
             Log In / Register 
             </Button>
@@ -191,7 +191,7 @@ const Profile = ({navigation}) => {
                 </Pressable>
                 <Block style={styles.info}>
                 <Block middle style={styles.nameInfo}>
-                    <Text bold size={28} color={argonTheme.COLORS.PRIMARY}>
+                    <Text bold size={28} style={{color: argonTheme.COLORS.PRIMARY}}>
                       {user.displayName}
                     </Text>
                     <Block row style={{alignItems: 'center', marginTop: '5%'}}>
@@ -251,15 +251,15 @@ const Profile = ({navigation}) => {
                   </Block>
                 </Block>
               </Block>
-              <Block center>
-              <Button
-                style={styles.secondaryButton}
-                onPress={() => doSignOut(navigation, setUser)}
-                textStyle={{ color: "#99999", fontFamily: 'Open Sans' }}
-                >
-                Log Out
-            </Button>
-            </Block>
+              <Block center style={{marginLeft: -27}}>
+                <Button 
+                  style={styles.secondaryButton}
+                  onPress={() => doSignOut(navigation, setUser)}
+                  textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                  >
+                  Log Out
+                </Button>
+              </Block>
             </ScrollView>
           </ImageBackground>
 
@@ -352,7 +352,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: argonTheme.COLORS.PRIMARY,
     marginTop: '15%',
-    marginLeft: '7%'
+    marginLeft: '7%',
+    color: argonTheme.COLORS.TERTIARY,
   },
   secondaryButton: {
     width: width - theme.SIZES.BASE * 6,
