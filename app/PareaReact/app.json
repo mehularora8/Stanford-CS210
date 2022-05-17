@@ -3,11 +3,9 @@
     "name": "PareaReact",
     "slug": "PareaReact",
     "privacy": "unlisted",
-    "version": "1.0.1",
+    "version": "1.1.11",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "ios"
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,13 +25,6 @@
       "bundleIdentifier": "edu.stanford.parea",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription":"Let us use your location to help you find resources"
-      }
-    }, 
-    "web": {
-      "build": {
-        "babel": {
-          "include": ["galio-framework"]
-        }
       }
     }
   }

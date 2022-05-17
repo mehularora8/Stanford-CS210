@@ -10,7 +10,6 @@ import { Button, Card, Input } from '../components';
 import articles from '../constants/articles';
 import AddResource from './AddResource';
 import { height } from 'dom-helpers';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getObjectsFromCollection } from '../firebase_utils';
 import { argonTheme } from '../constants';
 
