@@ -62,9 +62,13 @@ const Map = (props) => {
                             longitude: parseFloat(x.data.Location.longitude),
                         }}
                         title={x.data.Name}
-                        image={require("../assets/imgs/locationIcon2.png")}
                         onCalloutPress={e => navigation.navigate('ResourceFull', { resourceId: x.data.resourceId, name: x.data.Name, tags: x.data.Tags, type: x.data.Type, image: x.data.Images.url})}
                     > 
+                    <Image 
+                        source={require("../assets/imgs/locationIcon2.png")}
+                        style={{width: 26, height: 28}}
+                        resizeMode="contain"
+                    />
                         <Callout tooltip>
                             <View >
                                 <View style={styles.locPreview}>
