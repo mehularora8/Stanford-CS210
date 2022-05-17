@@ -22,7 +22,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "edu.stanford.parea",
+      "bundleIdentifier": "edu.stanford.cs210.parea",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription":"Let us use your location to help you find resources"
       }
