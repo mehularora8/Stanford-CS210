@@ -117,7 +117,7 @@ const ReviewSummaryCard = (props) => {
               </Block>
             </Block>
           </Block>
-        ) : (<></>)
+        ) : (<Block></Block>)
       });
 }
 

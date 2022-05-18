@@ -174,56 +174,63 @@ const ResourceFull = (props) => {
         });
       }
     })
-    if (resourceData != null ) {
+    //if (resourceData != null ) {
       // console.log(resourceData.Address)
-    }
+    //}
 
 
 
     return (
       <Block flex style={styles.container}>
+
         <StatusBar barStyle="light-content" />
+
         <Block style={styles.titleContainer}>
-        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{  navigation.goBack()}}/>
+          <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="white" onPress={() =>{ navigation.goBack() }}/>
           <View style={{flex: 1}}/>
           <Text style={styles.titleText}>
             {name}
           </Text>
           <View style={{flex: 1}}/>
-          { saved ? 
+
+          { 
+            saved ? 
             <Pressable onPress={() => {
               unsaveResource(user, setUser, resourceId, navigation);
               setSaved(false);
             }}>
               <Ionicons name="bookmark" size={24} color="white" /> 
-              </Pressable>
-          :
+            </Pressable>
+            :
             <Pressable onPress={() => {
               saveResource(user, setUser, resourceId, navigation);
               setSaved(true);
             }}>
               <Ionicons name="bookmark-outline" size={24} color="white" />
-          </Pressable>
+            </Pressable>
           } 
         
           <View style={{flex: .25}}/>
           <Ionicons name="refresh" size={24} color="white" onPress={() => refreshData(setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId)}/>
           <View style={{flex: .25}}/>
-        </Block>
+        </Block> 
+
         <ScrollView>
 
           <Block>
             <Block style={styles.topInfoCard}>
-                <Block style={styles.topInfoImg}>
 
+                <Block style={styles.topInfoImg}>
                   <Image source={{url: props.route.params.image}} style={{width: 145, height: 145}} />
-                </Block>
+                </Block> 
+
                 <Block flex style={styles.topInfoText}>
                   <Block>
                     <Text>
                       {props.route.params.type}
                     </Text>
                   </Block>
+
                   <Block style={styles.locationInfo}>
                     <Ionicons name="location-outline" size={24} color="black" style={{marginTop: "1.3%"}}/>
                     <View style={{flexDirection: 'column'}}>
@@ -234,43 +241,40 @@ const ResourceFull = (props) => {
                         {resourceData !== null ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
                       </Text>
                     </View>
-                    
-                    {/*<Entypo name="dot-single" size={24} color="black" />*/}  
-                    {/*<Text style={styles.locationText}>
-                        3.9 mi
-                    </Text>*/}
                   </Block>
+
                   <Block flex style={styles.tagsHolder}>
-                    {tags.map((x) => (
-                      <Text size={10} key={x} style={styles.labels}>
-                        {x}
-                      </Text>
-                    ))}
-                  </Block>
+                    {
+                      tags.map((x) => (
+                        <Text size={10} key={x} style={styles.labels}>
+                          {x}
+                        </Text>
+                      ))
+                    }
+                  </Block> 
               
                   <Button style={styles.addButton} onPress={() => {
                       addReviewClick(navigation, user, setUser, props.route.params.name, resourceId);
                     }}>
-                  ADD A REVIEW
-                </Button>
-                </Block>
+                    ADD A REVIEW
+                  </Button>
                 </Block> 
-                {/* end of topInfoText */}
-            {/* end of topInfoCard */}
-        
+            </Block>
+
             <ReviewSummaryCard resourceId={resourceId}/>
+
             {
               reviewsArrayPrev === null ? 
               <Block>
                 <Text>
-                "No reviews yet! Add a review to help the community learn."
+                  "No reviews yet! Add a review to help the community learn."
                 </Text>
               </Block>
               :
               <Block>
                 {
                   reviewsArrayPrev.map((x, i) => (
-                    <ReviewPreviewCard item={{...x, key: i}} key={"result"+i}
+                    <ReviewPreviewCard item={{...x, key: "rpciresult" + i}} key={"rpcresult"+i}
                       text={x.reviewText}
                       username={x.username}
                       tag={x.usertag}
@@ -281,48 +285,52 @@ const ResourceFull = (props) => {
                       />
                   ))
                 }
-                {/* <ReviewPreviewCard />
-                <ReviewPreviewCard/> */}
               </Block>
             }
             <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
-                    See all reviews
+                See all reviews
             </Button>
             <Divider style={styles.divider}/>
             <QandA resourceId={resourceId} auth={getAuth()} nav={navigation} user={user}/>
-            { questionsArrayPrev === null ? <Text>"Help the community learn by asking a question." </Text>: 
+            { 
+              questionsArrayPrev === null ? 
+              <Text>"Help the community learn by asking a question." </Text>
+              : 
               <Block>
                   {
                     questionsArrayPrev.map((x, i) => (
-                      <QuestionPreviewCard item={{...x, key: i}} key={"result"+i}
+                      <QuestionPreviewCard item={{...x, key: "qairesult" + i}} key={"qaresult" + i}
                         text= {x.question}
                         resourceId={resourceId}
                         questionData={x}
-                        navigation={navigation} />
+                        navigation={navigation} 
+                      />
                     ))
                   }
               </Block>
             }
-            { questionsArrayPrev !== null ?
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
-                    See all questions
-            </Button>
-            :
-            <Block/>
-              }
+
+            { 
+              questionsArrayPrev !== null ?
+              <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
+                  See all questions
+              </Button>
+              :
+              <Block></Block>
+            }
+
             <Divider style={styles.divider} />
             <ContactCard />
             <Divider style={styles.divider}/>
             <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={resourceId}/>
-            </Block>
-          </ScrollView>
-              <Toast
-            position='top'
-            topOffset={75}
-          />
+          </Block>
+        </ScrollView>
+        <Toast
+          position='top'
+          topOffset={75}
+        />
       </Block>
     );
-  
 }
 
 const styles = StyleSheet.create({
