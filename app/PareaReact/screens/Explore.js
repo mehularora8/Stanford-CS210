@@ -115,7 +115,7 @@ const Home = (props) => {
             {
               ((resourceData !== null) && (filteredResources === null)) ? 
                 resourceData.map((x, i) => (
-                <Card item={{...x, key: i}} key={"result2" + i} navigation={props.navigation} horizontal />
+                <Card item={{...x, key: i}} key={"result2" + i} num={i} navigation={props.navigation} horizontal />
               ))
               :
               <View/>
@@ -124,7 +124,7 @@ const Home = (props) => {
             {
               (resourceData !== null && filteredResources !== null) ? 
               filteredResources.map((x, i) => (
-                <Card item={{...x, key: "filt" + i}} key={"result" + i} navigation={props.navigation} horizontal />
+                <Card item={{...x, key: "filt" + i}} key={"result" + i} num={i} navigation={props.navigation} horizontal />
               ))
               :
               <View/>

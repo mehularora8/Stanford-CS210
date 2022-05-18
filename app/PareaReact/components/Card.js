@@ -33,7 +33,7 @@ class Card extends React.Component {
         <TouchableWithoutFeedback onPress={() => navigation.navigate('ResourceFull', {nav: navigation, resourceId: item.data.resourceId, name: item.data.Name, tags: item.data.Tags, type: item.data.Type, image: item.data.Images.url})}> 
           <Block flex space="between" style={styles.cardDescription}>
             <Block row={horizontal}>
-              <Text size={14}>{item.key+1}. </Text>
+              <Text size={14}>{num + 1}. </Text>
             <Text size={14} style={styles.cardTitle}>{item.data.Name}</Text>
             </Block>
             <Block row={horizontal}>
