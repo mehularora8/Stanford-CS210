@@ -100,7 +100,7 @@ class AddResource extends React.Component {
                       Don’t see what you’re looking for? To suggest a new resource listing, fill out the information below!
                     </Text>
                   </Block>
-                  <ScrollView>
+        
                   <Block style = {styles.scroll} center>
                     { !this.state.next ?
                     <Block>
@@ -270,7 +270,7 @@ class AddResource extends React.Component {
                       
                     {/* </KeyboardAvoidingView> */}
                   </Block>
-                  </ScrollView>
+        
                 </Block>
               </Block>
             </Block>
