@@ -47,14 +47,17 @@ const LoginPage = (props) => {
     return (
     <View flex style={styles.container}>
       <Block flex style={styles.container}>
+
      
         <StatusBar hidden />
         <Block flex >
-        <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="black" onPress={() =>{  props.navigation.goBack()}}/>
+      
         <ImageBackground
             source={Images.Grad}
-            style={{ height, width, zIndex: 1 }}
-          />
+            style={{ height, width, zIndex: 0 }}
+          >
+            <Ionicons name="md-chevron-back" size={24} style={styles.backIcon} color="black" onPress={() =>{  props.navigation.goBack()}}/>
+          </ImageBackground>
           
         </Block>
         <Block flex style={styles.padded}>
@@ -112,7 +115,6 @@ const LoginPage = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center'
