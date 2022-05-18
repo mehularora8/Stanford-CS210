@@ -101,11 +101,6 @@ const LoginPage = (props) => {
                 Login
             </Button>
             
-            {/* <Block style={styles.subTitle}>
-                <Text color="rgba(252, 57, 1, 0.7)" size={13}>
-                Designed for Caregivers of Individuals with ASD
-                </Text>
-            </Block> */}
           </Block>
         </Block>
       </Block>
@@ -120,10 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   padded: {
-    // paddingHorizontal: theme.SIZES.BASE * 2,
-    // position: "relative",
-    // bottom: theme.SIZES.BASE,
-    // zIndex: 2,
+    marginTop: "-55%",
   },
   button: {
     width: width - theme.SIZES.BASE * 6,
