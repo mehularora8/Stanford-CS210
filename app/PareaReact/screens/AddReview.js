@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, StatusBar, View } from "react-native";
+import { TouchableWithoutFeedback, Keyboard, ScrollView, StyleSheet, Dimensions, TouchableOpacity, StatusBar, View } from "react-native";
 // Galio components
 import { Block, Text, theme } from "galio-framework";
 // Argon themed components
@@ -20,9 +20,17 @@ class AddReview extends React.Component {
 		reviewDate: new Date(),
 	}
 
+	// This is a hacky fix to allow users to get out of
+	// the keyboard view
+	handleKeyDown = (e) => {
+	    if(e.nativeEvent.key == "Enter"){
+	        Keyboard.dismiss();
+	    }
+	}
+
 	renderInput = () => {
 		return (
-			<Block style={styles.inputContainer}>
+			<ScrollView onPress={Keyboard.dismiss} style={styles.inputContainer}>
 				<TextInput
                         style={{padding: 15}}
 						multiline
@@ -30,8 +38,9 @@ class AddReview extends React.Component {
 						onChangeText={(newText) => this.setState({reviewText: newText})}
                         value={this.reviewText}
                         placeholder="Please describe."
+                        onKeyPress={this.handleKeyDown}
             	/>
-			</Block>
+			</ScrollView>
 		);
 		
 	}
@@ -55,34 +64,34 @@ class AddReview extends React.Component {
 
 		return (
 			<View>
-			<StatusBar barStyle="light-content" />
-			<Block style={styles.titleContainer}>
-			<Ionicons 
-				name="md-chevron-back" 
-				size={24} style={styles.backIcon}
-				color="white" 
-				onPress={() =>  navigation.goBack() }
-			/>
-			<Text style={styles.titleText}>
-				{this.props.route.params.name}
-			</Text>
-			<View style={{flex: 1}}/>
-			</Block>
-			<Block style={styles.reviewContainer}>
-				<Text h4 bold center>
-					Add a Review
-				</Text>
-				<Text style={styles.inputCaption}>
-					Tell us about your experience
-				</Text>
-				{this.renderInput()}
-				<Block>
-					<Button style={styles.nextButton} onPress={ this.handleNextButton }>
-						Next
-					</Button>
+				<StatusBar barStyle="light-content" />
+				<Block style={styles.titleContainer}>
+					<Ionicons 
+						name="md-chevron-back" 
+						size={24} style={styles.backIcon}
+						color="white" 
+						onPress={() =>  navigation.goBack() }
+					/>
+					<Text style={styles.titleText}>
+						{this.props.route.params.name}
+					</Text>
+					<View style={{flex: 1}}/>
 				</Block>
-				
-			</Block>
+				<Block style={styles.reviewContainer}>
+					<Text h4 bold center>
+						Add a Review
+					</Text>
+					<Text style={styles.inputCaption}>
+						Tell us about your experience
+					</Text>
+					{this.renderInput()}
+					<Block>
+						<Button style={styles.nextButton} onPress={ this.handleNextButton }>
+							Next
+						</Button>
+					</Block>
+					
+				</Block>
 			</View>
 		);
 	}
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	inputContainer: {
-		height: '40%', 
+		maxHeight: '40%', 
 		marginTop: '10%',
 		marginBottom: '10%',
 		backgroundColor: 'white',

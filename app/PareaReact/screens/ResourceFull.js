@@ -175,7 +175,7 @@ const ResourceFull = (props) => {
       }
     })
     if (resourceData != null ) {
-      console.log(resourceData.Address)
+      // console.log(resourceData.Address)
     }
 
 

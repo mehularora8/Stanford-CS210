@@ -88,8 +88,6 @@ class AddReviewStars extends React.Component {
 			"reviewCount" : count + 1
 		}
 
-		console.log(updatedRatingsSummary);
-
 		getObject('resources', this.state.review.resourceId).then((x) => { //need to pass resource id here 
 			x.Ratings = updatedRatingsSummary;
 			putObject('resources', this.state.review.resourceId, x);
@@ -141,7 +139,7 @@ class AddReviewStars extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		return (
-			<View>
+			<ScrollView>
 				<StatusBar barStyle="light-content" />
 					<Block style={styles.titleContainer}>
 					<Ionicons 
@@ -183,7 +181,7 @@ class AddReviewStars extends React.Component {
 					{this.renderSliders()}
 					<Button style={styles.subButton} onPress={ () => this.storeReview() }>Submit</Button>
 				</Block>
-			</View>
+			</ScrollView>
 		);
 	}
 }
