@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import { StyleSheet, Dimensions, Image, TouchableWithoutFeedback, View} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -12,19 +12,20 @@ import {getObjectsFromCollection, getObject, getReviews} from '../firebase_utils
 
 const ReviewSummaryCard = (props) => {
 
-  const [reviewsSummaryArray, setReviewsSummaryArray] = React.useState(null);
+  const [reviewsSummaryArray, setSummary] = useState(null);
 
   useEffect(() => {
     if (reviewsSummaryArray == null) {
       getObject('resources', props.resourceId).then((x) => { //need to pass resource id here 
-        setReviewsSummaryArray(x.Ratings)
+        setSummary(x.Ratings)
       })
     }
   })
 
+  console.log(reviewsSummaryArray)
     return (
         { 
-          ...reviewsSummaryArray && reviewsSummaryArray.length > 0 ? (
+           ...reviewsSummaryArray && reviewsSummaryArray !== null ? (
           <Block flex style={styles.reviewSummaryCard}>
             <Text style={styles.title}>
               Reviews
