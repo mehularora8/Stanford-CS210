@@ -179,7 +179,7 @@ const ResourceFull = (props) => {
     //}
 
 
-
+    
     return (
       <Block flex style={styles.container}>
 
@@ -320,7 +320,7 @@ const ResourceFull = (props) => {
             }
 
             <Divider style={styles.divider} />
-            <ContactCard />
+            <ContactCard phone={resourceData !== null ? resourceData.Contact : ""}/>
             <Divider style={styles.divider}/>
             <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={resourceId}/>
           </Block>

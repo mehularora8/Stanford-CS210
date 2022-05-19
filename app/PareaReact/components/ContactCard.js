@@ -7,25 +7,35 @@ import { LinearProgress } from 'react-native-elements';
 import ProgressBar from 'react-native-progress/Bar';
 import { style } from 'dom-helpers';
 import call from 'react-native-phone-call';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 //data needed: resource id, pull in phone number
 class ContactCard extends React.Component {
   render() {
+    const { navigation, phone} = this.props;
+    let cleanedPhone = phone.replace(/[^\d.+]/g, '')
+  
+
     return (
           <Block flex style={styles.contactPreviewCard}>
               <Text style={styles.title}> Contact</Text>
               <Button style={styles.contactButton} onPress={() => {  
                 const args = {
-                number: '13109930092', //Taylor's phone number
+                number: cleanedPhone, 
                 prompt: true,
               };
               // Make a call
               call(args).catch(console.error);}
               }>
-                  <Text style={styles.phoneNumber}>
-                  (650) 321-6448
+                <Block style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                  <FontAwesome name="phone" size={20} color="white" />
+                  <View style={{marginLeft: 3, marginRight: 3}}/>
+                  <Text style={{fontSize: 13, color: "white"}}>
+                    {phone}
                   </Text>
+                </Block>
+
 
               </Button>
           </Block>
