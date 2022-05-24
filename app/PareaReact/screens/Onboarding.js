@@ -57,11 +57,11 @@ class Onboarding extends React.Component {
                 </Button>
                 <Button
                   style={styles.button}
-                  color={argonTheme.COLORS.TERTIARY}
+                  color={"#ffffff"}
                   onPress={() => {navigation.navigate("LoginPage")
             
                 }}
-                  textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                  textStyle={{ color: "#444444", fontFamily: 'Open Sans' }}
                 >
                   Log In
                 </Button>
@@ -77,8 +77,8 @@ class Onboarding extends React.Component {
                 </Block>
               </Block>
               <Block style={styles.subTitle}>
-                  <Text color="rgba(252, 57, 1, 0.7)" size={13}>
-                    Designed for Caregivers of Individuals with ASD
+                  <Text color="rgba(252, 57, 1, 0.7)" size={13} center>
+                    Designed for Caregivers of Individuals with Autism Spectrum Disorder
                   </Text>
                 </Block>
           </Block>
