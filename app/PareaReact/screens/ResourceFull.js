@@ -35,8 +35,8 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
   if (!user) return;
 
   const params = { 
-    name: paramname, 
-    resourceId: resourceId, 
+    name: paramname,
+    resourceId: resourceId,
     username: user.first,
     usertag: user.type != null ? user.type: "Parea User",  // defualt user tag
     userProfileRef: user.profileRef ? user.profileRef: null,  // set to default photo here
@@ -235,10 +235,10 @@ const ResourceFull = (props) => {
                     <Ionicons name="location-outline" size={24} color="black" style={{marginTop: "1.3%"}}/>
                     <View style={{flexDirection: 'column'}}>
                       <Text style={styles.locationText}> 
-                        {resourceData !== null ? resourceData.Address.substring(0, resourceData.Address.indexOf(',') + 1) : ""}
+                        {resourceData && resourceData.Address ? resourceData.Address.substring(0, resourceData.Address.indexOf(',') + 1) : ""}
                       </Text>
                       <Text style={styles.locationText}> 
-                        {resourceData !== null ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
+                        {resourceData && resourceData.Address ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
                       </Text>
                     </View>
                   </Block>
@@ -268,7 +268,7 @@ const ResourceFull = (props) => {
             
 
             {
-              reviewsArrayPrev === null ? 
+              !reviewsArrayPrev ? 
               <Block>
                 <Text>
                   "No reviews yet! Add a review to help the community learn."
@@ -287,7 +287,7 @@ const ResourceFull = (props) => {
                       navigation={navigation} 
                       currUserId={user ? user.uid : null}
                       resourceId={resourceId}
-                      />
+                    />
                   ))
                 }
               </Block>
@@ -296,9 +296,9 @@ const ResourceFull = (props) => {
                 See all reviews
             </Button>
             <Divider style={styles.divider}/>
-            <QandA resourceId={resourceId} auth={getAuth()} nav={navigation} user={user}/>
+            <QandA resourceId={resourceId} nav={navigation} user={user}/>
             { 
-              questionsArrayPrev === null ? 
+              !questionsArrayPrev ? 
               <Text>"Help the community learn by asking a question." </Text>
               : 
               <Block>

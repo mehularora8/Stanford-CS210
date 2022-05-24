@@ -51,27 +51,30 @@ class AddResource extends React.Component {
   submitForReview = () => {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
     if (!valid) return valid
+
+    console.log(Images.DefaultImages)
     
     // GEOCODING
-    return (Geocoder.from(this.state.address)
-    .then(json => {
-			var location = json.results[0].geometry.location;
+    return (
+      Geocoder.from(this.state.address)
+      .then(json => {
+        var location = json.results[0].geometry.location;
 
-      const newId = uuid.v4();
-      const resource = {
-        Address: this.state.address,
-        Name: this.state.name,
-        City: '',
-        Contact: "(650) 380-1557",
-        Images: {"url": "https://i.ibb.co/8973D7n/DSCF1502.jpg"},
-        Type: this.state.type,
-        Tags: [],
-        Ratings: [],
-        Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
-        resourceId: newId,
-        addedByUser: getAuth().currentUser.displayName,
-        adminCheck: false,
-      }
+        const newId = uuid.v4();
+        const resource = {
+          Address: this.state.address,
+          Name: this.state.name,
+          City: '',
+          Contact: "(650) 380-1557",
+          Images: {"url": Images.DefaultImages[this.state.type]},
+          Type: this.state.type,
+          Tags: [],
+          Ratings: {'Overall': '5'},
+          Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
+          resourceId: newId,
+          addedByUser: getAuth().currentUser.displayName,
+          adminCheck: false,
+        }
 
       putObject("resources/", newId, resource)
       return true;

@@ -218,7 +218,7 @@ const QuestionPreviewCard = (props) => {
              { replies !== null ? 
              <Block>
                {replies.map((x, i) => (
-                <Block>
+                <Block key={"question" + i}>
                <Divider />
                 <Block style={{padding: '4%'}} key={i}>
                   <Block style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>

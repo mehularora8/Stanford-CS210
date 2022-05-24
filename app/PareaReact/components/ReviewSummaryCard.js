@@ -15,110 +15,112 @@ const ReviewSummaryCard = (props) => {
   const [reviewsSummaryArray, setSummary] = useState(null);
 
   useEffect(() => {
-    if (reviewsSummaryArray == null) {
-      getObject('resources', props.resourceId).then((x) => { //need to pass resource id here 
+    if (!reviewsSummaryArray) {
+      getObject('resources', props.resourceId).then((x) => { 
         setSummary(x.Ratings)
+        return x
       })
     }
-  })
+  })  
 
-    return (
-        { 
-           ...reviewsSummaryArray && reviewsSummaryArray !== null ? (
-          <Block flex style={styles.reviewSummaryCard}>
-            <Text style={styles.title}>
-              Reviews
+  return (
+    { 
+        ...reviewsSummaryArray ? (
+      <Block flex style={styles.reviewSummaryCard}>
+        <Text style={styles.title}>
+          Reviews
+        </Text>
+        <Block flex style={styles.overallRatingContainer}>
+          <Rating 
+            type="custom"
+            ratingColor="#fc3901"
+            ratingBackgroundColor="#999999"
+            tintColor="#f2f2f2"
+            fractions={1}
+            startingValue={ reviewsSummaryArray.Overall || 0 }
+            style={styles.rating}
+            imageSize={25}
+            readonly
+          />
+          <Text style={styles.overallRatingText}>
+            {/* overall rating */}
+            {reviewsSummaryArray.Overall ? reviewsSummaryArray.Overall.toFixed(1) : ""} 
+            &nbsp;
+            –
+              {reviewsSummaryArray.reviewCount ? "  " + reviewsSummaryArray.reviewCount + " reviews" : "  0 reviews"}
+          </Text>
+        </Block>
+
+        <Block flex>
+          <Block style={styles.subReviewContainer}>
+            <Text style={styles.subReviewText}  >
+                Safety
             </Text>
-            <Block flex style={styles.overallRatingContainer}>
-              <Rating 
-                type="custom"
-                ratingColor="#fc3901"
-                ratingBackgroundColor="#999999"
-                tintColor="#f2f2f2"
-                fractions={1}
-                startingValue={ reviewsSummaryArray !== null? reviewsSummaryArray.Overall : 0 }
-                style={styles.rating}
-                imageSize={25}
-                readonly  />
-              <Text style={styles.overallRatingText}>
-                {/* overall rating */}
-                {reviewsSummaryArray !== null ? reviewsSummaryArray.Overall && reviewsSummaryArray.Overall.toFixed(1) : "" } 
-                &nbsp;&bull; [{reviewsSummaryArray !== null ? reviewsSummaryArray.reviewCount : ""}]
+            <View style={styles.subReviewBarContainer}>
+              <ProgressBar 
+                progress={reviewsSummaryArray.Safety ? reviewsSummaryArray.Safety / 5 : 0} 
+                width={200} 
+                color={argonTheme.COLORS.BLACK} 
+                height={3}
+              />
+              <Text style={styles.subReviewNumVal}>
+                  {reviewsSummaryArray.Safety ? reviewsSummaryArray.Safety.toFixed(1) : ""}
               </Text>
-    
-            </Block>
-            <Block flex>
-              <Block style={styles.subReviewContainer}>
-                <Text style={styles.subReviewText}  >
-                    Safety
-                </Text>
-                <View style={styles.subReviewBarContainer}>
-                  <ProgressBar 
-                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Safety / 5 : 0} 
-                    width={200} 
-                    color={argonTheme.COLORS.BLACK} 
-                    height={3}
-                  />
-                  <Text style={styles.subReviewNumVal}>
-                      {reviewsSummaryArray !== null ? reviewsSummaryArray.Safety && reviewsSummaryArray.Safety.toFixed(1) : ""}
-                  </Text>
-                </View>
-              </Block>
-
-              <Block style={styles.subReviewContainer}>
-                <Text style={styles.subReviewText}>
-                  Inclusion
-                </Text>
-                <View style={styles.subReviewBarContainer}>
-                  <ProgressBar 
-                    progress={reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility / 5 : 0} 
-                    width={200} 
-                    color={argonTheme.COLORS.BLACK} 
-                    height={3} 
-                  />
-                  <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Accessibility && reviewsSummaryArray.Accessibility.toFixed(1) : ""}
-                  </Text>
-                </View>
-              </Block>
-
-              <Block style={styles.subReviewContainer}>
-                <Text style={styles.subReviewText}>
-                Noise Level 
-                </Text>
-                <View style={styles.subReviewBarContainer}>
-                  <ProgressBar 
-                    progress={  reviewsSummaryArray !== null? reviewsSummaryArray.Environment / 5 : 0} 
-                    width={200} 
-                    color={argonTheme.COLORS.BLACK} 
-                    height={3} 
-                  />
-                  <Text style={styles.subReviewNumVal}>
-                    {reviewsSummaryArray !== null? reviewsSummaryArray.Environment && reviewsSummaryArray.Environment.toFixed(1) : ""}
-                  </Text>
-                </View>
-              </Block>
-
-              <Block style={styles.subReviewContainer}>
-                <Text style={styles.subReviewText}>
-                Communication
-                </Text>
-                <View style={styles.subReviewBarContainer}>
-                  <ProgressBar 
-                    progress={reviewsSummaryArray !== null ? reviewsSummaryArray.Communication / 5 : 0} 
-                    width={200} 
-                    color={argonTheme.COLORS.BLACK} 
-                    height={3} 
-                  />
-                  <Text style={styles.subReviewNumVal}>
-                     {reviewsSummaryArray !== null? reviewsSummaryArray.Communication && reviewsSummaryArray.Communication.toFixed(1) : ""}
-                  </Text>
-                </View>
-              </Block>
-            </Block>
+            </View>
           </Block>
-        ) : (<Block></Block>)
-      });
+        </Block>
+
+          <Block style={styles.subReviewContainer}>
+            <Text style={styles.subReviewText}>
+              Inclusion
+            </Text>
+            <View style={styles.subReviewBarContainer}>
+              <ProgressBar 
+                progress={reviewsSummaryArray.Accessibility ? reviewsSummaryArray.Accessibility / 5 : 0} 
+                width={200} 
+                color={argonTheme.COLORS.BLACK} 
+                height={3} 
+              />
+              <Text style={styles.subReviewNumVal}>
+                {reviewsSummaryArray.Accessibility? reviewsSummaryArray.Accessibility.toFixed(1) : ""}
+              </Text>
+            </View>
+          </Block>
+          <Block style={styles.subReviewContainer}>
+            <Text style={styles.subReviewText}>
+              Noise Level 
+            </Text>
+            <View style={styles.subReviewBarContainer}>
+              <ProgressBar 
+                progress={reviewsSummaryArray.Environment ? reviewsSummaryArray.Environment / 5 : 0} 
+                width={200} 
+                color={argonTheme.COLORS.BLACK} 
+                height={3} 
+              />
+              <Text style={styles.subReviewNumVal}>
+                {reviewsSummaryArray.Environment ? reviewsSummaryArray.Environment.toFixed(1) : ""}
+              </Text>
+            </View>
+          </Block>
+          <Block style={styles.subReviewContainer}>
+            <Text style={styles.subReviewText}>
+            Communication
+            </Text>
+            <View style={styles.subReviewBarContainer}>
+              <ProgressBar 
+                progress={reviewsSummaryArray.Communication ? reviewsSummaryArray.Communication / 5 : 0} 
+                width={200} 
+                color={argonTheme.COLORS.BLACK} 
+                height={3} 
+              />
+              <Text style={styles.subReviewNumVal}>
+                  {reviewsSummaryArray.Communication ? reviewsSummaryArray.Communication.toFixed(1) : ""}
+              </Text>
+            </View>
+          </Block>
+        </Block>
+    ) : (<Block flex style={styles.reviewSummaryCard} />)
+  });
 }
 
 const styles = StyleSheet.create({

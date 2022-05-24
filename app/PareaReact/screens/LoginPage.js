@@ -35,6 +35,11 @@ function realLogin(nav, email, password, se) {
       });
 }
 
+function getBgColorLogin(email, pass) {
+  console.log(email, pass);
+  return (email && pass) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
+}
+
 
 const LoginPage = (props) => {
 
@@ -94,9 +99,9 @@ const LoginPage = (props) => {
             }
             <Button
                 style={styles.button}
-                color={argonTheme.COLORS.TERTIARY}
+                color={ getBgColorLogin(email, pass) }
                 onPress={() => {realLogin(navigation, email, pass, setError)}}
-                textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                textStyle={{ color: (email && pass) ? "white" : "#999999", fontFamily: 'Open Sans' }}
             >
                 Login
             </Button>

@@ -12,6 +12,7 @@ import uuid from 'react-native-uuid';
 import { putObject, getObject } from "../firebase_utils";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import Toast from 'react-native-toast-message'
+
 //data: questions: date, text, user, upvotes 
 //answer(s): date, text, user, upvotes 
 const { width, height } = Dimensions.get("screen");
@@ -62,12 +63,8 @@ const QandA = (props) => {
         userType: user.type ? user.type : "Parea User",
         upvotes: 0
       }
-      // console.log(question)
     
       const collectionPath = 'resources/'  + props.resourceId + '/questions';
-      console.log(collectionPath)
-      // console.log("Attempting to add", question);
-      console.log(question)
       putObject(collectionPath, question.questionId, question);
       onChangeText('');
 
