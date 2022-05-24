@@ -10,6 +10,7 @@ import {
   FlatList
 } from "react-native";
 import { Block, Checkbox, Text, theme, Input } from "galio-framework";
+import DropDownPicker from 'react-native-dropdown-picker';
 import { Feather } from '@expo/vector-icons';
 import { Button, Icon } from "../components";
 import { Images, argonTheme } from "../constants";
