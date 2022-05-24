@@ -84,6 +84,16 @@ function realLogin(nav, email, password, se) {
     });
 }
 
+function getBgColor(email, pass, firstname, lastname) {
+  console.log(email, pass, firstname, lastname);
+  return (email && pass && firstname && lastname) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
+}
+
+function getBgColorLogin(email, pass) {
+  console.log(email, pass);
+  return (email && pass) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
+}
+
 
 const RegisterPage = (props) => {
 
@@ -140,10 +150,17 @@ const RegisterPage = (props) => {
               />
           </Block>
           <Button
-                style={styles.button}
+                style={{
+                  width: width - theme.SIZES.BASE * 6,
+                  height: theme.SIZES.BASE * 3,
+                  shadowRadius: 0,
+                  shadowOpacity: 0,
+                  borderRadius: 12,
+                  backgroundColor: getBgColorLogin(emailLogin, passLogin)
+                }}
                 color={argonTheme.COLORS.TERTIARY}
                 onPress={() => {realLogin(navigation, emailLogin, passLogin, setError)}}
-                textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                textStyle={{ color: "white", fontFamily: 'Open Sans' }}
             >
                 Log In
             </Button>
@@ -202,10 +219,17 @@ const RegisterPage = (props) => {
               </Block>
 
             <Button
-                style={styles.button}
+                style={{
+                  width: width - theme.SIZES.BASE * 6,
+                  height: theme.SIZES.BASE * 3,
+                  shadowRadius: 0,
+                  shadowOpacity: 0,
+                  borderRadius: 12,
+                  backgroundColor: getBgColor(email, pass, firstname, lastname)
+                }}
                 color={argonTheme.COLORS.TERTIARY}
                 onPress={() => registerUser(navigation, email, pass, firstname, lastname, setError)}
-                textStyle={{ color: "#999999", fontFamily: 'Open Sans' }}
+                textStyle={{ color: "white", fontFamily: 'Open Sans' }}
             >
               Register
             </Button>
@@ -252,7 +276,6 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     shadowOpacity: 0,
     borderRadius: 12,
-    
   },
   logo: {
     width: 200,
