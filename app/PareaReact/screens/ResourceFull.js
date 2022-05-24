@@ -316,7 +316,7 @@ const ResourceFull = (props) => {
             }
 
             { 
-              questionsArrayPrev !== null ?
+              questionsArrayPrev ?
               <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
                   See all questions
               </Button>
@@ -325,9 +325,9 @@ const ResourceFull = (props) => {
             }
 
             <Divider style={styles.divider} />
-            <ContactCard phone={resourceData !== null ? resourceData.Contact : ""}/>
+            <ContactCard phone={resourceData && resourceData.Contact ? resourceData.Contact : ""}/>
             <Divider style={styles.divider}/>
-            <ReportCard resourceName={resourceData !== null ? resourceData.Name : ""} resourceId={resourceId}/>
+            <ReportCard resourceName={resourceData && resourceData.Name ? resourceData.Name : ""} resourceId={resourceId}/>
           </Block>
         </ScrollView>
         <Toast

@@ -17,8 +17,11 @@ const ReviewSummaryCard = (props) => {
   useEffect(() => {
     if (!reviewsSummaryArray) {
       getObject('resources', props.resourceId).then((x) => { 
-        setSummary(x.Ratings)
-        return x
+        if (x) {
+          setSummary(x.Ratings || {"Overall": 0})
+        } else {
+          setSummary({"Overall": 0})
+        }
       })
     }
   })  
