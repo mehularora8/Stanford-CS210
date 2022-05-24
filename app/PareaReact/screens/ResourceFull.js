@@ -235,10 +235,10 @@ const ResourceFull = (props) => {
                     <Ionicons name="location-outline" size={24} color="black" style={{marginTop: "1.3%"}}/>
                     <View style={{flexDirection: 'column'}}>
                       <Text style={styles.locationText}> 
-                        {resourceData !== null ? resourceData.Address.substring(0, resourceData.Address.indexOf(',') + 1) : ""}
+                        {resourceData && resourceData.Address ? resourceData.Address.substring(0, resourceData.Address.indexOf(',') + 1) : ""}
                       </Text>
                       <Text style={styles.locationText}> 
-                        {resourceData !== null ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
+                        {resourceData && resourceData.Address ? resourceData.Address.substring(resourceData.Address.indexOf(',') + 2) : ""}
                       </Text>
                     </View>
                   </Block>
