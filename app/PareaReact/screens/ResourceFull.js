@@ -261,6 +261,7 @@ const ResourceFull = (props) => {
                 </Block> 
             </Block>
 
+         
             
             <ReviewSummaryCard resourceId={resourceId}/>
             
@@ -275,6 +276,7 @@ const ResourceFull = (props) => {
               </Block>
               :
               <Block>
+           
                 {
                   reviewsArrayPrev.map((x, i) => (
                     <ReviewPreviewCard item={{...x, key: "rpciresult" + i}} key={"rpcresult"+i}

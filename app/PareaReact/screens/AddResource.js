@@ -43,6 +43,9 @@ class AddResource extends React.Component {
     next: false,
   }
 
+  checkValid = () => {
+    return !(this.state.address == '' || this.state.name == '' || this.state.type == '')
+  }
 
   submitForReview = () => {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
@@ -173,11 +176,19 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
+                      <Text style={{color: "red"}}> {this.state.error} </Text>
                       </Block>
                       :
                       <Block/>
                       }
-                      {!this.state.next? <Button onPress={() => this.setState({next: true})} color="primary" style={styles.createButton}>
+                      {!this.state.next? <Button onPress={() => {
+                        if (this.checkValid()) {
+                          this.setState({next: true})
+                          this.setState({"error": ""})
+                        } else {
+                          this.setState({"error": "Please fill all required fields (name, type, & address)!"})
+                        }
+                      }} color="primary" style={styles.createButton}>
                           <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                             Next
                           </Text>
@@ -250,8 +261,7 @@ class AddResource extends React.Component {
                           if (valid) {
                             navigation.goBack();
                             navigation.navigate(AddResourceSuccess)
-                          }
-                          else {
+                          } else {
                             this.setState({"error": "Please fill all required fields (name, type, & address)!"})
                           }
                           }} color="primary" style={styles.createButton}>
