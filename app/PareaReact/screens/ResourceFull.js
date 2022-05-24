@@ -262,6 +262,7 @@ const ResourceFull = (props) => {
             </Block>
 
          
+            
             <ReviewSummaryCard resourceId={resourceId}/>
             
             
