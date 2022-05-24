@@ -71,7 +71,7 @@ class Saved extends React.Component {
         <ScrollView>
           { 
             this.state.resources.map((x, i) => (
-              <Card item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
+              <Card num={i} item={{...x, key: i}} key={"result"+i} navigation={this.props.navigation} horizontal />
             ))
           }
           </ScrollView>

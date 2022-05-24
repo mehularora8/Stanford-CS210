@@ -261,7 +261,10 @@ const ResourceFull = (props) => {
                 </Block> 
             </Block>
 
+            
             <ReviewSummaryCard resourceId={resourceId}/>
+            
+            
 
             {
               reviewsArrayPrev === null ? 

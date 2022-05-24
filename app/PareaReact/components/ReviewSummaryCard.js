@@ -22,7 +22,6 @@ const ReviewSummaryCard = (props) => {
     }
   })
 
-  console.log(reviewsSummaryArray)
     return (
         { 
            ...reviewsSummaryArray && reviewsSummaryArray !== null ? (
