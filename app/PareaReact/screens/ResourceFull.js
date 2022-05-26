@@ -276,10 +276,10 @@ const ResourceFull = (props) => {
             
 
             {
-              !reviewsArrayPrev ? 
+              !reviewsArrayPrev || reviewsArrayPrev.length == 0 ? 
               <Block>
-                <Text>
-                  "No reviews yet! Add a review to help the community learn."
+                <Text style={{padding: '2%', marginLeft: '1%', marginRight: '1%'}}>
+                  No reviews yet! Add a review to help the community learn about {name}.
                 </Text>
               </Block>
               :
@@ -298,16 +298,17 @@ const ResourceFull = (props) => {
                     />
                   ))
                 }
+              <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
+                  See all reviews
+              </Button>
               </Block>
             }
-            <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllReviews', {reviewsArray: reviewsArray, name: props.route.params.name, resourceId: resourceId, currUserId: user ? user.uid : null})}>
-                See all reviews
-            </Button>
+
             <Divider style={styles.divider}/>
             <QandA resourceId={resourceId} nav={navigation} user={user}/>
             { 
-              !questionsArrayPrev ? 
-              <Text>"Help the community learn by asking a question." </Text>
+              !questionsArrayPrev || questionsArrayPrev.length == 0 ? 
+              <Text style={{padding: '2%', marginLeft: '1%', marginRight: '1%'}}> Get to know {name} by asking a question!</Text>
               : 
               <Block>
                   {
@@ -320,17 +321,13 @@ const ResourceFull = (props) => {
                       />
                     ))
                   }
+                <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
+                  See all questions
+              </Button>
               </Block>
             }
 
-            { 
-              questionsArrayPrev ?
-              <Button style={styles.seeReviewsButton} onPress={() => navigation.navigate('AllQuestions', {questionsArray: questionsArray, name: props.route.params.name, resourceId: resourceId})}>
-                  See all questions
-              </Button>
-              :
-              <Block></Block>
-            }
+
 
             <Divider style={styles.divider} />
             <ContactCard phone={resourceData && resourceData.Contact ? resourceData.Contact : ""}/>
