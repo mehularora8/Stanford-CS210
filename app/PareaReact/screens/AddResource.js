@@ -110,6 +110,7 @@ class AddResource extends React.Component {
           Images: {"url": Images.DefaultImages[this.getResourceDefaultImg(this.state.type)]},
           Type: this.state.type,
           Tags: tagsArr,
+          Website: this.state.website,
           Ratings: {'Overall': 0, 'reviewCount': 0},
           Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
           resourceId: newId,
