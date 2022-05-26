@@ -14,7 +14,7 @@ import { getObjectsFromCollection } from '../firebase_utils';
 import { argonTheme } from '../constants';
 
 // TODO: pull types from firebase
-const types = ['Healthcare', 'Restaurants', 'Activities']
+const types = ['Healthcare', 'Education', 'Therapy']
 
 var Map = require('../components/Map').default
 
