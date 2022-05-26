@@ -30,6 +30,13 @@ const GOOGLE_PLACES_BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 Geocoder.init('AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI');
 
 
+// const [open, setOpen] = useState(false);
+// const [value, setValue] = useState(null);
+// const [items, setItems] = useState([
+//   {label: 'Apple', value: 'apple'},
+//   {label: 'Banana', value: 'banana'}
+// ]);
+
 class AddResource extends React.Component {
 
   state = {
@@ -42,6 +49,29 @@ class AddResource extends React.Component {
     predictions: [],
     error: '',
     next: false,
+    open: false,
+    value: null, 
+    items: [{id: 1, label: "After School", value: "After School"}, {id: 2, label: "Education", value: "Education"}, {id: 3, label: "Employment Support", value: "Employment Support"}, {id: 4, label: 'Therapy', value: 'Therapy'}, {id: 5, label: "Occupational Therapy", value: "Occupational Therapy"}, {id: 6, label: "Physical Therapy"}, {id: 7, label: 'Restaurant', value: 'Restaurant'}, {id: 8, label: "Support", value: "Support"}, {id: 9, label: "Speech and Language Therapy", value: "Speech and Language Therapy"}]
+  }
+
+  setOpen = (open) => {
+    this.setState({open: !this.state.open
+    });
+  }
+
+  setValue = (callback) => {
+    console.log("set value called")
+    this.setState(state => ({
+      value: callback(state.value),
+      "type": state.value
+    }));
+  }
+
+  setItems = (callback) => {
+    console.log("helloooo")
+    this.setState(state => ({
+      items: callback(state.items)
+    }));
   }
 
   checkValid = () => {
@@ -83,6 +113,8 @@ class AddResource extends React.Component {
   
   render() {
     const { navigation } = this.props;
+    const { open, value, items } = this.state;
+
     return (
       <Block middle>
         <StatusBar hidden />
@@ -131,8 +163,8 @@ class AddResource extends React.Component {
                           }}
                         />
                       </Block>
-                      <Block width={width * 0.9} style={{ marginBottom: 10 }}>
-                        <Input
+                      <Block width={width * 0.9} style={{ marginBottom: 10, zIndex: 10 }}>
+                        {/* <Input
                           borderless
                           placeholder={this.state.type != '' ? this.state.type : "Resource Type"}
                           placeholderTextColor={this.state.type != '' ? "black": "#999"}
@@ -149,7 +181,23 @@ class AddResource extends React.Component {
                           onChangeText = {(value) => {
                             this.setState({"type": value});
                           }}
-                        />
+                        /> */}
+                            <DropDownPicker
+                              open={open}
+                              value={value}
+                              items={items}
+                              setOpen={this.setOpen}
+                              setValue={this.setValue}
+                              setItems={this.setItems}
+                              style={{borderColor: 'transparent'}}
+                              dropDownContainerStyle={{
+                                borderColor: "transparent"
+                              }}
+                              placeholderStyle={{
+                                color: "#999",
+                              }}
+      
+                            />
                       </Block>
                       <Block height={180} width={width * 0.9}> 
                         <GooglePlacesAutocomplete
@@ -164,7 +212,6 @@ class AddResource extends React.Component {
                             listView:{
                               position: 'absolute',
                               backgroundColor: '#FFF',
-                              zIndex: 10, 
                           }
                         }}
                           onPress={(data, details = null) => {
