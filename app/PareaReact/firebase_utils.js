@@ -68,9 +68,56 @@ export async function deleteReview(resourceId, reviewId) {
   */
   const pathname = 'resources/' + resourceId + '/reviews/' ;
   const docRef = doc(db, pathname, reviewId)
+  const docSnap = await getDoc(docRef)
+  let reviewToDelete = null
+  if (docSnap.exists) {
+     reviewToDelete = docSnap.data();
+  } 
+
+  //get values for updating reviews summary
+  var revAccessibility = reviewToDelete.reviewRatings.Accessibility
+  var revCommunication = reviewToDelete.reviewRatings.Communication
+  var revSafety = reviewToDelete.reviewRatings.Safety
+  var revEnvironment = reviewToDelete.reviewRatings.Environment
+  var revOverall = reviewToDelete.reviewRatings.Overall
+
+  //delete review 
   await deleteDoc(docRef);
+
+  //update the reviews summary 
+  //get resource object 
+  let resource = await getObject('resources', resourceId)
+
+  // Update review metadata -- weighted averages
+  let count = resource.Ratings.reviewCount 
+  let accessibility = resource.Ratings.Accessibility
+  let communication = resource.Ratings.Communication
+  let environment = resource.Ratings.Environment
+  let safety = resource.Ratings.Safety
+  let overall = resource.Ratings.Overall
+
+  var weightedAverage = (avg, total, newRating) => {
+		return (avg * total - newRating) / (total - 1)
+	}
+   
+
+  let updatedRatingsSummary = {
+    "Accessibility" : weightedAverage(accessibility, count, revAccessibility),
+    "Communication" : weightedAverage(communication, count, revCommunication),
+    "Environment" : weightedAverage(environment, count, revEnvironment),
+    "Safety" : weightedAverage(safety, count, revSafety),
+    "Overall" : weightedAverage(overall, count, revOverall),
+    "reviewCount" : count - 1
+  }
+
+  getObject('resources', resourceId).then((x) => { 
+    x.Ratings = updatedRatingsSummary;
+    putObject('resources', resourceId, x);
+  })
+
   return true;
 }
+
 
 
 export async function getObjectsFromCollection(col, numObjects=10, index=0) {

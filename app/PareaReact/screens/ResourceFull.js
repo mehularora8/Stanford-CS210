@@ -56,7 +56,7 @@ function addReviewClick(nav, user, setUser, paramname, resourceId) {
 //Only show first 3 reviews 
 //Make review summary metadata accurate 
 
-refreshData = async (setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId) => {
+refreshData = async (setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId, setOverall) => {
   getReviews('resources', resourceId).then((x) => { //need to pass resource id here 
     setReviewsArray(x)
     if (x.length > 3) setReviewsArrayPrev(x.slice(0, 3))
@@ -67,12 +67,17 @@ refreshData = async (setReviewsArray, setQuestionsArray, setReviewsArrayPrev, se
     if (x.length > 3) setQuestionsArrayPrev(x.slice(0, 3))
     else setQuestionsArrayPrev(x)
   })
+  getObject('resources', resourceId).then((x) => {
+    setOverall(x.Ratings.Overall)
+  })
 
   Toast.show({
     type: 'info',
     text1: 'Refreshing!',
     visibilityTime: 2000
   });
+
+  
 }
 
 saveResource = async (user, setUser, resourceId, nav) => {
@@ -120,6 +125,7 @@ unsaveResource = async (user, setUser, resourceId, nav) => {
   setUser(user);
 }
 
+
 const ResourceFull = (props) => {
     let navigation = props.navigation
 
@@ -135,8 +141,10 @@ const ResourceFull = (props) => {
     const [questionsArrayPrev, setQuestionsArrayPrev] = useState(null);
     const [saved, setSaved] = useState(false);
     const [user, setUser] = useState(null);
+    const [overall, setOverall] = useState(null);
 
     const auth = getAuth();
+
 
     useEffect(() => {
       if (reviewsArray == null) {
@@ -211,7 +219,7 @@ const ResourceFull = (props) => {
           } 
         
           <View style={{flex: .25}}/>
-          <Ionicons name="refresh" size={24} color="white" onPress={() => refreshData(setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId)}/>
+          <Ionicons name="refresh" size={24} color="white" onPress={() => refreshData(setReviewsArray, setQuestionsArray, setReviewsArrayPrev, setQuestionsArrayPrev, resourceId, setOverall)}/>
           <View style={{flex: .25}}/>
         </Block> 
 
@@ -263,7 +271,7 @@ const ResourceFull = (props) => {
 
          
             
-            <ReviewSummaryCard resourceId={resourceId}/>
+            <ReviewSummaryCard overallRating={overall} resourceId={resourceId}/>
             
             
 

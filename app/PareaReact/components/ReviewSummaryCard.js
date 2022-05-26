@@ -15,7 +15,7 @@ const ReviewSummaryCard = (props) => {
   const [reviewsSummaryArray, setSummary] = useState(null);
 
   useEffect(() => {
-    if (!reviewsSummaryArray) {
+    if (!reviewsSummaryArray ) {
       getObject('resources', props.resourceId).then((x) => { 
         if (x) {
           setSummary(x.Ratings || {"Overall": 0})
@@ -23,7 +23,17 @@ const ReviewSummaryCard = (props) => {
           setSummary({"Overall": 0})
         }
       })
-    }
+    } 
+  else if (reviewsSummaryArray.Overall != props.overallRating) { //review was deleted, refresh
+    getObject('resources', props.resourceId).then((x) => { 
+      if (x) {
+        setSummary(x.Ratings || {"Overall": 0})
+      } else {
+        setSummary({"Overall": 0})
+      }
+    })
+  }
+
   })  
 
   return (
