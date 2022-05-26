@@ -330,8 +330,15 @@ const ResourceFull = (props) => {
 
 
             <Divider style={styles.divider} />
+            {
+              resourceData && resourceData.Contact  && resourceData.Contact != "" ?
+              <Block>
             <ContactCard phone={resourceData && resourceData.Contact ? resourceData.Contact : ""}/>
             <Divider style={styles.divider}/>
+            </Block>
+            :
+            <Block/>
+            }
             <ReportCard resourceName={resourceData && resourceData.Name ? resourceData.Name : ""} resourceId={resourceId}/>
           </Block>
         </ScrollView>
