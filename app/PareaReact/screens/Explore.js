@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { StyleSheet, Dimensions, ScrollView, Text, View } from 'react-native';
@@ -12,6 +12,8 @@ import AddResource from './AddResource';
 import { height } from 'dom-helpers';
 import { getObjectsFromCollection } from '../firebase_utils';
 import { argonTheme } from '../constants';
+import * as Location from 'expo-location';  // LOCATION
+
 
 // TODO: pull types from firebase
 const types = ['Healthcare', 'Restaurants', 'Activities']
@@ -35,18 +37,20 @@ const Home = (props) => {
     })
   }
 
-  const [pressed, setPressed] = React.useState({
+  const [pressed, setPressed] = useState({
     "Healthcare": false,
     "Restaurants": false,
     "Activities": false,
   })
 
   const navigation = props.navigation
-  const [resourceData, setResourceData] = React.useState(null);
-  const [filteredResources, setFilteredResources] = React.useState(null);
-  const [results, setResults] = React.useState(0);
+  const [resourceData, setResourceData] = useState(null);
+  const [filteredResources, setFilteredResources] = useState(null);
+  const [results, setResults] = useState(0);
 
-  React.useEffect(() => {
+  const [location, setLocation] = useState(null); // LOCATION
+
+  useEffect(() => {
     if (resourceData == null) {
       getObjectsFromCollection('resources').then((x) => {
         const cleaned = x.filter(function(obj) {
@@ -57,6 +61,22 @@ const Home = (props) => {
       })
     }
   })
+
+
+  // LOCATION STUFF
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log("I SEE YOU 👀", location)
+    })();
+  }, []);
 
     return (
       <Block>

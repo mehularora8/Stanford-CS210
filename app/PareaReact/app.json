@@ -24,6 +24,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "edu.stanford.cs210.parea",
       "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Show your current location on the map",
         "NSLocationWhenInUseUsageDescription":"Let us use your location to help you find resources"
       }
     }
