@@ -85,12 +85,10 @@ function realLogin(nav, email, password, se) {
 }
 
 function getBgColor(email, pass, firstname, lastname) {
-  console.log(email, pass, firstname, lastname);
   return (email && pass && firstname && lastname) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
 }
 
 function getBgColorLogin(email, pass) {
-  console.log(email, pass);
   return (email && pass) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
 }
 

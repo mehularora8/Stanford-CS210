@@ -36,7 +36,6 @@ function realLogin(nav, email, password, se) {
 }
 
 function getBgColorLogin(email, pass) {
-  console.log(email, pass);
   return (email && pass) ? argonTheme.COLORS.PRIMARY : argonTheme.COLORS.TERTIARY;
 }
 
