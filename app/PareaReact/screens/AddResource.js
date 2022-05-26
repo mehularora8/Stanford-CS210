@@ -111,7 +111,7 @@ class AddResource extends React.Component {
           Type: this.state.type,
           Tags: tagsArr,
           Website: this.state.website,
-          Ratings: {'Overall': 0, 'reviewCount': 0},
+          Ratings: {'Overall': 0, 'Accessibility': 0, 'Environment': 0, 'Communication': 0, 'Safety': 0, 'reviewCount': 0},
           Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
           resourceId: newId,
           addedByUser: getAuth().currentUser.displayName,
