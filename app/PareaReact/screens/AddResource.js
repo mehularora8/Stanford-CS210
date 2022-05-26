@@ -30,13 +30,6 @@ const GOOGLE_PLACES_BASE_URL = 'https://maps.googleapis.com/maps/api/place';
 Geocoder.init('AIzaSyBNaeGJLPKGMEUjOH6cJoVZ6avcjtJXSHI');
 
 
-// const [open, setOpen] = useState(false);
-// const [value, setValue] = useState(null);
-// const [items, setItems] = useState([
-//   {label: 'Apple', value: 'apple'},
-//   {label: 'Banana', value: 'banana'}
-// ]);
-
 class AddResource extends React.Component {
 
   state = {
@@ -51,7 +44,21 @@ class AddResource extends React.Component {
     next: false,
     open: false,
     value: null, 
-    items: [{id: 1, label: "After School", value: "After School"}, {id: 2, label: "Education", value: "Education"}, {id: 3, label: "Employment Support", value: "Employment Support"}, {id: 4, label: 'Therapy', value: 'Therapy'}, {id: 5, label: "Occupational Therapy", value: "Occupational Therapy"}, {id: 6, label: "Physical Therapy"}, {id: 7, label: 'Restaurant', value: 'Restaurant'}, {id: 8, label: "Support", value: "Support"}, {id: 9, label: "Speech and Language Therapy", value: "Speech and Language Therapy"}]
+    items: [{id: 1, label: "Activity", value: "Activity"}, {id: 2, label: "Education", value: "Education"}, {id: 3, label: "Employment Support", value: "Employment Support"}, {id: 34, label: "Healthcare", value: "Healthcare"}, {id: 4, label: 'Therapy', value: 'Therapy'}, {id: 5, label: "Occupational Therapy", value: "Occupational Therapy"}, {id: 6, label: "Physical Therapy"}, {id: 7, label: 'Restaurant', value: 'Restaurant'}, {id: 8, label: "Support", value: "Support"}, {id: 9, label: "Speech and Language Therapy", value: "Speech and Language Therapy"}]
+  }
+
+  getResourceDefaultImg = (resourceType) => {
+    if (resourceType.match(/education/i)) {
+      return "Education"
+    } else if (resourceType.match(/health/i)) {
+      return "Healthcare"
+    } else if (resourceType.match(/therapy/i)) {
+      return "Therapy"
+    } else if (resourceType.match(/restaurant/i)) {
+      return "Restaurant"
+    } else {
+      return "Other"
+    }
   }
 
   setOpen = (open) => {
@@ -60,15 +67,13 @@ class AddResource extends React.Component {
   }
 
   setValue = (callback) => {
-    console.log("set value called")
     this.setState(state => ({
       value: callback(state.value),
-      "type": state.value
+      type: callback(state.value)
     }));
   }
 
   setItems = (callback) => {
-    console.log("helloooo")
     this.setState(state => ({
       items: callback(state.items)
     }));
@@ -82,7 +87,13 @@ class AddResource extends React.Component {
     let valid = !(this.state.address == '' || this.state.name == '' || this.state.type == '') 
     if (!valid) return valid
 
-    console.log(Images.DefaultImages)
+    //Clean and create tags array for storage
+    let tagsArr = []
+    let tagsStr = this.state.tags 
+    tagsStr = tagsStr.replaceAll(/#/g, '')
+    if (tagsStr.match(/,/i)) {
+      tagsArr = tagsStr.split(',')
+    }
     
     // GEOCODING
     return (
@@ -95,11 +106,11 @@ class AddResource extends React.Component {
           Address: this.state.address,
           Name: this.state.name,
           City: '',
-          Contact: "(650) 380-1557",
-          Images: {"url": Images.DefaultImages[this.state.type]},
+          Contact: this.state.phone,
+          Images: {"url": Images.DefaultImages[this.getResourceDefaultImg(this.state.type)]},
           Type: this.state.type,
-          Tags: [],
-          Ratings: {'Overall': '5'},
+          Tags: tagsArr,
+          Ratings: {'Overall': 0, 'reviewCount': 0},
           Location: new GeoPoint(parseFloat(location.lat), parseFloat(location.lng)),
           resourceId: newId,
           addedByUser: getAuth().currentUser.displayName,
@@ -287,7 +298,7 @@ class AddResource extends React.Component {
                       <Block width={width * 0.9} style={{ marginBottom: 8 }}>
                         <Input
                           borderless
-                          placeholder={this.state.tags != '' ? this.state.tags: "(Optional) Tags"}
+                          placeholder={this.state.tags != '' ? this.state.tags: "(Optional) Tags, separate by commas"}
                           placeholderTextColor={this.state.tags != '' ? "black": "#999"}
                           onChangeText = {(value) => {
                             this.setState({"tags": value});

@@ -25,9 +25,12 @@ const ProfilePicture = "https://i.ibb.co/5LTBLBD/profile-Parea.png";
 
 const DefaultImages = {
   'House': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
-  'Restaurant': 'https://images.unsplash.com/photo-1482686115713-0fbcaced6e28?fit=crop&w=240&q=80',
   'Clinic': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80',
-  'Other': 'https://images.unsplash.com/photo-1551798507-629020c81463?fit=crop&w=240&q=80'
+  'Restaurant': 'https://i.ibb.co/nBRZHSd/Restaurant.png',
+  'Other': 'https://i.ibb.co/BNMqH8M/Other.png',
+  'Therapy': "https://i.ibb.co/80SLHSV/Therapy.png",
+  'Healthcare': "https://i.ibb.co/vYwWMN4/Health.png",
+  "Education": "https://i.ibb.co/whzgHqs/Education.png", 
 };
 
 export default {

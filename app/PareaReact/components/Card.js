@@ -48,11 +48,13 @@ class Card extends React.Component {
                 style={{alignSelf: 'flex-start', marginLeft: 4}}
               />
               <Text style={{marginLeft: 3, marginRight: 3}}>
-                {overallRating} {/*WHY DOESN'T THIS WORK*/}
+                {item.data.Ratings.reviewCount ? overallRating : ""}
+   
               </Text>
               <Text style={{color: 'grey'}}>
-                [{item.data.Ratings.reviewCount}]
+                {item.data.Ratings.reviewCount} reviews
               </Text>
+
             </Block>
 
             <Block row={horizontal}>
