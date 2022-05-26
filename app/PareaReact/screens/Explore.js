@@ -12,7 +12,7 @@ import AddResource from './AddResource';
 import { height } from 'dom-helpers';
 import { getObjectsFromCollection } from '../firebase_utils';
 import { argonTheme } from '../constants';
-import * as Location from 'expo-location';  // LOCATION
+import * as Location from 'expo-location';
 
 
 // TODO: pull types from firebase
@@ -48,7 +48,7 @@ const Home = (props) => {
   const [filteredResources, setFilteredResources] = useState(null);
   const [results, setResults] = useState(0);
 
-  const [location, setLocation] = useState(null); // LOCATION
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     if (resourceData == null) {
@@ -62,20 +62,19 @@ const Home = (props) => {
     }
   })
 
-
-  // LOCATION STUFF
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log("I SEE YOU 👀", location)
-    })();
+    if (!location) {
+      (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.log('Permission to access location was denied');
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+      })();
+    }
   }, []);
 
     return (
@@ -87,7 +86,7 @@ const Home = (props) => {
           {/* <Block flex style={styles.topBlock} /> */}
           {
             resourceData == null ? <View/> :
-            <Map navigation={navigation} resources={resourceData}/>
+            <Map navigation={navigation} resources={resourceData} location={location.coords} />
           }
             {/* <Input placeholder="Search for activities, care providers, restaurants" 
                 style={styles.input}/> */}

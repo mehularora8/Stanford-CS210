@@ -14,6 +14,9 @@ const Map = (props) => {
     // }
     // console.log(props.navigation)
     const navigation = props.navigation
+    const location = props.location
+
+    console.log("Map recieved location props:", location)
 
     let resources = props.resources 
 
