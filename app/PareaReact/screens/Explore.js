@@ -16,7 +16,7 @@ import * as Location from 'expo-location';  // LOCATION
 
 
 // TODO: pull types from firebase
-const types = ['Healthcare', 'Restaurants', 'Activities']
+const types = ['Healthcare', 'Education', 'Therapy']
 
 var Map = require('../components/Map').default
 
@@ -95,16 +95,29 @@ const Home = (props) => {
           {/* START:filter */}
           <Block flex style={styles.tagsHolder}>
             {types.map((x) => (
-              // TODO: Change button style when pressed
               <Button key = {"button" + x} style={pressed[x] === true ? styles.pressed : styles.labels} onPress={() => {
                 let temp = pressed
-                temp[x] = !temp[x]
+
+                console.log(pressed)
+
+                if (temp[x] === true) {
+                  temp[x] = false
+                }
+                else {
+                  for (var m in temp) {
+                    temp[m] = false
+                  }
+                  temp[x] = !temp[x]
+                }
                 setPressed(temp)
+
                 if (pressed[x]) {
                   var toShow = resourceData.filter(resource => resource.data.Type === x)
                   setFilteredResources(toShow)
                   setResults(toShow.length)
-                } else {
+                } 
+                
+                else {
                   setFilteredResources(null)
                   setResults(resourceData.length)
                 }
