@@ -85,7 +85,7 @@ const Home = (props) => {
 
           {/* <Block flex style={styles.topBlock} /> */}
           {
-            resourceData == null ? <View/> :
+            !resourceData || !location || !location.coords ? <View/> :
             <Map navigation={navigation} resources={resourceData} location={location.coords} />
           }
             {/* <Input placeholder="Search for activities, care providers, restaurants" 
@@ -137,12 +137,16 @@ const Home = (props) => {
                 Resource
                 </Text>
           </Button>
-
+            
           <Block flex style={styles.articles}>
-            <Block flex style={styles.resourcesText}>
-              <Text style={styles.headerText}>Resources Near You</Text>
-              <Text style={styles.resultsHeader}> {results} results</Text>
-            </Block>
+            {
+              resourceData ? 
+              <Block flex style={styles.resourcesText}>
+                <Text style={styles.headerText}>Resources Near You</Text>
+                <Text style={styles.resultsHeader}> {results} results</Text>
+              </Block> : <Block />
+            }
+
 
             {
               ((resourceData !== null) && (filteredResources === null)) ? 

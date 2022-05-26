@@ -31,6 +31,7 @@ const Map = (props) => {
         // const [location, setLocation] = useState(null)
 
         return (
+            {...location ? 
             <View styles={styles.container}>
                 <MapView
                     // ref={mapRef}
@@ -38,8 +39,8 @@ const Map = (props) => {
                     mapType={"mutedStandard"}
                     showsPointsOfInterest={true}
                     initialRegion={{
-                        latitude: 37.441840128888735,
-                        longitude: -122.13979504998588,
+                        latitude: location.latitude,
+                        longitude: location.longitude,
                         latitudeDelta: 0.15,
                         longitudeDelta: 0.15,
                     }}
@@ -47,8 +48,8 @@ const Map = (props) => {
                 {/* User's current location, fixed */}
                 <Marker
                         coordinate={{
-                            latitude: 37.42676160389133, 
-                            longitude: -122.17060759659671,
+                            latitude: location.latitude, 
+                            longitude: location.longitude,
                         }}
                         title="You are here!"
                     > 
@@ -101,8 +102,8 @@ const Map = (props) => {
                 
                 </MapView>
             </View>
-        );
-    
+            : <View />
+    });
 }
 
 const styles = StyleSheet.create({
